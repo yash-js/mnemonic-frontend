@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&@500&display=swap');
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+h1{
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 3.2rem;
+  line-height: 4rem;
+  color: #413C3C;
+  margin: 0px;
+}
+
+p{
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+  /* identical to box height */
+  color: #829FAB;
+  margin: 0px;
+}
+
+/* sigup and login css */
+
+.login, .signup{
+  width: 100vw;
+  height: 100vh;
+}
+
+.login .loginleft, .signup .signupleft{
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(132.78% 117.92% at 87.64% 88.62%, rgba(123, 230, 217, 0.54) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(64.44% 42.33% at 9.58% 95.95%, #A356F5 0%, rgba(172, 212, 235, 0) 100%);
+}
+
+.login .loginleft .box, .signup .signupleft .box{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(97.85% 48.37% at 58.06% 43.99%, #FF73F9 0%, rgba(172, 212, 235, 0) 100%)
+}
+
+.login .loginleft .box .boxcontent, .signup .signupleft .box .boxcontent{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 82px 59px;
+  gap: 10px;
+  width: 45%;
+  height: 45%;
+  background: rgba(255, 255, 255, 0.41);
+  backdrop-filter: blur(40px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 37px;
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.login .loginleft .box .boxcontent .headingdifferent, .signup .signupleft .box .boxcontent .headingdifferent{
+  color: #4F7BD2 !important;
+}
+
+.login .loginleft .box .boxcontent p, .signup .signupleft .box .boxcontent p{
+  margin-top: 15px;
+}
+
