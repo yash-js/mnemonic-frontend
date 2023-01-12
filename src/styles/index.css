@@ -89,7 +89,7 @@ p{
   margin-top: 15px;
 }
 
-.login .loginright .box{
+.login .loginright .box, .signup .signupright .box{
   width: 100%;
   height: 100%;
   display: flex;
@@ -97,7 +97,7 @@ p{
   align-items: center;
 }
 
-.login .loginright .box .boxcontent{
+.login .loginright .box .boxcontent, .signup .signupright .box .boxcontent{
   width: 60%;
   min-width: 300px;
   height: 70%;
@@ -118,7 +118,15 @@ p{
   text-decoration: none;
 }
 
-.login .loginright .box .boxcontent .inputcontainer{
+.login .loginright .box .boxcontent .headercontainer, .signup .signupright .box .boxcontent .headercontainer{
+  margin-bottom: 5px;
+}
+
+.signup .signupright .box .boxcontent .headercontainer p{
+  margin-top: 10px;
+}
+
+.login .loginright .box .boxcontent .inputcontainer, .signup .signupright .box .boxcontent .inputcontainer{
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -128,8 +136,4 @@ p{
 
 .login .loginright .box .boxcontent .forgetcontainer{
   margin-top: 20px;
-}
-
-.login .loginright .box .boxcontent .headercontainer{
-  margin-bottom: 5px;
 }
