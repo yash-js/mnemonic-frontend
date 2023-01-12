@@ -1,12 +1,11 @@
 import React, { Suspense } from "react";
-import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RequireAuth from "./helper/RequireAuth";
 
 const LoginComponent = React.lazy(() => import("./pages/login"));
 const SignUpComponent = React.lazy(() => import("./pages/signup"));
 const HomepageComponent = React.lazy(() => import("./pages/home"));
-const ErrorComponent = React.lazy(() => import("./pages/errorPage/Error"));
+const ErrorComponent = React.lazy(() => import("./layouts/errorPage"));
 
 const LoginComp = () => {
   return (

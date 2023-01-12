@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
 import "../../styles/index.css";
 import { signIn } from "../../lib/getApiCall";
-import { login, selectUser } from "../../features/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../features/userSlice";
+import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
 
 function Login() {
@@ -14,7 +14,6 @@ function Login() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(selectUser)
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
@@ -93,9 +92,7 @@ function Login() {
           </div>
         </Grid>
       </Grid>
-      <AlertComponent setOpen={setOpen}
-setType={setType}
-setMessage={setMessage} alertOpen={open} alertMessage={message} alertType={type}/>
+      <AlertComponent setOpen={setOpen} setType={setType} setMessage={setMessage} alertOpen={open} alertMessage={message} alertType={type}/>
     </>
   );
 }

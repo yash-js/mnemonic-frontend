@@ -98,7 +98,7 @@ p{
 }
 
 .login .loginright .box .boxcontent, .signup .signupright .box .boxcontent{
-  width: 60%;
+  width: 65%;
   min-width: 300px;
   height: 70%;
   display: flex;
@@ -127,11 +127,15 @@ p{
 }
 
 .login .loginright .box .boxcontent .inputcontainer, .signup .signupright .box .boxcontent .inputcontainer{
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+}
+
+.signup .signupright .box .boxcontent .inputcontainer .MuiGrid-item{
+  padding: 0px auto;
 }
 
 .login .loginright .box .boxcontent .forgetcontainer{
