@@ -31,12 +31,12 @@ const ErrorComp = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SignUpComp />,
+    element: <LoginComp />,
     errorElement: <ErrorComp />,
   },
   {
-    path: "/login",
-    element: <LoginComp />,
+    path: "/signup",
+    element: <SignUpComp />,
     errorElement: <ErrorComp />,
   },
 ]);
