@@ -35,6 +35,7 @@ function index() {
               <Grid container spacing={2}>
               <Grid
                   display={"flex"}
+                  flexDirection={"column"}
                   justifyContent="space-evenly"
                   alignItems={"center"}
                   item
@@ -48,8 +49,9 @@ function index() {
                     />
                     <Avatar
                       style={{
-                        height: "80px",
-                        width: "80px",
+                        height: "100px",
+                        width: "100px",
+                        marginBottom: "15px",
                       }}
                     />
                     <Fab
@@ -124,14 +126,14 @@ function index() {
                 </Grid>
               </Grid>
             </div>
-            <div className="forgetcontainer">
+            {/*<div className="forgetcontainer">
               <p>
                 Already have an account?
                 <span className="signupbtn">
                   <NavLink to="/signin">Sign In</NavLink>
                 </span>
               </p>
-            </div>
+                    </div>*/}
           </div>
         </div>
       </Grid>
