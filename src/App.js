@@ -65,7 +65,6 @@ function App() {
     <React.StrictMode>
       <RouterProvider
         router={router}
-        key={router.routes.map((route) => route)}
       />
     </React.StrictMode>
   );

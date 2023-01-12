@@ -6,9 +6,6 @@ import { selectUser } from "../../features/userSlice";
 const Home = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
-  useEffect(() => {
-    return () => !user && navigate("/signin");
-  });
   return <h1>Homepage</h1>;
 };
 
