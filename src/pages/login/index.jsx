@@ -34,7 +34,6 @@ function Login() {
     }
   };
 
-
   return (
     <>
       <Grid container className="login">
@@ -63,6 +62,7 @@ function Login() {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  extraclass={"signinInput"}
                 />
                 <InputField
                   type="password"
@@ -70,7 +70,11 @@ function Login() {
                   name="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  extraclass={"signinInput"}
                 />
+                 <p className="forgetbtn">
+                  <NavLink to="/signup">Forgot your password?</NavLink>
+                </p>
                 <ButtonComponent
                   onClick={handleClick}
                   buttontext="Login"
@@ -84,15 +88,19 @@ function Login() {
                     <NavLink to="/signup">Sign Up</NavLink>
                   </span>
                 </p>
-                <p className="forgetbtn">
-                  <NavLink to="/signup">Forgot your password?</NavLink>
-                </p>
               </div>
             </div>
           </div>
         </Grid>
       </Grid>
-      <AlertComponent setOpen={setOpen} setType={setType} setMessage={setMessage} alertOpen={open} alertMessage={message} alertType={type}/>
+      <AlertComponent
+        setOpen={setOpen}
+        setType={setType}
+        setMessage={setMessage}
+        alertOpen={open}
+        alertMessage={message}
+        alertType={type}
+      />
     </>
   );
 }
