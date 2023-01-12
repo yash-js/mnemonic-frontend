@@ -9,3 +9,12 @@ export const signIn = async (data) => {
     return error;
   }
 };
+
+export const signUp = async (data) => {
+  try {
+    const resp = await axios.post("/signup", data);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+}

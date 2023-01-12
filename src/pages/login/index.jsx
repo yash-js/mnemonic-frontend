@@ -3,11 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
-import "../../styles/index.css";
 import { signIn } from "../../lib/getApiCall";
 import { login } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
+import "../../styles/index.css";
 
 function Login() {
   const [email, setEmail] = useState("");
