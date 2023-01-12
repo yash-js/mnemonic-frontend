@@ -1,20 +1,14 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { Alert, Snackbar } from "@mui/material";
 
-function AlertComponent({alertOpen, alertMessage, alertType}) {
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [type, setType] = useState("");
-
-  if(alertOpen){
-    setOpen(true)
-    setMessage(alertMessage)
-    setType(alertType)
-  }else{
-    setOpen(false)
-    setMessage("")
-    setType("")
-  }
+function AlertComponent({
+  alertOpen,
+  alertMessage,
+  alertType,
+  setOpen,
+  setType,
+  setMessage,
+}) {
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -27,16 +21,16 @@ function AlertComponent({alertOpen, alertMessage, alertType}) {
 
   return (
     <Snackbar
-      open={open}
+      open={alertOpen}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       autoHideDuration={6000}
       onClose={handleClose}
     >
-      <Alert onClose={handleClose} severity={type} >
-        {message}
+      <Alert onClose={handleClose} severity={alertType}>
+        {alertMessage}
       </Alert>
     </Snackbar>
-  )
+  );
 }
 
-export default AlertComponent
+export default AlertComponent;

@@ -35,9 +35,6 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    return () => user && navigate("/");
-  });
 
   return (
     <>
@@ -96,7 +93,9 @@ function Login() {
           </div>
         </Grid>
       </Grid>
-      <AlertComponent alertOpen={open} alertMessage={message} alertType={type}/>
+      <AlertComponent setOpen={setOpen}
+setType={setType}
+setMessage={setMessage} alertOpen={open} alertMessage={message} alertType={type}/>
     </>
   );
 }
