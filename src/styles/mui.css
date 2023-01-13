@@ -1,10 +1,24 @@
 /* for Inputfield */
 
-.textfield, .buttoncomponent{
-    margin: 25px 0px 0px 0px !important;
-    width: 100% !important;
+.textfield,
+.buttoncomponent {
+  width: 100% !important;
 }
 
-.buttoncomponent{
+.buttoncomponent {
+    margin: 25px 0px 0px 0px !important;
     padding: 15.75px !important;
+}
+
+.signinInput {
+  margin: 25px 0px 0px 0px !important;
+}
+
+.signupInput {
+    margin: 10px 0px 0px 0px !important;
+}
+
+.signupbtn{
+  margin: 5px 0px 10px 0px !important;
+
 }
