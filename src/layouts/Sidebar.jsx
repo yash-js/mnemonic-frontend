@@ -8,19 +8,19 @@ import reminder from '../assets/images/reminder.svg'
 import shared from '../assets/images/shared.svg'
 import '../styles/index.css'
 
-function Sidebar() {
+function SideBar() {
     const [active, setActive] = useState('home')
 
     return (
         <div className='sidebar'>
             <div className='sidebarcontent'>
                 <div className='sidebaritem logo'>
-                    <NavLink to="/">
+                    <NavLink to="/dashboard">
                         <img src={logo} alt="logo" width='30px' height='30px' onClick={() => setActive('home')}/>
                     </NavLink>
                 </div>
                 <div className={`${active === 'home' ? 'active' : 'inactive'} sidebaritem`}>
-                    <NavLink to="/">
+                    <NavLink to="/dashboard">
                         <img src={home} alt="home" width='30px' height='30px' onClick={() => setActive('home')}/>
                     </NavLink>
                 </div>
@@ -49,4 +49,4 @@ function Sidebar() {
     )
 }
 
-export default Sidebar
+export default SideBar

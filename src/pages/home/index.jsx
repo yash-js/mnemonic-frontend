@@ -1,11 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../../layouts/Sidebar";
+import SideBar from "../../layouts/SideBar";
+import TopBar from "../../layouts/TopBar";
 
 const Home = () => {
   return (
     <div className="home">
-      <Sidebar />
+      <SideBar />
+      <TopBar />
       <div className="homecontent">
         <Outlet />
       </div>

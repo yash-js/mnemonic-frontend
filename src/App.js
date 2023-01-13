@@ -5,7 +5,8 @@ import RequireAuth from "./helper/RequireAuth";
 const LoginComponent = React.lazy(() => import("./pages/login"));
 const SignUpComponent = React.lazy(() => import("./pages/signup"));
 const HomepageComponent = React.lazy(() => import("./pages/home"));
-const ErrorComponent = React.lazy(() => import("./layouts/errorpage"));
+const ErrorComponent = React.lazy(() => import("./layouts/ErrorPage"));
+const DashboardComponent = React.lazy(() => import("./pages/dashboard"));
 const FriendsComponent = React.lazy(() => import("./pages/friend"));
 const MentionComponent = React.lazy(() => import("./pages/mention"));
 const ReminderComponent = React.lazy(() => import("./pages/reminder"));
@@ -45,6 +46,14 @@ const ErrorComp = () => {
   );
 };
 
+const DashboardComp = () => {
+  return (
+    <Suspense>
+      <DashboardComponent />
+    </Suspense>
+  );
+}
+
 const FriendComp = () => {
   return (
     <Suspense>
@@ -83,6 +92,10 @@ const router = createBrowserRouter([
     element: <HomepageComp />,
     errorElement: <ErrorComp />,
     children: [
+      {
+        path: "/dashboard",
+        element: <DashboardComp />,
+      },
       {
         path: "/friend",
         element: <FriendComp />,
