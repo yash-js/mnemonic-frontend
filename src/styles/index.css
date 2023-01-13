@@ -85,14 +85,16 @@ p{
   order: 0;
   flex-grow: 0;
 }
- .signup .signupright .box .boxcontent .headercontainer h1{
+
+.signup .signupright .box .boxcontent .headercontainer h1{
   font-size: 1.8rem;
   line-height: normal;
- }
+}
 
- .signup .signupright .box .boxcontent .inputcontainer input{
+.signup .signupright .box .boxcontent .inputcontainer input{
   margin-top: -5px !important;
- }
+}
+
 .login .loginleft .box .boxcontent .headingdifferent, .signup .signupleft .box .boxcontent .headingdifferent{
   color: #4F7BD2 !important;
   text-decoration: none;
@@ -196,8 +198,17 @@ p{
   z-index: 100;
 }
 
+.sidebar .sidebarcontent .logo{
+  margin-bottom: 30px !important;; 
+}
+
 .sidebar .sidebarcontent .sidebaritem{
-  margin: 10px 0px;
+  margin: 15px 0px;
+}
+
+.sidebaritem .active{
+  background-color: #ffffff;
+  border-radius: 12px;
 }
 
 /** sidebar css ends */

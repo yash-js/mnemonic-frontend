@@ -1,36 +1,37 @@
 import React from 'react'
-import Avatar from '@mui/material/Avatar';
-import { deepOrange } from '@mui/material/colors';
+import logo from '../assets/images/logo.svg'
+import home from '../assets/images/home.svg'
+import friends from '../assets/images/friends.svg'
+import mention from '../assets/images/mention.svg'
+import reminder from '../assets/images/reminder.svg'
+import shared from '../assets/images/shared.svg'
 import '../styles/index.css'
 
 function Sidebar() {
-  return (
-    <div className='sidebar'>
-        <div className='sidebarcontent'>
-            <div className='sidebaritem'>
-                <Avatar sx={{ bgcolor: deepOrange[500] }}>N</Avatar>
-            </div>
-            <div className='sidebaritem'>
-                <img src="./src/assets/images/home.svg" alt="home" width='auto' height='40px'/>
-            </div>
-            <div className='sidebaritem'>
-                <Avatar alt="friends" src="../assets/images/friends.svg" />
-            </div>
-            <div className='sidebaritem'>
-                <Avatar alt="mention" src="../assets/images/mention.svg" />
-            </div>
-            <div className='sidebaritem'>
-                <Avatar alt="home" src="../assets/images/Home.svg" />
-            </div>
-            <div className='sidebaritem'>
-                <Avatar alt="home" src="../assets/images/Home.svg" />
-            </div>
-            <div className='sidebaritem'>
-                <Avatar alt="home" src="../assets/images/Home.svg" />
+    return (
+        <div className='sidebar'>
+            <div className='sidebarcontent'>
+                <div className='sidebaritem logo'>
+                    <img src={logo} alt="logo" width='30px' height='30px'/>
+                </div>
+                <div className='sidebaritem'>
+                    <img src={home} alt="home" width='30px' height='30px'/>
+                </div>
+                <div className='sidebaritem'>
+                    <img src={friends} alt="friends" width='30px' height='30px'/>
+                </div>
+                <div className='sidebaritem'>
+                    <img src={mention} alt="mention" width='30px' height='30px'/>
+                </div>
+                <div className='sidebaritem'>
+                    <img src={reminder} alt="reminder" width='30px' height='30px'/>
+                </div>
+                <div className='sidebaritem'>
+                    <img src={shared} alt="shared" width='30px' height='30px'/>
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Sidebar

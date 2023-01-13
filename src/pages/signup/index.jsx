@@ -120,7 +120,7 @@ function Signup() {
                     label="Email"
                     name="email"
                     value={email}
-                    onChange={e=>setFirstName(e.target.value)}
+                    onChange={e=> setEmail(e.target.value)}
                   />
                 </Grid>
                 <Grid item xs={12}>

@@ -14,7 +14,7 @@ function InputField({ extraclass, type, label, name, value, onChange }) {
       value={value}
       autoComplete="off"
       variant="outlined"
-      aria-autocomplete="off"
+      aria-autocomplete="none"
     />
   );
 }
