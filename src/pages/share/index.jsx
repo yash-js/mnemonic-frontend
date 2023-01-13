@@ -2,7 +2,7 @@ import React from 'react'
 
 function share() {
     return (
-        <div>share</div>
+        <div className='share'>share</div>
     )
 }
 

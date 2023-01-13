@@ -6,8 +6,8 @@ import TopBar from "../../layouts/TopBar";
 const Home = () => {
   return (
     <div className="home">
-      <SideBar />
       <TopBar />
+      <SideBar />
       <div className="homecontent">
         <Outlet />
       </div>

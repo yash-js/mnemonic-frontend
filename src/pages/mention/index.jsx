@@ -2,7 +2,7 @@ import React from 'react'
 
 function mention() {
     return (
-        <div>mention</div>
+        <div className='mention'>mention</div>
     )
 }
 
