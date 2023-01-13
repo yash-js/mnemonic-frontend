@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { selectUser } from "../../features/userSlice";
+import React from "react";
+import Sidebar from "../../layouts/Sidebar";
 
 const Home = () => {
-  const user = useSelector(selectUser);
-  const navigate = useNavigate();
-  return <h1>Homepage</h1>;
+  return (
+    <div className="home">
+      <Sidebar />
+      <div className="homecontent">
+
+      </div>
+    </div>
+  )
 };
 
 export default Home;
