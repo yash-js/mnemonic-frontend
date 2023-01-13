@@ -204,12 +204,18 @@ p{
 
 .sidebar .sidebarcontent .sidebaritem{
   margin: 15px 0px;
+  padding: 8px;
 }
 
-.sidebaritem .active{
+.sidebaritem.active{
   background-color: #ffffff;
   border-radius: 12px;
 }
+
+.sidebaritem.active img{
+  filter: invert(1);
+}
+
 
 /** sidebar css ends */
 
@@ -228,4 +234,12 @@ p{
   justify-content: center;
   align-items: center;
   background-color: #A356F5;
+}
+
+.homecontent div{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

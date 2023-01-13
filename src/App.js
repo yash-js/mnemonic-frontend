@@ -5,7 +5,11 @@ import RequireAuth from "./helper/RequireAuth";
 const LoginComponent = React.lazy(() => import("./pages/login"));
 const SignUpComponent = React.lazy(() => import("./pages/signup"));
 const HomepageComponent = React.lazy(() => import("./pages/home"));
-const ErrorComponent = React.lazy(() => import("./layouts/errorPage"));
+const ErrorComponent = React.lazy(() => import("./layouts/errorpage"));
+const FriendsComponent = React.lazy(() => import("./pages/friend"));
+const MentionComponent = React.lazy(() => import("./pages/mention"));
+const ReminderComponent = React.lazy(() => import("./pages/reminder"));
+const ShareComponent = React.lazy(() => import("./pages/share"));
 
 const LoginComp = () => {
   return (
@@ -41,11 +45,61 @@ const ErrorComp = () => {
   );
 };
 
+const FriendComp = () => {
+  return (
+    <Suspense>
+      <FriendsComponent />
+    </Suspense>
+  );
+}
+
+const MentionComp = () => {
+  return (
+    <Suspense>
+      <MentionComponent />
+    </Suspense>
+  );
+}
+
+const ReminderComp = () => {
+  return (
+    <Suspense>
+      <ReminderComponent />
+    </Suspense>
+  );
+}
+
+const ShareComp = () => {
+  return (
+    <Suspense>
+      <ShareComponent />
+    </Suspense>
+  );
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomepageComp />,
     errorElement: <ErrorComp />,
+    children: [
+      {
+        path: "/friend",
+        element: <FriendComp />,
+      },
+      {
+        path: "/mention",
+        element: <MentionComp />,
+      },
+      {
+        path: "/reminder",
+        element: <ReminderComp />,
+      },
+      {
+        path: "/share",
+        element: <ShareComp />,
+      },
+    ],
   },
   {
     path: "/signin",

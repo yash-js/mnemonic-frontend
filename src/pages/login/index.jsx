@@ -72,7 +72,7 @@ function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   extraclass={"signinInput"}
                 />
-                 <p className="forgetbtn">
+                  <p className="forgetbtn">
                   <NavLink to="/signup">Forgot your password?</NavLink>
                 </p>
                 <ButtonComponent
