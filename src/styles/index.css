@@ -236,6 +236,7 @@ p{
 .sidebar .sidebarcontent .sidebaritem{
   margin: 15px 0px;
   padding: 8px;
+  cursor: pointer;
 }
 
 .sidebaritem.active{
