@@ -16,6 +16,7 @@ const initialState = {
         }
     ],
     notificationsLoading: false,
+    notificationlistCount: 3,
 };
 
 export const notificationSlice = createSlice({
@@ -29,13 +30,18 @@ export const notificationSlice = createSlice({
         setNotificationsLoading: (state, action) => {
             state.notificationsLoading = action.payload;
         },
+        setNotificationListCount: (state, action) => {
+            state.notificationlistCount = action.payload;
+        },
     }
 })
 
 export const {
     setNotificationList,
-    setNotificationsLoading
+    setNotificationsLoading,
+    setNotificationListCount
   } = notificationSlice.actions;
 export const getNotificationList = (state) => state.notifications.notificationlist;
 export const getNotificationsLoadingState = (state) => state.notifications.notificationsLoading;
+export const getNotificationListCount = (state) => state.notifications.notificationlistCount;
 export default notificationSlice.reducer;

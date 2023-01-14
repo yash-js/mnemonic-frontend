@@ -1,20 +1,19 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getNotificationList } from '../features/notificationSlice';
+import { getNotificationList, getNotificationListCount } from '../features/notificationSlice';
 import { NotificationsOutlined } from '@mui/icons-material';
 import { Box, IconButton, Menu, Tooltip, Badge, MenuItem } from '@mui/material';
 import AlertComponent from './AlertComponent';
 
 const Notifications = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [unreadCount, setUnreadCount] = React.useState(0);
-    
+
     const dispatch = useDispatch();
+    const unreadCount = useSelector(getNotificationListCount)
     const notification = useSelector(getNotificationList)
     const open = Boolean(anchorEl);
     
     const handleClick = (event) => {
-      setUnreadCount(unreadCount + 1)
       setAnchorEl(event.currentTarget);
     };
 
