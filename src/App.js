@@ -1,11 +1,5 @@
 import React, { Suspense } from "react";
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RequireAuth from "./helper/RequireAuth";
 import LoginSkeleton from "./skeletons/LoginSkeleton";
 
