@@ -1,6 +1,11 @@
-import { Skeleton } from "@mui/material";
 import React, { Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+} from "react-router-dom";
 import RequireAuth from "./helper/RequireAuth";
 import LoginSkeleton from "./skeletons/LoginSkeleton";
 
@@ -16,7 +21,7 @@ const ShareComponent = React.lazy(() => import("./pages/share"));
 
 const LoginComp = () => {
   return (
-    <Suspense fallback={<LoginSkeleton/>}>
+    <Suspense fallback={<LoginSkeleton />}>
       <LoginComponent />
     </Suspense>
   );
@@ -24,7 +29,7 @@ const LoginComp = () => {
 
 const SignUpComp = () => {
   return (
-    <Suspense fallback={<LoginSkeleton/>}>
+    <Suspense fallback={<LoginSkeleton />}>
       <SignUpComponent />
     </Suspense>
   );
@@ -141,7 +146,20 @@ const router = createBrowserRouter([
 function App() {
   return (
     <React.StrictMode>
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomepageComp />}>
+            <Route index element={<HomepageComp />} />
+            <Route path="friend" element={<FriendComp />} />
+            <Route path="mention" element={<MentionComp />} />
+            <Route path="reminder" element={<ReminderComp />} />
+            <Route path="share" element={<ShareComp />} />
+          </Route>
+          <Route path="signin" element={<LoginComp />} />
+          <Route path="signup" element={<SignUpComp />} />
+        </Routes>
+      </BrowserRouter>
     </React.StrictMode>
   );
 }
