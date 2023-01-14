@@ -196,7 +196,15 @@ function Signup() {
                     extraclass="signupbtn"
                     onClick={handleClick}
                     isLoading={isLoading}
-                    disabled={isLoading}
+                    disabled={
+                      !firstName ||
+                      !lastName ||
+                      !username ||
+                      !email ||
+                      !password ||
+                      !cpassword ||
+                      isLoading
+                    }
                   />
                 </Grid>
               </Grid>
