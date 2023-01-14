@@ -1,4 +1,6 @@
 import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { getNotificationList } from '../features/notificationSlice';
 import { NotificationsOutlined } from '@mui/icons-material';
 import { Box, IconButton, Menu, Tooltip, Badge, MenuItem } from '@mui/material';
 import AlertComponent from './AlertComponent';
@@ -6,22 +8,11 @@ import AlertComponent from './AlertComponent';
 const Notifications = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [unreadCount, setUnreadCount] = React.useState(0);
-    const [notification, setNotification] = React.useState([
-      {
-        alertMessage: 'succesfully added',
-        alertType: 'success',
-      },
-      {
-        alertMessage: 'succesfully removed',
-        alertType: 'success',
-      },
-      {
-        alertMessage: 'unbale to update',
-        alertType: 'warning',
-      }
-    ])
+    
+    const dispatch = useDispatch();
+    const notification = useSelector(getNotificationList)
     const open = Boolean(anchorEl);
-
+    
     const handleClick = (event) => {
       setUnreadCount(unreadCount + 1)
       setAnchorEl(event.currentTarget);
