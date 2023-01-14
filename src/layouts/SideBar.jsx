@@ -11,6 +11,7 @@ import "../styles/index.css";
 function SideBar() {
   const [active, setActive] = useState("home");
   const navigate = useNavigate();
+
   const handleClick = (path) => {
     if (path === "/" || !path) {
       navigate(`/`);

@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../features/userSlice";
+import { logout, isLoading } from "../features/userSlice";
 import { signOut } from "../lib/getApiCall";
 
 const ProfileMenu = ({ profilePic, loading }) => {
@@ -32,8 +32,10 @@ const ProfileMenu = ({ profilePic, loading }) => {
   };
 
   const handleSignOut = async () => {
+    dispatch(isLoading(true))
     const res = await signOut();
     if (res.status === 200) {
+        dispatch(isLoading(false))
         navigate("/signin");
         dispatch(logout());
     }

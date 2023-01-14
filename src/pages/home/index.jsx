@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
-import { Outlet } from "react-router-dom";
-import SideBar from "../../layouts/SideBar";
-import TopBar from "../../layouts/TopBar";
+import Loader from "../../layouts/Loader";
+import { useSelector } from "react-redux";
+import { loadingState } from "../../features/userSlice"
 
 const Home = () => {
+  const loading = useSelector(loadingState);
+  
   useEffect(() => {
     document.title = "Mnemonic";
   });
   return (
-    <div className="home">
-      <div className="homecontent">Home</div>
-    </div>
+    <>
+      <div className="home">
+        <div className="homecontent">Home</div>
+      </div>
+      {loading && <Loader visible={loading}/>}
+    </>
   );
 };
 
