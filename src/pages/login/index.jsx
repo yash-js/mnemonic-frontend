@@ -8,6 +8,7 @@ import { login } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
 import "../../styles/index.css";
+import { setFriends, setRequests } from "../../features/friendsSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -30,6 +31,8 @@ function Login() {
     const res = await signIn({ email, password });
     if (res?.status === 200) {
       dispatch(login(res?.data?.user));
+      dispatch(setFriends(res?.data?.user?.friends));
+      dispatch(setRequests(res?.data?.user?.requests));
       navigate("/");
     } else {
       setLoading(false);

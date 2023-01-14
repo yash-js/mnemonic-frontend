@@ -25,7 +25,6 @@ function Friend() {
       getRequestsApiCall();
     };
   }, []);
-  
   return (
     <div className="friend">
       <Grid container spacing={1} className="friendbox">
@@ -44,7 +43,7 @@ function Friend() {
               <p>{friends && friends?.length}</p>
             </div>
             <div className="friendscontent">
-              {loading || friendsLoading ? (
+              {(loading || friendsLoading) ? (
                 <FriendsSkeleton />
               ) : friends && friends?.length > 0 ? (
                 friends?.map((item) => {
@@ -80,7 +79,7 @@ function Friend() {
               <p>{requests && requests.length }</p>
             </div>
             <div className="friendrequestcontent">
-              {loading || requestsLoading ? (
+              {(loading || requestsLoading) ? (
                 <FriendsSkeleton />
               ) : requests && requests.length > 0 ? (
                 requests.map((item, index) => {
@@ -117,7 +116,7 @@ function Friend() {
               <p>{suggestions && suggestions.length}</p>
             </div>
             <div className="friendsuggestioncontent">
-              {loading || suggestionLoading ? (
+              {(loading || suggestionLoading) ? (
                 <FriendsSkeleton />
               ) : suggestions && suggestions.length > 0 ? (
                 suggestions.map((item, index) => {

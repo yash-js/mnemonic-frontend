@@ -32,7 +32,6 @@ export const useFriends = () => {
     if (!friends || friends.length < 1) {
       dispatch(setFriendsLoading(true));
       const resp = await getFriends();
-      console.log("f", resp);
       dispatch(setFriends(resp?.data));
       dispatch(setFriendsLoading(false));
     }
