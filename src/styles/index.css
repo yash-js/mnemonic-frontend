@@ -178,6 +178,12 @@ p{
   margin-top: 20px;
 }
 
+.uploadPhotoContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
 
 /* signup and login css ends */
 
@@ -239,7 +245,7 @@ p{
   top: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .topbar .searchbarbox{

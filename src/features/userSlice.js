@@ -13,7 +13,7 @@ export const userSlice = createSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     login: (state, action) => {
-      localStorage.setItem('token', action.payload)
+      localStorage.setItem('token', action.payload.token)
       state.user = action.payload
     },
     logout: (state) => {

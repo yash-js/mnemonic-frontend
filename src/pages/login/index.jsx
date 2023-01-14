@@ -17,20 +17,24 @@ function Login() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
-  const openAlert = (open ,type, message) => {
+  const openAlert = (open, type, message) => {
     setOpen(open);
     setMessage(message);
     setType(type);
-  }
+  };
 
   const handleClick = async () => {
+    setLoading(true);
     const res = await signIn({ email, password });
+    console.log("res", res);
     if (res?.status === 200) {
-      dispatch(login(res?.data?.token));
+      dispatch(login(res?.data?.user));
       navigate("/");
     } else {
-      openAlert(true,"error", res?.response?.data?.error);
+      setLoading(false);
+      openAlert(true, "error", res?.response?.data?.error);
     }
   };
 
@@ -42,7 +46,7 @@ function Login() {
             <div className="boxcontent">
               <h1>
                 A platform for getting closer to your{" "}
-                <sapn className="headingdifferent">Notes.</sapn>
+                <span className="headingdifferent">Notes.</span>
               </h1>
               <p>create, share and remember.</p>
             </div>
@@ -63,6 +67,7 @@ function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   extraclass={"signinInput"}
+                  disabled={isLoading}
                 />
                 <InputField
                   type="password"
@@ -71,14 +76,17 @@ function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   extraclass={"signinInput"}
+                  disabled={isLoading}
                 />
-                  <p className="forgetbtn">
+                <p className="forgetbtn">
                   <NavLink to="/signup">Forgot your password?</NavLink>
                 </p>
                 <ButtonComponent
                   onClick={handleClick}
                   buttontext="Login"
                   extraclass="loginbtn"
+                  disabled={isLoading}
+                  isLoading={isLoading}
                 />
               </div>
               <div className="forgetcontainer">

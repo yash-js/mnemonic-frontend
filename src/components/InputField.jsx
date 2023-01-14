@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import InputAdornment from '@mui/material/InputAdornment';
 import "../styles/mui.css";
 
-function InputField({ extraclass, placeholder, type, label, name, value, onChange, starticon, endicon, starticoncss, endiconcss }) {
+function InputField({disabled, extraclass, placeholder, type, label, name, value, onChange, starticon, endicon, starticoncss, endiconcss }) {
+  const [readOnly, setReadOnly] = useState(true);
   return (
     <TextField
       id="outlined-basic"
@@ -17,6 +18,9 @@ function InputField({ extraclass, placeholder, type, label, name, value, onChang
       autoComplete="off"
       variant="outlined"
       aria-autocomplete="none"
+      disabled={disabled}
+      readOnly={readOnly}
+      onFocus={ () => setReadOnly(false) }
       InputProps={{
         startAdornment: (
           starticon &&

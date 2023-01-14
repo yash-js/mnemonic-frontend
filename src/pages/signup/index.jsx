@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Grid from '@mui/material/Grid';
-import InputField from '../../components/InputField';
-import ButtonComponent from '../../components/ButtonComponent';
+import Grid from "@mui/material/Grid";
+import InputField from "../../components/InputField";
+import ButtonComponent from "../../components/ButtonComponent";
 import { signUp } from "../../lib/getApiCall";
 import AlertComponent from "../../components/AlertComponent";
 import { NavLink } from "react-router-dom";
 import { Avatar, Fab } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import '../../styles/index.css';
+import "../../styles/index.css";
+import convertToBase64 from "../../helper/Convert";
 
 function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -21,20 +22,42 @@ function Signup() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
+  const [file, setFile] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
-  const openAlert = (open ,type, message) => {
+  const openAlert = (open, type, message) => {
     setOpen(open);
     setMessage(message);
     setType(type);
-  }
+  };
 
   const handleClick = async () => {
-    const res = await signUp({firstName, lastName, email, password, cpassword, username});
+    setLoading(true);
+    if (!file) {
+      setFile(`https://ui-avatars.com/api/?name=${firstName + "+" + lastName}`);
+    }
+    const res = await signUp({
+      firstName,
+      lastName,
+      email,
+      password,
+      cpassword,
+      username,
+      profilePic: file,
+    });
+    console.log(res);
     if (res?.status === 200) {
+      setLoading(false);
       navigate("/signin");
     } else {
-      openAlert(true,"error", res?.response?.data?.error);
+      setLoading(false);
+      openAlert(true, "error", res?.response?.data?.error);
     }
+  };
+
+  const onUpload = async (e) => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setFile(base64);
   };
 
   return (
@@ -44,7 +67,7 @@ function Signup() {
           <div className="boxcontent">
             <h1>
               A platform for getting closer to your{" "}
-              <sapn className="headingdifferent">Notes.</sapn>
+              <span className="headingdifferent">Notes.</span>
             </h1>
             <p>create, share and remember.</p>
           </div>
@@ -62,7 +85,7 @@ function Signup() {
             </div>
             <div className="inputcontainer">
               <Grid container spacing={2}>
-              <Grid
+                <Grid
                   display={"flex"}
                   flexDirection={"column"}
                   justifyContent="space-evenly"
@@ -70,11 +93,17 @@ function Signup() {
                   item
                   xs={12}
                 >
+                  <label
+                    className="uploadPhotoContainer"
+                    htmlFor="upload-photo"
+                  >
                     <input
                       style={{ display: "none" }}
                       id="upload-photo"
                       name="upload-photo"
                       type="file"
+                      onChange={onUpload}
+                      accept="image/*"
                     />
                     <Avatar
                       style={{
@@ -82,16 +111,18 @@ function Signup() {
                         width: "100px",
                         marginBottom: "15px",
                       }}
+                      src={file || ""}
                     />
                     <Fab
-                      color="primary"
+                      color={file ? "secondary" : "primary"}
                       size="small"
                       component="span"
                       aria-label="add"
                       variant="extended"
                     >
-                      <Add /> Upload photo
+                      <Add /> {file ? <> Change photo</> : <> Upload photo</>}
                     </Fab>
+                  </label>
                 </Grid>
                 <Grid item xs={6}>
                   <InputField
@@ -100,7 +131,8 @@ function Signup() {
                     label="First Name"
                     name="firstname"
                     value={firstName}
-                    onChange={e=>setFirstName(e.target.value)}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    disabled={isLoading}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -110,7 +142,8 @@ function Signup() {
                     label="Last Name"
                     name="lastname"
                     value={lastName}
-                    onChange={e=>setLastName(e.target.value)}
+                    onChange={(e) => setLastName(e.target.value)}
+                    disabled={isLoading}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -120,7 +153,8 @@ function Signup() {
                     label="Email"
                     name="email"
                     value={email}
-                    onChange={e=> setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isLoading}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -130,7 +164,8 @@ function Signup() {
                     label="User Name"
                     name="username"
                     value={username}
-                    onChange={e=>setUsername(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
+                    disabled={isLoading}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -140,7 +175,8 @@ function Signup() {
                     label="Password"
                     name="password"
                     value={password}
-                    onChange={e=>setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -150,7 +186,8 @@ function Signup() {
                     label="Confirm Password"
                     name="confirmpassword"
                     value={cpassword}
-                    onChange={e=>setCPassword(e.target.value)}
+                    onChange={(e) => setCPassword(e.target.value)}
+                    disabled={isLoading}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -158,6 +195,8 @@ function Signup() {
                     buttontext="Sign Up"
                     extraclass="signupbtn"
                     onClick={handleClick}
+                    isLoading={isLoading}
+                    disabled={isLoading}
                   />
                 </Grid>
               </Grid>
@@ -169,13 +208,20 @@ function Signup() {
                   <NavLink to="/signin">Sign In</NavLink>
                 </span>
               </p>
-                    </div>
+            </div>
           </div>
         </div>
       </Grid>
-      <AlertComponent setOpen={setOpen} setType={setType} setMessage={setMessage} alertOpen={open} alertMessage={message} alertType={type}/>
+      <AlertComponent
+        setOpen={setOpen}
+        setType={setType}
+        setMessage={setMessage}
+        alertOpen={open}
+        alertMessage={message}
+        alertType={type}
+      />
     </Grid>
   );
 }
 
-export default Signup
+export default Signup;
