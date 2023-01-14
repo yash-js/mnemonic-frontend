@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
-function mention() {
-    return (
-        <div className='mention'>mention</div>
-    )
+function Mention() {
+  useEffect(() => {
+    document.title = "Mentions";
+  });
+
+  return <div className="mention">mention</div>;
 }
 
-export default mention
+export default Mention;

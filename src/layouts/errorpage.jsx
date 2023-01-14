@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useRouteError } from 'react-router'
-import '../styles/errorPage.css';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../styles/errorPage.css";
 
 export default function ErrorPage() {
-  const error = useRouteError();
-  console.error(error);
+  useEffect(() => {
+    document.title = "Page Not Found";
+  });
 
   return (
     <div id="notfound">

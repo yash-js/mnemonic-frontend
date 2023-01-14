@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import InputField from "../../components/InputField";
@@ -45,7 +45,6 @@ function Signup() {
       username,
       profilePic: file,
     });
-    console.log(res);
     if (res?.status === 200) {
       setLoading(false);
       navigate("/signin");
@@ -60,6 +59,9 @@ function Signup() {
     setFile(base64);
   };
 
+  useEffect(() => {
+    document.title = "Sign Up"
+ });
   return (
     <Grid container className="signup">
       <Grid item xs={6} className="signupleft">

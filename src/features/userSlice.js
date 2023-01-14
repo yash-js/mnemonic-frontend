@@ -1,37 +1,37 @@
-import { createSlice } from '@reduxjs/toolkit';
-const token = localStorage.getItem("token");
+import { createSlice } from "@reduxjs/toolkit";
 
+const token = localStorage.getItem("token");
 const initialState = {
-  user: token ? token : null,
+  token: token ? token : null,
+  user: null,
+  loading: false,
 };
 
-
-
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     login: (state, action) => {
-      localStorage.setItem('token', action.payload.token)
-      state.user = action.payload
+      localStorage.setItem("token", action.payload.token);
+      state.token = action.payload;
     },
     logout: (state) => {
-      state.user = null
+      state.token = null;
+      state.user = null;
     },
-    photo: (state, action) => {
-      state.value = action.payload
-    }
+    userdata: (state, action) => {
+      state.user = action.payload;
+    },
+    isLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+  },
+});
 
-  }
-})
-
-
-
-export const { login, logout } = userSlice.actions;
-export const selectUser = (state) => state.user.user;
-
-
-
+export const { login, logout, userdata, isLoading } = userSlice.actions;
+export const getToken = (state) => state.user.token;
+export const userData = (state) => state.user.user;
+export const loadingState = (state) => state.user.loading;
 
 export default userSlice.reducer;

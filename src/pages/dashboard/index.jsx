@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
 function Dashboard() {
-  return (
-    <div className='dashboard'>Dashboard</div>
-  )
+  
+  useEffect(() => {
+    document.title = "Dashboard";
+  });
+
+  return <div className="dashboard">Dashboard</div>;
 }
 
-export default Dashboard
+export default Dashboard;

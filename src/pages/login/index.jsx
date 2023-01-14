@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import InputField from "../../components/InputField";
@@ -37,6 +37,10 @@ function Login() {
       openAlert(true, "error", res?.response?.data?.error);
     }
   };
+
+  useEffect(() => {
+    document.title = "Sign In";
+  });
 
   return (
     <>

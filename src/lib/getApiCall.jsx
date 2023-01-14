@@ -16,4 +16,23 @@ export const signUp = async (data) => {
   } catch (error) {
     return error;
   }
-}
+};
+
+export const signOut = async () => {
+  try {
+    const resp = await axios.get("/signout");
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+
+export const getUser = async (token) => {
+  try {
+    const resp = await axios.get("/getuser");
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};

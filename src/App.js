@@ -1,12 +1,14 @@
+import { Skeleton } from "@mui/material";
 import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RequireAuth from "./helper/RequireAuth";
+import LoginSkeleton from "./skeletons/LoginSkeleton";
 
 const LoginComponent = React.lazy(() => import("./pages/login"));
 const SignUpComponent = React.lazy(() => import("./pages/signup"));
 const HomepageComponent = React.lazy(() => import("./pages/home"));
 const ErrorComponent = React.lazy(() => import("./layouts/ErrorPage"));
-const DashboardComponent = React.lazy(() => import("./pages/dashboard"));
+// const DashboardComponent = React.lazy(() => import("./pages/dashboard"));
 const FriendsComponent = React.lazy(() => import("./pages/friend"));
 const MentionComponent = React.lazy(() => import("./pages/mention"));
 const ReminderComponent = React.lazy(() => import("./pages/reminder"));
@@ -14,7 +16,7 @@ const ShareComponent = React.lazy(() => import("./pages/share"));
 
 const LoginComp = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<LoginSkeleton/>}>
       <LoginComponent />
     </Suspense>
   );
@@ -22,7 +24,7 @@ const LoginComp = () => {
 
 const SignUpComp = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<LoginSkeleton/>}>
       <SignUpComponent />
     </Suspense>
   );
@@ -46,45 +48,55 @@ const ErrorComp = () => {
   );
 };
 
-const DashboardComp = () => {
-  return (
-    <Suspense>
-      <DashboardComponent />
-    </Suspense>
-  );
-}
+// const DashboardComp = () => {
+//   return (
+//     <Suspense>
+//       <RequireAuth>
+//         <DashboardComponent />
+//       </RequireAuth>
+//     </Suspense>
+//   );
+// };
 
 const FriendComp = () => {
   return (
     <Suspense>
-      <FriendsComponent />
+      <RequireAuth>
+        <FriendsComponent />
+      </RequireAuth>
     </Suspense>
   );
-}
+};
 
 const MentionComp = () => {
   return (
     <Suspense>
-      <MentionComponent />
+      <RequireAuth>
+        <MentionComponent />
+      </RequireAuth>
     </Suspense>
   );
-}
+};
 
 const ReminderComp = () => {
   return (
     <Suspense>
-      <ReminderComponent />
+      <RequireAuth>
+        <ReminderComponent />
+      </RequireAuth>
     </Suspense>
   );
-}
+};
 
 const ShareComp = () => {
   return (
     <Suspense>
-      <ShareComponent />
+      <RequireAuth>
+        <ShareComponent />
+      </RequireAuth>
     </Suspense>
   );
-}
+};
 
 const router = createBrowserRouter([
   {
@@ -93,8 +105,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorComp />,
     children: [
       {
-        path: "/dashboard",
-        element: <DashboardComp />,
+        path: "/",
+        element: <HomepageComp />,
       },
       {
         path: "/friend",
@@ -129,9 +141,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <React.StrictMode>
-      <RouterProvider
-        router={router}
-      />
+      <RouterProvider router={router} />
     </React.StrictMode>
   );
 }

@@ -15,12 +15,12 @@ function SideBar() {
         <div className='sidebar'>
             <div className='sidebarcontent'>
                 <div className='sidebaritem logo'>
-                    <NavLink to="/dashboard">
+                    <NavLink to="/">
                         <img src={logo} alt="logo" width='30px' height='30px' onClick={() => setActive('home')}/>
                     </NavLink>
                 </div>
                 <div className={`${active === 'home' ? 'active' : 'inactive'} sidebaritem`}>
-                    <NavLink to="/dashboard">
+                    <NavLink to="/">
                         <img src={home} alt="home" width='30px' height='30px' onClick={() => setActive('home')}/>
                     </NavLink>
                 </div>
