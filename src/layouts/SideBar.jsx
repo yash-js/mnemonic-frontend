@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo.svg";
 import home from "../assets/images/home.svg";
@@ -12,7 +12,7 @@ function SideBar() {
   const [active, setActive] = useState("home");
   const navigate = useNavigate();
   const handleClick = (path) => {
-    if (path === "/") {
+    if (path === "/" || !path) {
       navigate(`/`);
       setActive("home");
     } else {
@@ -20,6 +20,10 @@ function SideBar() {
       setActive(path);
     }
   };
+
+  useEffect(() => {
+    return () => handleClick(window.location.pathname.replace("/", ""));
+  },[]);
 
   return (
     <div className="sidebar">
