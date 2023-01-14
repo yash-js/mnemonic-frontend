@@ -103,45 +103,45 @@ const ShareComp = () => {
   );
 };
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomepageComp />,
-    errorElement: <ErrorComp />,
-    children: [
-      {
-        path: "/",
-        element: <HomepageComp />,
-      },
-      {
-        path: "/friend",
-        element: <FriendComp />,
-      },
-      {
-        path: "/mention",
-        element: <MentionComp />,
-      },
-      {
-        path: "/reminder",
-        element: <ReminderComp />,
-      },
-      {
-        path: "/share",
-        element: <ShareComp />,
-      },
-    ],
-  },
-  {
-    path: "/signin",
-    element: <LoginComp />,
-    errorElement: <ErrorComp />,
-  },
-  {
-    path: "/signup",
-    element: <SignUpComp />,
-    errorElement: <ErrorComp />,
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <HomepageComp />,
+//     errorElement: <ErrorComp />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <HomepageComp />,
+//       },
+//       {
+//         path: "/friend",
+//         element: <FriendComp />,
+//       },
+//       {
+//         path: "/mention",
+//         element: <MentionComp />,
+//       },
+//       {
+//         path: "/reminder",
+//         element: <ReminderComp />,
+//       },
+//       {
+//         path: "/share",
+//         element: <ShareComp />,
+//       },
+//     ],
+//   },
+//   {
+//     path: "/signin",
+//     element: <LoginComp />,
+//     errorElement: <ErrorComp />,
+//   },
+//   {
+//     path: "/signup",
+//     element: <SignUpComp />,
+//     errorElement: <ErrorComp />,
+//   },
+// ]);
 
 function App() {
   return (
