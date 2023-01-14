@@ -20,5 +20,19 @@
 
 .signupbtn{
   margin: 5px 0px 10px 0px !important;
+}
 
+.notificationalert{
+  position: relative !important;
+  width: 100%;
+  height: 100%;
+  left: 0px !important;
+  right: 0px !important;
+  bottom: 0px !important;
+  transform: translateX(0%) !important;
+}
+
+.notificationalert .MuiPaper-elevation{
+  width: 100%;
+  height: 100%;
 }

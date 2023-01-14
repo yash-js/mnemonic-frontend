@@ -1,8 +1,7 @@
-import { Logout, PersonAdd, Settings } from "@mui/icons-material";
+import { Logout } from "@mui/icons-material";
 import {
   Avatar,
   Box,
-  Divider,
   IconButton,
   ListItemIcon,
   Menu,
@@ -98,23 +97,7 @@ const ProfileMenu = ({ profilePic, loading }) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
+          <Avatar src={profilePic} /> Profile
         </MenuItem>
         <MenuItem onClick={handleSignOut}>
           <ListItemIcon>

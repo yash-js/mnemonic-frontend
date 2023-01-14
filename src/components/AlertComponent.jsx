@@ -8,6 +8,7 @@ function AlertComponent({
   setOpen,
   setType,
   setMessage,
+  name,
 }) {
 
   const handleClose = (event, reason) => {
@@ -23,8 +24,9 @@ function AlertComponent({
     <Snackbar
       open={alertOpen}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      autoHideDuration={6000}
+      autoHideDuration={name === 'notification' ? null : 6000}
       onClose={handleClose}
+      className={name ? 'notificationalert' : 'alert'}
     >
       <Alert onClose={handleClose} severity={alertType}>
         {alertMessage}

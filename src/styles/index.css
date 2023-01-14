@@ -322,6 +322,13 @@ p {
   position: relative;
 }
 
+/* for notification dropdown box */
+
+#notificationmenu ul{
+  height: 245px;
+  overflow: scroll;
+}
+
 .topbar .profilebox .profileimagebox {
   width: 80%;
   height: 100%;
@@ -624,11 +631,6 @@ p {
   border-radius: 6px;
   cursor: pointer;
   text-transform: capitalize;
-}
-
-.friendcard .friendactions .custombuttonremoveclass .removebutton,
-.friendcard .friendactions .custombuttonrequestclass .requestbutton {
-  /* background: rgba(55, 106, 205, 0.87) !important; */
 }
 
 /** friendcard css ends **/

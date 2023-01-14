@@ -1,13 +1,32 @@
-import { Logout, NotificationsOutlined, PersonAdd, Settings } from '@mui/icons-material';
-import { Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import React from 'react'
+import { NotificationsOutlined } from '@mui/icons-material';
+import { Box, IconButton, Menu, Tooltip, Badge, MenuItem } from '@mui/material';
+import AlertComponent from './AlertComponent';
 
 const Notifications = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [unreadCount, setUnreadCount] = React.useState(0);
+    const [notification, setNotification] = React.useState([
+      {
+        alertMessage: 'succesfully added',
+        alertType: 'success',
+      },
+      {
+        alertMessage: 'succesfully removed',
+        alertType: 'success',
+      },
+      {
+        alertMessage: 'unbale to update',
+        alertType: 'warning',
+      }
+    ])
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
+      setUnreadCount(unreadCount + 1)
       setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
       setAnchorEl(null);
     };
@@ -23,16 +42,17 @@ const Notifications = () => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <NotificationsOutlined sx={{ width: 50, height: 'auto' }} />
+              <Badge badgeContent={unreadCount} color="primary">
+                <NotificationsOutlined sx={{ width: 40, height: 'auto' }} />
+              </Badge>
             </IconButton>
           </Tooltip>
         </Box>
         <Menu
           anchorEl={anchorEl}
-          id="account-menu"
+          id="notificationmenu"
           open={open}
           onClose={handleClose}
-          onClick={handleClose}
           PaperProps={{
             elevation: 0,
             sx: {
@@ -62,24 +82,15 @@ const Notifications = () => {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem>
-            <ListItemIcon>
-              <PersonAdd fontSize="small" />
-            </ListItemIcon>
-            Add another account
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize="small" />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <Logout fontSize="small" />
-            </ListItemIcon>
-            Logout
-          </MenuItem>
+          {
+            notification.map((item, index) => {
+              return (
+                <MenuItem key={index}>
+                  <AlertComponent name='notification' alertOpen={true} alertMessage={item.alertMessage} alertType={item.alertType} />
+                </MenuItem>
+              )
+            })
+          }
         </Menu>
       </>
     );
