@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import SideBar from "../../layouts/Sidebar";
+import SideBar from "../../layouts/SideBar";
 import TopBar from "../../layouts/TopBar";
 
 const Home = () => {
