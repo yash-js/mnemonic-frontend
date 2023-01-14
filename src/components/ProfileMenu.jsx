@@ -50,11 +50,12 @@ const ProfileMenu = ({ profilePic, loading }) => {
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
+            className='profileimage'
           >
             {loading ? (
-                           <Skeleton width={50} height={80} style={{borderRadius:'50%'}} />
+              <Skeleton width={50} height={80} style={{borderRadius:'50%'}} />
             ) : (
-              <Avatar sx={{ width: 50, height: "auto" }} src={profilePic} />
+              <Avatar sx={{ width: 50, height: "auto" }} src={profilePic} className='profileavatar' />
             )}
           </IconButton>
         </Tooltip>

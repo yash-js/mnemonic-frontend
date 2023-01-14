@@ -1,7 +1,6 @@
 import React from "react";
 import InputField from "../components/InputField";
 import search from "../assets/images/search.svg";
-import notification from "../assets/images/notification.svg";
 import ProfileMenu from "../components/ProfileMenu";
 import { useSelector } from "react-redux";
 import { loadingState, userData } from "../features/userSlice";
