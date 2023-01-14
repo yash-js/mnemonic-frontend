@@ -27,10 +27,36 @@ export const signOut = async () => {
   }
 };
 
-
-export const getUser = async (token) => {
+export const getUser = async () => {
   try {
     const resp = await axios.get("/getuser");
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getFriends = async () => {
+  try {
+    const resp = await axios.get("/friend");
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getFriendRequests = async () => {
+  try {
+    const resp = await axios.get("/friend/requests");
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getSuggestions = async () => {
+  try {
+    const resp = await axios.get("/friend/suggestions");
     return resp;
   } catch (error) {
     return error;

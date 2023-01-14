@@ -28,7 +28,6 @@ function Login() {
   const handleClick = async () => {
     setLoading(true);
     const res = await signIn({ email, password });
-    console.log("res", res);
     if (res?.status === 200) {
       dispatch(login(res?.data?.user));
       navigate("/");

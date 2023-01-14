@@ -2,12 +2,30 @@ import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import FriendCard from "../../layouts/FriendCard";
 import notification from "../../assets/images/notification.svg";
+import FriendsSkeleton from "../../skeletons/FriendsSkeleton";
+import { useFriends } from "../../hooks/friends";
 
 function Friend() {
-  useEffect(() => {
-    document.title = "Friends";
-  });
+  const {
+    friends,
+    loading,
+    requests,
+    suggestions,
+    suggestionLoading,
+    friendsLoading,
+    requestsLoading,
+    getFriendsApiCall,
+    getRequestsApiCall,
+    getSuggestionsApiCall,
+  } = useFriends();
 
+  useEffect(() => {
+    return () => {
+      getFriendsApiCall();
+      getRequestsApiCall();
+    };
+  }, []);
+  
   return (
     <div className="friend">
       <Grid container spacing={1} className="friendbox">
@@ -23,19 +41,27 @@ function Friend() {
           <div className="friends">
             <div className="friendsheading">
               <p>Friends</p>
-              <p>104</p>
+              <p>{friends && friends?.length}</p>
             </div>
             <div className="friendscontent">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => {
-                return (
-                  <FriendCard
-                    name="friends"
-                    profileimage={notification}
-                    profilename="John Doe"
-                    profileusername="@john"
-                  />
-                );
-              })}
+              {loading || friendsLoading ? (
+                <FriendsSkeleton />
+              ) : friends && friends?.length > 0 ? (
+                friends?.map((item) => {
+                  return (
+                    <FriendCard
+                      key={item._id}
+                      name="friends"
+                      profileimage={item?.profilePic}
+                      profileFirstname={item?.firstName}
+                      porfileLastname={item?.lastName}
+                      profileusername={item?.username}
+                    />
+                  );
+                })
+              ) : (
+                <p className="noFriends">No Friends</p>
+              )}
             </div>
           </div>
         </Grid>
@@ -50,21 +76,29 @@ function Friend() {
         >
           <div className="friendrequest">
             <div className="friendrequestheading">
-              <p>Friends Request</p>
-              <p>7</p>
+              <p>Friend Requests</p>
+              <p>{requests && requests.length }</p>
             </div>
             <div className="friendrequestcontent">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => {
-                return (
-                  <FriendCard
-                    name="friendrequest"
-                    profileimage={notification}
-                    profilename="John Doe"
-                    profileusername="@john"
-                    custombuttonremoveclass={true}
-                  />
-                );
-              })}
+              {loading || requestsLoading ? (
+                <FriendsSkeleton />
+              ) : requests && requests.length > 0 ? (
+                requests.map((item, index) => {
+                  return (
+                    <FriendCard
+                      key={item._id}
+                      name="friendrequest"
+                      profileimage={item?.profilePic}
+                      profileFirstname={item?.firstName}
+                      porfileLastname={item?.lastName}
+                      profileusername={item?.username}
+                      custombuttonremoveclass={true}
+                    />
+                  );
+                })
+              ) : (
+                <p className="noFriends">No Friend Requests</p>
+              )}
             </div>
           </div>
         </Grid>
@@ -80,19 +114,26 @@ function Friend() {
           <div className="friendsuggestion">
             <div className="friendsuggestionheading">
               <p>Suggestions</p>
+              <p>{suggestions && suggestions.length}</p>
             </div>
             <div className="friendsuggestioncontent">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => {
-                return (
-                  <FriendCard
-                    name="friendsuggestion"
-                    profileimage={notification}
-                    profilename="John Doe"
-                    profileusername="@john"
-                    custombuttonrequestclass={true}
-                  />
-                );
-              })}
+              {loading || suggestionLoading ? (
+                <FriendsSkeleton />
+              ) : suggestions && suggestions.length > 0 ? (
+                suggestions.map((item, index) => {
+                  return (
+                    <FriendCard
+                      name="friendsuggestion"
+                      profileimage={notification}
+                      profilename="John Doe"
+                      profileusername="@john"
+                      custombuttonrequestclass={true}
+                    />
+                  );
+                })
+              ) : (
+                <p className="noFriends">No Suggestions</p>
+              )}
             </div>
           </div>
         </Grid>

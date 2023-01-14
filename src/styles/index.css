@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Roboto:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Roboto:wght@300;400&display=swap");
 
 * {
   padding: 0px;
@@ -6,59 +6,59 @@
 
   /* Hide scrollbar for IE, Edge and Firefox */
 
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
- /* Hide scrollbar for Chrome, Safari and Opera */
- *::-webkit-scrollbar {
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
   display: none;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-a:visited{
-  color: #4F7BD2 !important;
+a:visited {
+  color: #4f7bd2 !important;
   text-decoration: none;
   margin-left: 7px;
 }
 
-h1{
-  font-family: 'Montserrat';
+h1 {
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
   font-size: 3.2rem;
   line-height: 4rem;
-  color: #413C3C;
+  color: #413c3c;
   margin: 0px;
 }
 
-p{
-  font-family: 'Montserrat';
+p {
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 1.5rem;
   /* identical to box height */
-  color: #829FAB;
+  color: #829fab;
   margin: 0px;
 }
 
 /** loader css **/
 
-.loader{
+.loader {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -76,27 +76,44 @@ p{
 
 /* sigup and login css */
 
-.login, .signup{
+.login,
+.signup {
   width: 100vw;
   height: 100vh;
 }
 
-.login .loginleft, .signup .signupleft{
+.login .loginleft,
+.signup .signupleft {
   width: 100%;
   height: 100%;
-  background: radial-gradient(132.78% 117.92% at 87.64% 88.62%, rgba(123, 230, 217, 0.54) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(64.44% 42.33% at 9.58% 95.95%, #A356F5 0%, rgba(172, 212, 235, 0) 100%);
+  background: radial-gradient(
+      132.78% 117.92% at 87.64% 88.62%,
+      rgba(123, 230, 217, 0.54) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    radial-gradient(
+      64.44% 42.33% at 9.58% 95.95%,
+      #a356f5 0%,
+      rgba(172, 212, 235, 0) 100%
+    );
 }
 
-.login .loginleft .box, .signup .signupleft .box{
+.login .loginleft .box,
+.signup .signupleft .box {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(97.85% 48.37% at 58.06% 43.99%, #FF73F9 0%, rgba(172, 212, 235, 0) 100%)
+  background: radial-gradient(
+    97.85% 48.37% at 58.06% 43.99%,
+    #ff73f9 0%,
+    rgba(172, 212, 235, 0) 100%
+  );
 }
 
-.login .loginleft .box .boxcontent, .signup .signupleft .box .boxcontent{
+.login .loginleft .box .boxcontent,
+.signup .signupleft .box .boxcontent {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -114,25 +131,28 @@ p{
   flex-grow: 0;
 }
 
-.signup .signupright .box .boxcontent .headercontainer h1{
+.signup .signupright .box .boxcontent .headercontainer h1 {
   font-size: 1.8rem;
   line-height: normal;
 }
 
-.signup .signupright .box .boxcontent .inputcontainer input{
+.signup .signupright .box .boxcontent .inputcontainer input {
   margin-top: -5px !important;
 }
 
-.login .loginleft .box .boxcontent .headingdifferent, .signup .signupleft .box .boxcontent .headingdifferent{
-  color: #4F7BD2 !important;
+.login .loginleft .box .boxcontent .headingdifferent,
+.signup .signupleft .box .boxcontent .headingdifferent {
+  color: #4f7bd2 !important;
   text-decoration: none;
 }
 
-.login .loginleft .box .boxcontent p, .signup .signupleft .box .boxcontent p{
+.login .loginleft .box .boxcontent p,
+.signup .signupleft .box .boxcontent p {
   margin-top: 15px;
 }
 
-.login .loginright .box, .signup .signupright .box{
+.login .loginright .box,
+.signup .signupright .box {
   width: 100%;
   height: 100%;
   display: flex;
@@ -140,12 +160,13 @@ p{
   align-items: center;
 }
 
-.signup .signupright .box{
+.signup .signupright .box {
   height: 100%;
   align-items: flex-start;
 }
 
-.login .loginright .box .boxcontent, .signup .signupright .box .boxcontent{
+.login .loginright .box .boxcontent,
+.signup .signupright .box .boxcontent {
   width: 65%;
   min-width: 300px;
   height: 100%;
@@ -155,14 +176,15 @@ p{
   align-items: flex-start;
 }
 
-.login .loginright .box .boxcontent .signupbtn a,.signup .signupright .box .boxcontent  a{
-  color: #4F7BD2 !important;
+.login .loginright .box .boxcontent .signupbtn a,
+.signup .signupright .box .boxcontent a {
+  color: #4f7bd2 !important;
   text-decoration: none;
   margin-left: 7px;
 }
 
 .login .loginright .box .boxcontent .inputcontainer .forgetbtn a {
-  color: #4F7BD2 !important;
+  color: #4f7bd2 !important;
   text-decoration: none;
   font-size: 1rem;
 }
@@ -171,16 +193,18 @@ p{
   margin-bottom: -5px;
 }
 
-.login .loginright .box .boxcontent .headercontainer, .signup .signupright .box .boxcontent .headercontainer{
+.login .loginright .box .boxcontent .headercontainer,
+.signup .signupright .box .boxcontent .headercontainer {
   margin-bottom: 10px;
   font-size: 1.3rem !important;
 }
 
-.signup .signupright .box .boxcontent .headercontainer p{
+.signup .signupright .box .boxcontent .headercontainer p {
   margin-top: 10px;
 }
 
-.login .loginright .box .boxcontent .inputcontainer, .signup .signupright .box .boxcontent .inputcontainer{
+.login .loginright .box .boxcontent .inputcontainer,
+.signup .signupright .box .boxcontent .inputcontainer {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -188,11 +212,11 @@ p{
   align-items: flex-start;
 }
 
-.signup .signupright .box .boxcontent .inputcontainer .MuiGrid-item{
+.signup .signupright .box .boxcontent .inputcontainer .MuiGrid-item {
   padding: 0px auto;
 }
 
-.login .loginright .box .boxcontent .forgetcontainer{
+.login .loginright .box .boxcontent .forgetcontainer {
   margin-top: 20px;
 }
 
@@ -207,7 +231,7 @@ p{
 
 /** sidebar css */
 
-.sidebar{
+.sidebar {
   position: absolute;
   width: 70px;
   height: 95vh;
@@ -221,7 +245,7 @@ p{
   align-items: center;
 }
 
-.sidebar .sidebarcontent{
+.sidebar .sidebarcontent {
   width: 90%;
   height: 95%;
   display: flex;
@@ -232,31 +256,30 @@ p{
   z-index: 100;
 }
 
-.sidebar .sidebarcontent .logo{
-  margin-bottom: 30px !important;; 
+.sidebar .sidebarcontent .logo {
+  margin-bottom: 30px !important;
 }
 
-.sidebar .sidebarcontent .sidebaritem{
+.sidebar .sidebarcontent .sidebaritem {
   margin: 15px 0px;
   padding: 8px;
   cursor: pointer;
 }
 
-.sidebaritem.active{
+.sidebaritem.active {
   background-color: #ffffff;
   border-radius: 12px;
 }
 
-.sidebaritem.active img{
+.sidebaritem.active img {
   filter: invert(1);
 }
-
 
 /** sidebar css ends */
 
 /** topbar css **/
 
-.topbar{
+.topbar {
   position: absolute;
   width: calc(100vw - 125px);
   height: 70px;
@@ -267,20 +290,20 @@ p{
   align-items: center;
 }
 
-.topbar .searchbarbox{
+.topbar .searchbarbox {
   width: 35%;
   min-width: 300px;
   max-width: 600px;
   height: 55px;
-  background: #F0F0F0;
+  background: #f0f0f0;
   border-radius: 20px;
 }
 
-.topbar .searchbarbox .textfield fieldset{
+.topbar .searchbarbox .textfield fieldset {
   border: none;
 }
 
-.topbar .profilebox{
+.topbar .profilebox {
   width: 20%;
   min-width: 300px;
   max-width: 350px;
@@ -290,7 +313,7 @@ p{
   align-items: flex-start;
 }
 
-.topbar .profilebox .notificationbox{
+.topbar .profilebox .notificationbox {
   width: max-content;
   height: 100%;
   display: flex;
@@ -299,7 +322,7 @@ p{
   position: relative;
 }
 
-.topbar .profilebox .profileimagebox{
+.topbar .profilebox .profileimagebox {
   width: 80%;
   height: 100%;
   display: flex;
@@ -307,7 +330,7 @@ p{
   justify-content: flex-end;
 }
 
-.topbar .profilebox .profileimagebox .profilename{
+.topbar .profilebox .profileimagebox .profilename {
   width: calc(100% - 95px);
   height: 100%;
   margin-right: 0px;
@@ -317,8 +340,8 @@ p{
   justify-content: center;
 }
 
-.topbar .profilebox .profileimagebox .profilename h3{
-  font-family: 'Roboto';
+.topbar .profilebox .profileimagebox .profilename h3 {
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -330,20 +353,20 @@ p{
   flex-grow: 0;
 }
 
-.topbar .profilebox .profileimagebox .profilename h4{
-  font-family: 'Roboto';
+.topbar .profilebox .profileimagebox .profilename h4 {
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   text-align: right;
-  color: #6D6968;
+  color: #6d6968;
   flex: none;
   order: 0;
   flex-grow: 0;
 }
 
-.topbar .profilebox .profileimagebox .profileimage{
+.topbar .profilebox .profileimagebox .profileimage {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -354,7 +377,7 @@ p{
   justify-content: center;
 }
 
-.topbar .profilebox .profileimagebox .profileimage .profileavatar{
+.topbar .profilebox .profileimagebox .profileimage .profileavatar {
   width: 100%;
   height: 100%;
   border-radius: inherit;
@@ -365,8 +388,7 @@ p{
 
 /* Index ROute CSS */
 
-
-.indexRoute{
+.indexRoute {
   width: 100vw;
   height: calc(100vh - 125px);
 }
@@ -385,10 +407,9 @@ p{
 
 /* Index ROute CSS Ends*/
 
-
 /** home css **/
 
-.home{
+.home {
   width: 100vw;
   height: calc(100vh - 125px);
 }
@@ -405,7 +426,11 @@ p{
   align-items: center;
 }
 
-.homecontent .friend,.homecontent .dashboard,.homecontent .mention,.homecontent .reminder,.homecontent .share{
+.homecontent .friend,
+.homecontent .dashboard,
+.homecontent .mention,
+.homecontent .reminder,
+.homecontent .share {
   width: 100%;
   height: 100%;
   display: flex;
@@ -417,26 +442,28 @@ p{
 
 /** friend css **/
 
-.friend{
+.friend {
   width: 100%;
   height: 100%;
 }
 
-.friend .friendbox{
+.friend .friendbox {
   justify-content: flex-start;
   padding: 0px;
   margin: 0px;
 }
 
-.friend .friendbox .friendcontentbox{
+.friend .friendbox .friendcontentbox {
   height: calc(100vh - 125px);
   padding: 0px;
 }
 
-.friendcontentbox .friends,.friendcontentbox .friendrequest,.friendcontentbox .friendsuggestion{
+.friendcontentbox .friends,
+.friendcontentbox .friendrequest,
+.friendcontentbox .friendsuggestion {
   height: calc(100vh - 130px);
-  background: #F0F0F0;
-  filter: drop-shadow(0px 0.5px 0.5px #F0F0F0);
+  background: #f0f0f0;
+  filter: drop-shadow(0px 0.5px 0.5px #f0f0f0);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -446,7 +473,9 @@ p{
   overflow-y: scroll;
 }
 
-.friends .friendsheading,.friendrequest .friendrequestheading,.friendsuggestion .friendsuggestionheading{
+.friends .friendsheading,
+.friendrequest .friendrequestheading,
+.friendsuggestion .friendsuggestionheading {
   width: 90%;
   height: auto;
   padding: 25px 0px 15px 0px;
@@ -455,12 +484,14 @@ p{
   align-items: center;
   position: sticky;
   top: 0px;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
   z-index: 1;
 }
 
-.friends .friendsheading p:nth-child(1),.friendrequest .friendrequestheading p:nth-child(1),.friendsuggestion .friendsuggestionheading p:nth-child(1){
-  font-family: 'Roboto';
+.friends .friendsheading p:nth-child(1),
+.friendrequest .friendrequestheading p:nth-child(1),
+.friendsuggestion .friendsuggestionheading p:nth-child(1) {
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 23px;
@@ -468,7 +499,9 @@ p{
   color: #000000;
 }
 
-.friends .friendscontent, .friendrequest .friendrequestcontent, .friendsuggestion .friendsuggestioncontent{
+.friends .friendscontent,
+.friendrequest .friendrequestcontent,
+.friendsuggestion .friendsuggestioncontent {
   width: 100%;
   height: auto;
   display: flex;
@@ -478,14 +511,22 @@ p{
   padding-bottom: 15px;
 }
 
+ .noFriends {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 450px;
+  width: 100%;
+}
+
 /** friend css ends **/
 
 /** friendcard css **/
 
-.friendcard{
+.friendcard {
   width: 90%;
   height: 70px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 20px;
   display: flex;
   justify-content: space-between;
@@ -493,7 +534,7 @@ p{
   margin: 12px 0px 0px 0px;
 }
 
-.friendcard .profileimagebox{
+.friendcard .profileimagebox {
   width: 55%;
   height: 100%;
   display: flex;
@@ -501,7 +542,7 @@ p{
   justify-content: flex-start;
 }
 
-.friendcard .profileimagebox .profileimage{
+.friendcard .profileimagebox .profileimage {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -512,14 +553,14 @@ p{
   justify-content: center;
 }
 
-.friendcard .profileimagebox .profileimage img{
+.friendcard .profileimagebox .profileimage img {
   width: 100%;
   height: 100%;
   border-radius: inherit;
   object-fit: contain;
 }
 
-.friendcard .profileimagebox .profilename{
+.friendcard .profileimagebox .profilename {
   width: calc(100% - 85px);
   height: 100%;
   margin-left: 15px;
@@ -529,8 +570,8 @@ p{
   justify-content: center;
 }
 
-.friendcard .profileimagebox .profilename h3{
-  font-family: 'Roboto';
+.friendcard .profileimagebox .profilename h3 {
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -542,20 +583,20 @@ p{
   flex-grow: 0;
 }
 
-.friendcard .profileimagebox .profilename h4{
-  font-family: 'Roboto';
+.friendcard .profileimagebox .profilename h4 {
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   text-align: right;
-  color: #6D6968;
+  color: #6d6968;
   flex: none;
   order: 0;
   flex-grow: 0;
 }
 
-.friendcard .friendactions{
+.friendcard .friendactions {
   width: 45%;
   height: 100%;
   display: flex;
@@ -563,7 +604,9 @@ p{
   justify-content: flex-end;
 }
 
-.friendcard .friendactions .accept,.friendcard .friendactions .remove,.friendcard .friendactions .request{
+.friendcard .friendactions .accept,
+.friendcard .friendactions .remove,
+.friendcard .friendactions .request {
   width: 100%;
   height: 100%;
   display: flex;
@@ -572,19 +615,21 @@ p{
   margin-right: 10px;
 }
 
-.friendcard .friendactions .accept .acceptbutton, .friendcard .friendactions .remove .removebutton, .friendcard .friendactions .request .requestbutton{
+.friendcard .friendactions .accept .acceptbutton,
+.friendcard .friendactions .remove .removebutton,
+.friendcard .friendactions .request .requestbutton {
   width: 85px !important;
   height: 26px;
   margin: 0px !important;
-  background: #BEBEBE;
+  /* background: rgba(55, 106, 205, 0.87) !important; */
   border-radius: 6px;
   cursor: pointer;
   text-transform: capitalize;
 }
 
-.friendcard .friendactions .custombuttonremoveclass .removebutton, .friendcard .friendactions .custombuttonrequestclass .requestbutton{
-  background: rgba(55, 106, 205, 0.87) !important;
+.friendcard .friendactions .custombuttonremoveclass .removebutton,
+.friendcard .friendactions .custombuttonrequestclass .requestbutton {
+  /* background: rgba(55, 106, 205, 0.87) !important; */
 }
-
 
 /** friendcard css ends **/

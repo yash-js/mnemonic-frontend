@@ -9,7 +9,6 @@ const RequireAuth = ({ children }) => {
   const token = useSelector(getToken);
   const user = useSelector(userData);
   const dispatch = useDispatch();
-  console.log(userData);
   useEffect(() => {
     return async () => {
       if (token && (!user || user === null)) {
@@ -17,7 +16,6 @@ const RequireAuth = ({ children }) => {
         const response = await getUser(token);
         dispatch(userdata(response?.data?.user));
         dispatch(isLoading(false))
-        console.log(response);
       }
     };
   });
