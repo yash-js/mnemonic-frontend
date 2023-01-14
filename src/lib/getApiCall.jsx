@@ -62,3 +62,16 @@ export const getSuggestions = async () => {
     return error;
   }
 };
+
+export const removeFriend = async (id) => {
+  try {
+    const resp = await axios.delete("/friend/remove", {
+      data: {
+        id,
+      },
+    });
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
-function share() {
-    return (
-        <div className='share'>share</div>
-    )
+function Share() {
+  useEffect(() => {
+    return () => (document.title = "Share");
+  });
+  return <div className="share">share</div>;
 }
 
-export default share
+export default Share;
