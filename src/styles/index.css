@@ -359,6 +359,29 @@ p{
 
 /** topbar css ends **/
 
+/* Index ROute CSS */
+
+
+.indexRoute{
+  width: 100vw;
+  height: calc(100vh - 125px);
+}
+
+.indexRoute .indexRouteContent {
+  width: calc(100% - 130px);
+  height: calc(100% - 70px);
+  margin-left: 110px;
+  margin-right: 20px;
+  margin-top: 105px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Index ROute CSS Ends*/
+
+
 /** home css **/
 
 .home{
@@ -366,9 +389,9 @@ p{
   height: calc(100vh - 125px);
 }
 
-.home .homecontent{
+.home .homecontent {
   width: calc(100% - 130px);
-  height: 100%;
+  height: calc(100% - 70px);
   margin-left: 110px;
   margin-right: 20px;
   margin-top: 105px;

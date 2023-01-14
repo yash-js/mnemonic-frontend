@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RequireAuth from "./helper/RequireAuth";
+import IndexRoute from "./layouts/IndexRoute";
 import LoginSkeleton from "./skeletons/LoginSkeleton";
 
 const LoginComponent = React.lazy(() => import("./pages/login"));
@@ -97,64 +98,50 @@ const ShareComp = () => {
   );
 };
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <HomepageComp />,
-//     errorElement: <ErrorComp />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <HomepageComp />,
-//       },
-//       {
-//         path: "/friend",
-//         element: <FriendComp />,
-//       },
-//       {
-//         path: "/mention",
-//         element: <MentionComp />,
-//       },
-//       {
-//         path: "/reminder",
-//         element: <ReminderComp />,
-//       },
-//       {
-//         path: "/share",
-//         element: <ShareComp />,
-//       },
-//     ],
-//   },
-//   {
-//     path: "/signin",
-//     element: <LoginComp />,
-//     errorElement: <ErrorComp />,
-//   },
-//   {
-//     path: "/signup",
-//     element: <SignUpComp />,
-//     errorElement: <ErrorComp />,
-//   },
-// ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <IndexRoute />,
+    errorElement: <ErrorComp />,
+    children: [
+      {
+        path: "/",
+        element: <HomepageComp />,
+      },
+      {
+        path: "/friend",
+        element: <FriendComp />,
+      },
+      {
+        path: "/mention",
+        element: <MentionComp />,
+      },
+      {
+        path: "/reminder",
+        element: <ReminderComp />,
+      },
+      {
+        path: "/share",
+        element: <ShareComp />,
+      },
+    ],
+  },
+  {
+    path: "/signin",
+    element: <LoginComp />,
+    errorElement: <ErrorComp />,
+  },
+  {
+    path: "/signup",
+    element: <SignUpComp />,
+    errorElement: <ErrorComp />,
+  },
+]);
 
 function App() {
   return (
     <React.StrictMode>
-      {/* <RouterProvider router={router} /> */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomepageComp />}>
-            <Route index element={<HomepageComp />} />
-            <Route path="friend" element={<FriendComp />} />
-            <Route path="mention" element={<MentionComp />} />
-            <Route path="reminder" element={<ReminderComp />} />
-            <Route path="share" element={<ShareComp />} />
-          </Route>
-          <Route path="signin" element={<LoginComp />} />
-          <Route path="signup" element={<SignUpComp />} />
-          <Route path="*" element={<ErrorComp />} />
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </React.StrictMode>
   );
 }

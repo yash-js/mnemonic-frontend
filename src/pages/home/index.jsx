@@ -9,11 +9,7 @@ const Home = () => {
   });
   return (
     <div className="home">
-      <TopBar />
-      <SideBar />
-      <div className="homecontent">
-        <Outlet />
-      </div>
+      <div className="homecontent">Home</div>
     </div>
   );
 };
