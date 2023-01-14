@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
-function reminder() {
-    return (
-        <div className='reminder'>reminder</div>
-    )
+function Reminder() {
+  useEffect(() => {
+    return () => (document.title = "Reminder");
+  });
+  return <div className="reminder">reminder</div>;
 }
 
-export default reminder
+export default Reminder;

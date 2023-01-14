@@ -5,10 +5,13 @@ import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
 import { signIn } from "../../lib/getApiCall";
 import { login } from "../../features/userSlice";
+import {
+  setFriends,
+  setRequests
+} from "../../features/friendsSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
 import "../../styles/index.css";
-import { setFriends, setRequests } from "../../features/friendsSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -29,7 +32,7 @@ function Login() {
   const handleClick = async () => {
     setLoading(true);
     const res = await signIn({ email, password });
-    if (res?.status === 200) {
+    if (res?.status === 200 && res?.data && res?.data?.user) {
       dispatch(login(res?.data?.user));
       dispatch(setFriends(res?.data?.user?.friends));
       dispatch(setRequests(res?.data?.user?.requests));
@@ -41,7 +44,7 @@ function Login() {
   };
 
   useEffect(() => {
-    document.title = "Sign In";
+    return () => (document.title = "Sign In");
   });
 
   return (

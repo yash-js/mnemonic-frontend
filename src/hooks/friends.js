@@ -15,8 +15,8 @@ import {
   setSuggestionsLoading,
   suggestionsLoadingState,
 } from "../features/friendsSlice";
-import { loadingState } from "../features/userSlice";
-import { getFriendRequests, getFriends } from "../lib/getApiCall";
+import { isLoading, loadingState } from "../features/userSlice";
+import { getFriendRequests, getFriends, removeFriend } from "../lib/getApiCall";
 
 export const useFriends = () => {
   const friends = useSelector(getFriendsList);
@@ -32,7 +32,9 @@ export const useFriends = () => {
     if (!friends || friends.length < 1) {
       dispatch(setFriendsLoading(true));
       const resp = await getFriends();
-      dispatch(setFriends(resp?.data));
+      if (resp && resp?.data) {
+        dispatch(setFriends(resp?.data));
+      }
       dispatch(setFriendsLoading(false));
     }
   };
@@ -48,10 +50,18 @@ export const useFriends = () => {
   const getSuggestionsApiCall = async () => {
     if (!suggestions || suggestions.length < 1) {
       const resp = await getSuggestionsList();
-      console.log(resp?.data);
-      dispatch(setSuggestions(resp?.data));
+      if (resp && resp?.data) {
+        dispatch(setSuggestions(resp?.data));
+      }
       dispatch(setSuggestionsLoading(false));
     }
+  };
+
+  const removeFriendApiCall = async (id) => {
+    dispatch(isLoading(true));
+    const resp = await removeFriend(id);
+    await getFriendsApiCall();
+    dispatch(isLoading(false));
   };
 
   return {
@@ -65,5 +75,6 @@ export const useFriends = () => {
     getFriendsApiCall,
     getRequestsApiCall,
     getSuggestionsApiCall,
+    removeFriendApiCall,
   };
 };

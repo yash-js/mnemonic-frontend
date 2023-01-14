@@ -10,6 +10,7 @@ function FriendCard({
   custombuttonacceptclass,
   custombuttonremoveclass,
   custombuttonrequestclass,
+  onClick
 }) {
   return (
     <div className="friendcard">
@@ -32,6 +33,7 @@ function FriendCard({
             <ButtonComponent
               color={"error"}
               extraclass="removebutton"
+              onClick={onClick}
               buttontext={custombuttonremoveclass ? "Delete" : "Remove"}
             />
           </div>
