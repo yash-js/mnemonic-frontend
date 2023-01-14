@@ -152,6 +152,7 @@ function App() {
           </Route>
           <Route path="signin" element={<LoginComp />} />
           <Route path="signup" element={<SignUpComp />} />
+          <Route path="*" element={<ErrorComp />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
