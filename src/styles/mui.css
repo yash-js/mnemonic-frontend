@@ -10,6 +10,10 @@
   padding: 15.75px !important;
 }
 
+/** for Inputfield **/
+
+/** signup and signin **/
+
 .signinInput {
   margin: 25px 0px 0px 0px !important;
 }
@@ -21,6 +25,30 @@
 .signupbtn {
   margin: 5px 0px 10px 0px !important;
 }
+
+/** signup and signin **/
+
+/** searchbar **/
+
+.MuiOutlinedInput-notchedOutline{
+  border: none !important;
+}
+
+/** searchbar **/
+
+/** Autocomplete dropdown **/
+
+.MuiAutocomplete-popper{
+  margin-top: 10px !important;
+}
+
+.MuiAutocomplete-popper .MuiAutocomplete-paper:hover,.MuiAutocomplete-popper .MuiAutocomplete-paper .MuiAutocomplete-listbox:hover{
+  background-color: #ffffff !important;
+}
+
+/** Autocomplete dropdown **/
+
+/** for notification alert **/
 
 .notificationalert {
   position: relative !important;
@@ -37,9 +65,4 @@
   height: 100%;
 }
 
-.searchResultContainer .MuiPaper-root {
-  left: 115px !important;
-  width: 35% !important;
-  max-height: 55% !important;
-  height: max-content;
-}
+/** for notification alert **/

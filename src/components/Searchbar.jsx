@@ -1,6 +1,5 @@
-import { Menu, MenuItem, Skeleton, TextField } from "@mui/material";
+import React from "react";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
 import InputField from "./InputField";
 import search from "../assets/images/search.svg";
 import FriendCard from "../layouts/FriendCard";
@@ -51,6 +50,7 @@ const Searchbar = () => {
             profileusername={option?.username}
             profileimage={option?.profilePic}
             porfileLastname={option?.lastName}
+            name={'friendsuggestion'}
           />
         </Box>
       )}

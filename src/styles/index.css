@@ -380,6 +380,10 @@ p {
 
 /* for notification dropdown box */
 
+.topbar .notificationbox button{
+  margin: 0px;
+}
+
 #notificationmenu ul {
   /* height: 245px; */
   overflow: scroll;
@@ -414,6 +418,10 @@ p {
   flex: none;
   order: 0;
   flex-grow: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 130px;
+  white-space: nowrap;
 }
 
 .topbar .profilebox .profileimagebox .profilename h4 {
@@ -568,6 +576,10 @@ p {
   justify-content: flex-start;
 }
 
+.friendcard .profileimagebox:hover, .friendcard .profileimagebox .profilename:hover, .friendcard .profileimagebox .profilename h3:hover, .friendcard .profileimagebox .profilename h4:hover {
+  background-color: #fff !important;
+}
+
 .friendcard .profileimagebox .profileimage {
   width: 60px;
   height: 60px;
@@ -628,6 +640,10 @@ p {
   justify-content: flex-end;
 }
 
+.friendcard .friendactions:hover, .friendcard .friendactions .accept:hover, .friendcard .friendactions .remove:hover, .friendcard .friendactions .request:hover{
+  background: #ffffff !important;
+}
+
 .friendcard .friendactions .accept,
 .friendcard .friendactions .remove,
 .friendcard .friendactions .request {
@@ -645,7 +661,7 @@ p {
   width: 85px !important;
   height: 26px;
   margin: 0px !important;
-  /* background: rgba(55, 106, 205, 0.87) !important; */
+  background: rgba(55, 106, 205, 0.87) !important;
   border-radius: 6px;
   cursor: pointer;
   text-transform: capitalize;

@@ -1,5 +1,4 @@
 import React from "react";
-import InputField from "../components/InputField";
 import ProfileMenu from "../components/ProfileMenu";
 import { useSelector } from "react-redux";
 import { loadingState, userData } from "../features/userSlice";
@@ -13,7 +12,7 @@ function TopBar() {
 
   return (
     <div className="topbar">
-    <Searchbar/>
+      <Searchbar/>
       <div className="profilebox">
         <div className="notificationbox">
           <Notifications />
