@@ -66,3 +66,26 @@
 }
 
 /** for notification alert **/
+
+/** for popover **/
+#simple-popover{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+#simple-popover .MuiPaper-elevation{
+  position: revert !important;
+  width: 70%;
+  min-width: 280px;
+  height: 75%;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/** for popover ends **/

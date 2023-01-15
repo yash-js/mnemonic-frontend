@@ -238,14 +238,14 @@ p {
 
 .indexRoute .indexRouteContent {
   width: calc(100% - 130px);
-  height: calc(100% - 120px);
+  height: calc(100% - 20px);
   margin-left: 110px;
   margin-right: 20px;
-  margin-top: 105px;
-  margin-bottom: 20px;
+  margin-top: 110px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center
 }
 
 /* Index ROute CSS Ends*/
@@ -461,6 +461,53 @@ p {
 
 /** topbar css ends **/
 
+/** popover css **/
+
+.notebtn{
+  position: absolute;
+  bottom: 3%;
+  right: 3%;
+}
+
+#simple-popover .notecontent.homecontentpopover{
+  display: block !important;
+  width: 100%;
+  height: 97%;
+  background: rgba(109, 105, 104, 0.8);
+  backdrop-filter: blur(10px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 24px;
+}
+
+#simple-popover .notecontent .notetop{
+  width: calc(100% - 40px);
+  height: 70px;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#simple-popover .notecontent .notetop .noteheading h1{
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 33px;
+  color: #ffffff;
+}
+
+#simple-popover .notecontent .notebottom{
+  width: calc(100% - 40px);
+  height: calc(100% - 70px);
+  padding: 0px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/** popover css ends **/
+
 /** home css **/
 
 .home {
@@ -475,8 +522,6 @@ p {
   justify-content: center;
   align-items: center;
 }
-
-
 
 /** home css ends **/
 
@@ -511,6 +556,10 @@ p {
   align-items: center;
   margin: 10px 10px 0px 0px;
   overflow-y: scroll;
+}
+
+.friends, .friendrequest, .friendsuggestion {
+  height: calc(100% - 10px) !important;
 }
 
 .friends .friendsheading,
@@ -581,7 +630,7 @@ p {
 }
 
 .friendcard .profileimagebox:hover, .friendcard .profileimagebox .profilename:hover, .friendcard .profileimagebox .profilename h3:hover, .friendcard .profileimagebox .profilename h4:hover {
-  background-color: #fff !important;
+  background-color: transparent !important;
 }
 
 .friendcard .profileimagebox .profileimage {
@@ -645,7 +694,7 @@ p {
 }
 
 .friendcard .friendactions:hover, .friendcard .friendactions .accept:hover, .friendcard .friendactions .remove:hover, .friendcard .friendactions .request:hover{
-  background: #ffffff !important;
+  background: transparent !important;
 }
 
 .friendcard .friendactions .accept,
