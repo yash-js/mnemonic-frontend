@@ -94,3 +94,12 @@ export const searchUser = async (query) => {
     return error;
   }
 };
+
+export const addFriend = async (id) => {
+  try {
+    const resp = await axios.post(`/friend/add/${id}`);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};

@@ -10,7 +10,8 @@ function FriendCard({
   custombuttonacceptclass,
   custombuttonremoveclass,
   custombuttonrequestclass,
-  onClick
+  onClick,
+  requestBtnText,
 }) {
   return (
     <div className="friendcard">
@@ -49,12 +50,12 @@ function FriendCard({
           </div>
         )}
         {name === "friendsuggestion" && (
-          <div
-            className={`request ${
-              custombuttonrequestclass ? "custombuttonrequestclass" : null
-            }`}
-          >
-            <ButtonComponent extraclass="requestbutton" buttontext="Request" />
+          <div className={`request ${custombuttonrequestclass}`}>
+            <ButtonComponent
+              onClick={onClick}
+              extraclass="requestbutton"
+              buttontext={requestBtnText ? requestBtnText : "Add Friend"}
+            />
           </div>
         )}
       </div>

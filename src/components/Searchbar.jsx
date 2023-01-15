@@ -6,6 +6,8 @@ import FriendCard from "../layouts/FriendCard";
 import { useSearch } from "../hooks/search";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useSelector } from "react-redux";
+import { getRequestsList } from "../features/friendsSlice";
 
 const Searchbar = () => {
   const {
@@ -17,9 +19,11 @@ const Searchbar = () => {
     setOpen,
     searchApiCall,
     setSearchQuery,
+    setResults,
+    callAddFriendApi,
   } = useSearch();
-
-
+  const requests = useSelector(getRequestsList);
+  console.log(requests);
   return (
     <Autocomplete
       id="asynchronous-demo"
@@ -38,6 +42,7 @@ const Searchbar = () => {
       onClose={() => {
         setOpen(false);
         setSearchQuery("");
+        setResults([]);
       }}
       getOptionLabel={(option) => option.firstName}
       noOptionsText={"User Not Found"}
@@ -50,7 +55,16 @@ const Searchbar = () => {
             profileusername={option?.username}
             profileimage={option?.profilePic}
             porfileLastname={option?.lastName}
-            name={'friendsuggestion'}
+            name={"friendsuggestion"}
+            custombuttonrequestclass={"searchAddFriend"}
+            requestBtnText={
+              requests &&
+              requests.filter((request) => request._id === option._id).length >
+                0
+                ? "Requested"
+                : "Add Friend"
+            }
+            onClick={() => callAddFriendApi(option._id)}
           />
         </Box>
       )}

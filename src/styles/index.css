@@ -376,6 +376,10 @@ p {
   width: 100%;
 }
 
+.searchAddFriend button{
+  width: 105px !important;
+}
+
 /* Search CSS end */
 
 /* for notification dropdown box */
@@ -658,7 +662,7 @@ p {
 .friendcard .friendactions .accept .acceptbutton,
 .friendcard .friendactions .remove .removebutton,
 .friendcard .friendactions .request .requestbutton {
-  width: 85px !important;
+  width: 85px;
   height: 26px;
   margin: 0px !important;
   background: rgba(55, 106, 205, 0.87) !important;

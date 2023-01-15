@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { searchUser } from "../lib/getApiCall";
+import { addFriend, searchUser } from "../lib/getApiCall";
 
 export const useSearch = () => {
   const [searchResLoading, setSearchResLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = useState(false);
   function sleep(delay = 0) {
     return new Promise((resolve) => {
       setTimeout(resolve, delay);
@@ -25,6 +26,13 @@ export const useSearch = () => {
       setSearchResLoading(false);
     }, 1500);
     return clearTimeout();
+  };
+
+  const callAddFriendApi = async (id) => {
+    setLoading(true);
+    const res = await addFriend(id);
+    setLoading(false);
+    console.log("added", res);
   };
 
   React.useEffect(() => {
@@ -64,6 +72,8 @@ export const useSearch = () => {
     open,
     setOpen,
     searchApiCall,
-    setSearchQuery
+    setSearchQuery,
+    setResults,
+    callAddFriendApi,
   };
 };
