@@ -5,16 +5,13 @@ import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
 import { signIn } from "../../lib/getApiCall";
 import { login } from "../../features/userSlice";
-import {
-  setFriends,
-  setRequests
-} from "../../features/friendsSlice";
+import { setFriends, setRequests } from "../../features/friendsSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
 import "../../styles/index.css";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,7 +19,10 @@ function Login() {
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
   const [isLoading, setLoading] = useState(false);
-
+  const emailRegex = new RegExp(
+    /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
+    "gm"
+  );
   const openAlert = (open, type, message) => {
     setOpen(open);
     setMessage(message);
@@ -31,7 +31,7 @@ function Login() {
 
   const handleClick = async () => {
     setLoading(true);
-    const res = await signIn({ email, password });
+    const res = await signIn({ username, password });
     if (res?.status === 200 && res?.data && res?.data?.user) {
       dispatch(login(res?.data?.user));
       dispatch(setFriends(res?.data?.user?.friends));
@@ -71,10 +71,11 @@ function Login() {
               <div className="inputcontainer">
                 <InputField
                   type="email"
-                  label="Email"
+                  label={username ? emailRegex.test(username) ? "Email" : "Username" : "Email or Username"}
                   name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={"Email or Username"}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   extraclass={"signinInput"}
                   disabled={isLoading}
                 />
@@ -94,8 +95,8 @@ function Login() {
                   onClick={handleClick}
                   buttontext="Login"
                   extraclass="loginbtn"
-                  disabled={isLoading}
                   isLoading={isLoading}
+                  disabled={isLoading || !username || !password}
                 />
               </div>
               <div className="forgetcontainer">

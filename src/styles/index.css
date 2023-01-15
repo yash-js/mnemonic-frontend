@@ -290,16 +290,16 @@ p {
   align-items: center;
 }
 
-.topbar .searchbarbox {
+.searchbarbox  {
   width: 35%;
-  min-width: 300px;
+  min-width: 480px;
   max-width: 600px;
   height: 55px;
   background: #f0f0f0;
   border-radius: 20px;
 }
 
-.topbar .searchbarbox .textfield fieldset {
+.searchbarbox .textfield fieldset {
   border: none;
 }
 
@@ -325,7 +325,7 @@ p {
 /* for notification dropdown box */
 
 #notificationmenu ul{
-  height: 245px;
+  /* height: 245px; */
   overflow: scroll;
 }
 

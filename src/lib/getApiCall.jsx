@@ -11,6 +11,9 @@ export const signIn = async (data) => {
 
 export const signUp = async (data) => {
   try {
+    if (!data.profilePic) {
+      data.profilePic = `https://ui-avatars.com/api/?name=${data.firstName + "+" + data.lastName}`
+    }
     const resp = await axios.post("/signup", data);
     return resp;
   } catch (error) {
@@ -65,11 +68,16 @@ export const getSuggestions = async () => {
 
 export const removeFriend = async (id) => {
   try {
-    const resp = await axios.delete("/friend/remove", {
-      data: {
-        id,
-      },
-    });
+    const resp = await axios.delete(`/friend/remove/${id}`);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const acceptFriendRequest = async (id) => {
+  try {
+    const resp = await axios.post(`/friend/accept/${id}`);
     return resp;
   } catch (error) {
     return error;

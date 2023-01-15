@@ -1,10 +1,32 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-import InputAdornment from '@mui/material/InputAdornment';
+import InputAdornment from "@mui/material/InputAdornment";
 import "../styles/mui.css";
 
-function InputField({disabled, extraclass, placeholder, type, label, name, value, onChange, starticon, endicon, starticoncss, endiconcss }) {
+function InputField({
+  disabled,
+  extraclass,
+  placeholder,
+  type,
+  label,
+  name,
+  value,
+  onChange,
+  starticon,
+  endicon,
+  starticoncss,
+  endiconcss,
+  error,
+  errorText,
+  onFocusField
+}) {
   const [readOnly, setReadOnly] = useState(true);
+
+  const onFocus = () => {
+    setReadOnly(false);
+    onFocusField()
+  };
+
   return (
     <TextField
       id="outlined-basic"
@@ -20,21 +42,21 @@ function InputField({disabled, extraclass, placeholder, type, label, name, value
       aria-autocomplete="none"
       disabled={disabled}
       readOnly={readOnly}
-      onFocus={ () => setReadOnly(false) }
+      onFocus={onFocus}
       InputProps={{
-        startAdornment: (
-          starticon &&
+        startAdornment: starticon && (
           <InputAdornment position="start">
             <img src={starticon} alt="start icon" style={starticoncss} />
           </InputAdornment>
         ),
-        endAdornment: (
-          endicon &&
+        endAdornment: endicon && (
           <InputAdornment position="end">
             <img src={endicon} alt="end icon" style={endiconcss} />
           </InputAdornment>
-        )
+        ),
       }}
+      error={error}
+      helperText={errorText}
     />
   );
 }

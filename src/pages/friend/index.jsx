@@ -1,23 +1,27 @@
 import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import FriendCard from "../../layouts/FriendCard";
-import notification from "../../assets/images/notification.svg";
 import FriendsSkeleton from "../../skeletons/FriendsSkeleton";
 import { useFriends } from "../../hooks/friends";
+import AlertComponent from "../../components/AlertComponent";
 
 function Friend() {
-  const {
+   const {
     friends,
     loading,
     requests,
-    suggestions,
-    suggestionLoading,
     friendsLoading,
     requestsLoading,
     getFriendsApiCall,
     getRequestsApiCall,
-    getSuggestionsApiCall,
-    removeFriendApiCall
+    removeFriendApiCall,
+    open,
+    setOpen,
+    message,
+    setMessage,
+    type,
+    setType,
+    acceptFriendRequestApiCall
   } = useFriends();
 
   useEffect(() => {
@@ -26,7 +30,6 @@ function Friend() {
     return () => {
       getFriendsApiCall();
       getRequestsApiCall();
-      getSuggestionsApiCall()
     };
   }, []);
 
@@ -52,7 +55,6 @@ function Friend() {
                 <FriendsSkeleton />
               ) : friends && friends?.length > 0 ? (
                 friends?.map((item) => {
-                  console.log(item);
                   return (
                     <FriendCard
                       key={item._id}
@@ -99,6 +101,7 @@ function Friend() {
                       porfileLastname={item?.lastName}
                       profileusername={item?.username}
                       custombuttonremoveclass={true}
+                      onClick={()=>acceptFriendRequestApiCall(item?._id)}
                     />
                   );
                 })
@@ -147,6 +150,14 @@ function Friend() {
           </div>
         </Grid> */}
       </Grid>
+      <AlertComponent
+        setOpen={setOpen}
+        setType={setType}
+        setMessage={setMessage}
+        alertOpen={open}
+        alertMessage={message}
+        alertType={type}
+      />
     </div>
   );
 }

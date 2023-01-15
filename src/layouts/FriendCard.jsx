@@ -44,6 +44,7 @@ function FriendCard({
               color={"primary"}
               extraclass="acceptbutton"
               buttontext="Accept"
+              onClick={onClick}
             />
           </div>
         )}

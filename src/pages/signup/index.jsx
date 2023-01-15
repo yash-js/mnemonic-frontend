@@ -24,7 +24,7 @@ function Signup() {
   const [type, setType] = useState("");
   const [file, setFile] = useState("");
   const [isLoading, setLoading] = useState(false);
-
+  const [error, setError] = useState({});
   const openAlert = (open, type, message) => {
     setOpen(open);
     setMessage(message);
@@ -32,10 +32,8 @@ function Signup() {
   };
 
   const handleClick = async () => {
+    onFocusField()
     setLoading(true);
-    if (!file) {
-      setFile(`https://ui-avatars.com/api/?name=${firstName + "+" + lastName}`);
-    }
     const res = await signUp({
       firstName,
       lastName,
@@ -50,7 +48,14 @@ function Signup() {
       navigate("/signin");
     } else {
       setLoading(false);
-      openAlert(true, "error", res?.response?.data?.error);
+      if (res?.response?.data?.field) {
+        setError({
+          field: res?.response?.data?.field,
+          error: res?.response?.data?.error,
+        });
+      } else {
+        openAlert(true, "error", res?.response?.data?.error);
+      }
     }
   };
 
@@ -59,9 +64,12 @@ function Signup() {
     setFile(base64);
   };
 
+  const onFocusField = () => setError({});
   useEffect(() => {
-    document.title = "Sign Up"
- });
+    document.title = "Sign Up";
+  });
+
+  console.log("errobj", error);
   return (
     <Grid container className="signup">
       <Grid item xs={6} className="signupleft">
@@ -135,6 +143,11 @@ function Signup() {
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     disabled={isLoading}
+                    error={error && error.field === "firstName"}
+                    errorText={
+                      error && error.field === "firstName" && error.error
+                    }
+                    onFocusField={onFocusField}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -146,6 +159,11 @@ function Signup() {
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     disabled={isLoading}
+                    error={error && error.field === "lastName"}
+                    errorText={
+                      error && error.field === "lastName" && error.error
+                    }
+                    onFocusField={onFocusField}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -157,6 +175,9 @@ function Signup() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={isLoading}
+                    error={error && error.field === "email"}
+                    errorText={error && error.field === "email" && error.error}
+                    onFocusField={onFocusField}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -168,6 +189,11 @@ function Signup() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     disabled={isLoading}
+                    error={error && error.field === "username"}
+                    errorText={
+                      error && error.field === "username" && error.error
+                    }
+                    onFocusField={onFocusField}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -179,6 +205,11 @@ function Signup() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isLoading}
+                    error={error && error.field === "password"}
+                    errorText={
+                      error && error.field === "password" && error.error
+                    }
+                    onFocusField={onFocusField}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -190,6 +221,11 @@ function Signup() {
                     value={cpassword}
                     onChange={(e) => setCPassword(e.target.value)}
                     disabled={isLoading}
+                    error={error && error.field === "cpassword"}
+                    errorText={
+                      error && error.field === "cpassword" && error.error
+                    }
+                    onFocusField={onFocusField}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -198,15 +234,6 @@ function Signup() {
                     extraclass="signupbtn"
                     onClick={handleClick}
                     isLoading={isLoading}
-                    disabled={
-                      !firstName ||
-                      !lastName ||
-                      !username ||
-                      !email ||
-                      !password ||
-                      !cpassword ||
-                      isLoading
-                    }
                   />
                 </Grid>
               </Grid>

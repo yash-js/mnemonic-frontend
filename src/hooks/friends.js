@@ -1,32 +1,35 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { useEffect } from "react";
+import {  useState } from "react";
 import {
   friendsLoadingState,
   getFriendsList,
   getRequestsList,
-  getSuggestionsList,
   requestsLoadingState,
   setFriends,
   setFriendsLoading,
   setRequests,
   setRequestsLoading,
-  setSuggestions,
-  setSuggestionsLoading,
-  suggestionsLoadingState,
 } from "../features/friendsSlice";
 import { isLoading, loadingState } from "../features/userSlice";
-import { getFriendRequests, getFriends, removeFriend } from "../lib/getApiCall";
+import {
+  getFriendRequests,
+  getFriends,
+  removeFriend,
+  acceptFriendRequest,
+} from "../lib/getApiCall";
 
 export const useFriends = () => {
   const friends = useSelector(getFriendsList);
   const requests = useSelector(getRequestsList);
-  const suggestions = useSelector(getSuggestionsList);
   const loading = useSelector(loadingState);
   const friendsLoading = useSelector(friendsLoadingState);
   const requestsLoading = useSelector(requestsLoadingState);
-  const suggestionLoading = useSelector(suggestionsLoadingState);
   const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
 
   const getFriendsApiCall = async () => {
     if (!friends || friends.length < 1) {
@@ -47,34 +50,67 @@ export const useFriends = () => {
       dispatch(setRequestsLoading(false));
     }
   };
-  const getSuggestionsApiCall = async () => {
-    if (!suggestions || suggestions.length < 1) {
-      const resp = await getSuggestionsList();
-      if (resp && resp?.data) {
-        dispatch(setSuggestions(resp?.data));
-      }
-      dispatch(setSuggestionsLoading(false));
+  
+  // const getSuggestionsApiCall = async () => {
+  //   if (!suggestions || suggestions.length < 1) {
+  //     const resp = await getSuggestionsList();
+  //     if (resp && resp?.data) {
+  //       dispatch(setSuggestions(resp?.data));
+  //     }
+  //     dispatch(setSuggestionsLoading(false));
+  //   }
+  // };
+
+  const removeFriendApiCall = async (id) => {
+    dispatch(setFriendsLoading(true));
+    const res = await removeFriend(id);
+    if (res?.status === 200) {
+      setMessage(res?.data?.message);
+      setType("success");
+      setOpen(true);
+      dispatch(setFriends(friends.filter((friend) => friend.id !== id)));
+      dispatch(setFriendsLoading(false));
+    } else {
+      setMessage("Something Went Wrong!");
+      setType("error");
+      dispatch(setFriendsLoading(false));
+      setOpen(true);
     }
   };
 
-  const removeFriendApiCall = async (id) => {
-    dispatch(isLoading(true));
-    const resp = await removeFriend(id);
-    await getFriendsApiCall();
-    dispatch(isLoading(false));
+  const acceptFriendRequestApiCall = async (id) => {
+    dispatch(setRequestsLoading(true));
+    const res = await acceptFriendRequest(id);
+    if (res?.status === 200) {
+      setMessage(res?.data?.message);
+      setType("success");
+      setOpen(true);
+      dispatch(setRequests(requests.filter((friend) => friend.id !== id)));
+      // dispatch(setFriends([...friends, ))
+      dispatch(setRequestsLoading(false));
+    } else{
+      setMessage("Something Went Wrong!");
+      setType("error");
+      dispatch(setRequestsLoading(false));
+      setOpen(true);
+    }
   };
 
   return {
     friends,
     loading,
     requests,
-    suggestions,
-    suggestionLoading,
     friendsLoading,
     requestsLoading,
     getFriendsApiCall,
     getRequestsApiCall,
-    getSuggestionsApiCall,
     removeFriendApiCall,
+    acceptFriendRequestApiCall,
+    open,
+    setOpen,
+    message,
+    setMessage,
+    type,
+    setType,
   };
 };
