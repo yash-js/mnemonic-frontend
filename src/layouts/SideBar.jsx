@@ -29,7 +29,7 @@ function SideBar() {
   return (
     <div className="sidebar">
       <div className="sidebarcontent">
-        <div className="sidebaritem logo" onClick={() => setActive("home")}>
+        <div className="sidebaritem logo" onClick={() => handleClick("/")}>
           <img src={logo} alt="logo" width="30px" height="30px" />
         </div>
         <div

@@ -322,6 +322,41 @@ p {
   position: relative;
 }
 
+/* Search CSS Start */
+
+.searchField .MuiInputBase-root fieldset {
+  border-radius: 15px;
+  outline: none;
+}
+
+.topbar .MuiAutocomplete-root {
+  width: 40%;
+  background: #f0f0f0;
+  outline: none;
+  border-radius: 15px;
+  outline: none;
+}
+
+.customOptionContainer {
+  cursor: pointer;
+}
+.customOptionContainer .friendcard :hover {
+  background-color: #f0f0f0;
+}
+
+.customOptionContainer .friendactions {
+  display: none;
+}
+.customOptionContainer .friendcard {
+  width: 100%;
+  margin-top: 0;
+}
+.customOptionContainer .friendcard .profileimagebox {
+  width: 100%;
+}
+
+/* Search CSS end */
+
 /* for notification dropdown box */
 
 #notificationmenu ul {
@@ -397,12 +432,12 @@ p {
 
 .indexRoute {
   width: 100vw;
-  height: calc(100vh - 125px);
+  height: 100vh;
 }
 
 .indexRoute .indexRouteContent {
   width: calc(100% - 130px);
-  height: calc(100% - 70px);
+  height: calc(100% - 120px);
   margin-left: 110px;
   margin-right: 20px;
   margin-top: 105px;
@@ -417,33 +452,19 @@ p {
 /** home css **/
 
 .home {
-  width: 100vw;
-  height: calc(100vh - 125px);
+  width: 100%;
+  height: 100%;
 }
 
 .home .homecontent {
-  width: calc(100% - 130px);
-  height: calc(100% - 70px);
-  margin-left: 110px;
-  margin-right: 20px;
-  margin-top: 105px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.homecontent .friend,
-.homecontent .dashboard,
-.homecontent .mention,
-.homecontent .reminder,
-.homecontent .share {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+
 
 /** home css ends **/
 
@@ -525,8 +546,6 @@ p {
   height: 450px;
   width: 100%;
 }
-
-/** friend css ends **/
 
 /** friendcard css **/
 
@@ -634,37 +653,4 @@ p {
 
 /** friendcard css ends **/
 
-/* Search CSS Start */
-
-.searchField .MuiInputBase-root fieldset {
-  border-radius: 15px;
-  outline: none;
-}
-
-.topbar .MuiAutocomplete-root {
-  width: 40%;
-  background: #f0f0f0;
-  outline: none;
-  border-radius: 15px;
-  outline: none;
-}
-
-.customOptionContainer {
-  cursor: pointer;
-}
-.customOptionContainer .friendcard :hover {
-  background-color: #f0f0f0;
-}
-
-.customOptionContainer .friendactions {
-  display: none;
-}
-.customOptionContainer .friendcard {
-  width: 100%;
-  margin-top: 0;
-}
-.customOptionContainer .friendcard .profileimagebox {
-  width: 100%;
-}
-
-/* Search CSS end */
+/** friend css ends **/
