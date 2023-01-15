@@ -229,6 +229,27 @@ p {
 
 /* signup and login css ends */
 
+/* Index ROute CSS */
+
+.indexRoute {
+  width: 100vw;
+  height: calc(100vh - 110px);
+}
+
+.indexRoute .indexRouteContent {
+  width: calc(100% - 130px);
+  height: calc(100% - 120px);
+  margin-left: 110px;
+  margin-right: 20px;
+  margin-top: 105px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Index ROute CSS Ends*/
+
 /** sidebar css */
 
 .sidebar {
@@ -427,27 +448,6 @@ p {
 }
 
 /** topbar css ends **/
-
-/* Index ROute CSS */
-
-.indexRoute {
-  width: 100vw;
-  height: 100vh;
-}
-
-.indexRoute .indexRouteContent {
-  width: calc(100% - 130px);
-  height: calc(100% - 120px);
-  margin-left: 110px;
-  margin-right: 20px;
-  margin-top: 105px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Index ROute CSS Ends*/
 
 /** home css **/
 
