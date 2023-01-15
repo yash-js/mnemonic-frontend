@@ -56,7 +56,7 @@ function InputField({
             <img src={starticon} alt="start icon" style={starticoncss} />
           </InputAdornment>
         ),
-        endAdornment: InputProps.endAdornment || endicon && (
+        endAdornment: InputProps && InputProps.endAdornment || endicon && (
           <InputAdornment title={endIcoTooltip} position="end">
             <img src={endicon} alt="end icon" style={endiconcss} />
           </InputAdornment>
