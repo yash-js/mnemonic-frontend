@@ -18,17 +18,23 @@ function InputField({
   endiconcss,
   error,
   errorText,
-  onFocusField
+  onFocusField,
+  endIcoTooltip,
+  InputProps,
+  params
 }) {
   const [readOnly, setReadOnly] = useState(true);
 
   const onFocus = () => {
     setReadOnly(false);
-    onFocusField()
+    if (onFocusField) {
+      onFocusField();
+    }
   };
 
   return (
     <TextField
+    {...params}
       id="outlined-basic"
       className={`textfield ${extraclass}`}
       placeholder={placeholder}
@@ -44,16 +50,18 @@ function InputField({
       readOnly={readOnly}
       onFocus={onFocus}
       InputProps={{
+        ...InputProps,
         startAdornment: starticon && (
           <InputAdornment position="start">
             <img src={starticon} alt="start icon" style={starticoncss} />
           </InputAdornment>
         ),
-        endAdornment: endicon && (
-          <InputAdornment position="end">
+        endAdornment: InputProps.endAdornment || endicon && (
+          <InputAdornment title={endIcoTooltip} position="end">
             <img src={endicon} alt="end icon" style={endiconcss} />
           </InputAdornment>
         ),
+        
       }}
       error={error}
       helperText={errorText}

@@ -290,7 +290,7 @@ p {
   align-items: center;
 }
 
-.searchbarbox  {
+.searchbarbox {
   width: 35%;
   min-width: 480px;
   max-width: 600px;
@@ -324,7 +324,7 @@ p {
 
 /* for notification dropdown box */
 
-#notificationmenu ul{
+#notificationmenu ul {
   /* height: 245px; */
   overflow: scroll;
 }
@@ -518,7 +518,7 @@ p {
   padding-bottom: 15px;
 }
 
- .noFriends {
+.noFriends {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -633,3 +633,38 @@ p {
 }
 
 /** friendcard css ends **/
+
+/* Search CSS Start */
+
+.searchField .MuiInputBase-root fieldset {
+  border-radius: 15px;
+  outline: none;
+}
+
+.topbar .MuiAutocomplete-root {
+  width: 40%;
+  background: #f0f0f0;
+  outline: none;
+  border-radius: 15px;
+  outline: none;
+}
+
+.customOptionContainer {
+  cursor: pointer;
+}
+.customOptionContainer .friendcard :hover {
+  background-color: #f0f0f0;
+}
+
+.customOptionContainer .friendactions {
+  display: none;
+}
+.customOptionContainer .friendcard {
+  width: 100%;
+  margin-top: 0;
+}
+.customOptionContainer .friendcard .profileimagebox {
+  width: 100%;
+}
+
+/* Search CSS end */

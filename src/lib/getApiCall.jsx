@@ -12,7 +12,9 @@ export const signIn = async (data) => {
 export const signUp = async (data) => {
   try {
     if (!data.profilePic) {
-      data.profilePic = `https://ui-avatars.com/api/?name=${data.firstName + "+" + data.lastName}`
+      data.profilePic = `https://ui-avatars.com/api/?name=${
+        data.firstName + "+" + data.lastName
+      }`;
     }
     const resp = await axios.post("/signup", data);
     return resp;
@@ -32,7 +34,7 @@ export const signOut = async () => {
 
 export const getUser = async () => {
   try {
-    const resp = await axios.get("/getuser");
+    const resp = await axios.get("/user/getuser");
     return resp;
   } catch (error) {
     return error;
@@ -78,6 +80,15 @@ export const removeFriend = async (id) => {
 export const acceptFriendRequest = async (id) => {
   try {
     const resp = await axios.post(`/friend/accept/${id}`);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const searchUser = async (query) => {
+  try {
+    const resp = await axios.get(`/user/search/${query}`);
     return resp;
   } catch (error) {
     return error;
