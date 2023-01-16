@@ -30,7 +30,7 @@
 
 /** searchbar **/
 
-.MuiOutlinedInput-notchedOutline{
+.customOptionContainer .MuiOutlinedInput-notchedOutline{
   border: none !important;
 }
 
