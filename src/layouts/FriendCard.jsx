@@ -12,6 +12,7 @@ function FriendCard({
   custombuttonrequestclass,
   onClick,
   requestBtnText,
+  isLoading,
 }) {
   return (
     <div className="friendcard">
@@ -55,6 +56,7 @@ function FriendCard({
               onClick={onClick}
               extraclass="requestbutton"
               buttontext={requestBtnText ? requestBtnText : "Add Friend"}
+              isLoading={isLoading}
             />
           </div>
         )}

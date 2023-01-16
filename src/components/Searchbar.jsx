@@ -7,7 +7,8 @@ import { useSearch } from "../hooks/search";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector } from "react-redux";
-import { getRequestsList } from "../features/friendsSlice";
+import { getRequestsList, getSentRequestsList } from "../features/friendsSlice";
+import { useDispatch } from "react-redux";
 
 const Searchbar = () => {
   const {
@@ -21,9 +22,11 @@ const Searchbar = () => {
     setSearchQuery,
     setResults,
     callAddFriendApi,
+    sendRequestLoading,
   } = useSearch();
-  const requests = useSelector(getRequestsList);
-  console.log(requests);
+
+  const sentRequests = useSelector(getSentRequestsList)
+  
   return (
     <Autocomplete
       id="asynchronous-demo"
@@ -58,13 +61,14 @@ const Searchbar = () => {
             name={"friendsuggestion"}
             custombuttonrequestclass={"searchAddFriend"}
             requestBtnText={
-              requests &&
-              requests.filter((request) => request._id === option._id).length >
+              sentRequests &&
+              sentRequests.filter((request) => request._id === option._id).length >
                 0
                 ? "Requested"
                 : "Add Friend"
             }
-            onClick={() => callAddFriendApi(option._id)}
+            onClick={() => callAddFriendApi(option)}
+            isLoading={sendRequestLoading}
           />
         </Box>
       )}

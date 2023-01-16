@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import {
+  sentRequestsLoadingState,
+  setSentRequests,
+  setSentRequestsLoading,
+} from "../features/friendsSlice";
 import { addFriend, searchUser } from "../lib/getApiCall";
-
+import { useDispatch, useSelector } from "react-redux";
 export const useSearch = () => {
   const [searchResLoading, setSearchResLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = useState(false);
+  const sendRequestLoading = useSelector(sentRequestsLoadingState);
+  const dispatch = useDispatch();
   function sleep(delay = 0) {
     return new Promise((resolve) => {
       setTimeout(resolve, delay);
@@ -28,11 +34,16 @@ export const useSearch = () => {
     return clearTimeout();
   };
 
-  const callAddFriendApi = async (id) => {
-    setLoading(true);
-    const res = await addFriend(id);
-    setLoading(false);
-    console.log("added", res);
+  const callAddFriendApi = async (friend) => {
+    dispatch(setSentRequestsLoading(true));
+    const res = await addFriend(friend._id);
+    if (res === 200) {
+      dispatch(setSentRequests(friend));
+      dispatch(setSentRequestsLoading(false));
+      console.log("added", res);
+    } else {
+      dispatch(setSentRequestsLoading(false));
+    }
   };
 
   React.useEffect(() => {
@@ -75,5 +86,6 @@ export const useSearch = () => {
     setSearchQuery,
     setResults,
     callAddFriendApi,
+    sendRequestLoading,
   };
 };

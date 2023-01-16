@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   friendlist: [],
   requests: [],
-  suggestions: [],
+  sentRequests: [],
   friendsLoading: false,
   requestsLoading: false,
-  suggestionsLoading: false,
+  sentRequestsLoading: false,
 };
 
 export const friendsSlice = createSlice({
@@ -20,8 +20,8 @@ export const friendsSlice = createSlice({
     setRequests: (state, action) => {
       state.requests = action.payload;
     },
-    setSuggestions: (state, action) => {
-      state.suggestions = action.payload;
+    setSentRequests: (state, action) => {
+      state.sentRequests = action.payload;
     },
     setFriendsLoading: (state, action) => {
       state.friendsLoading = action.payload;
@@ -29,8 +29,8 @@ export const friendsSlice = createSlice({
     setRequestsLoading: (state, action) => {
       state.requestsLoading = action.payload;
     },
-    setSuggestionsLoading: (state, action) => {
-      state.suggestionsLoading = action.payload;
+    setSentRequestsLoading: (state, action) => {
+      state.sentRequestsLoading = action.payload;
     },
   },
 });
@@ -38,17 +38,17 @@ export const friendsSlice = createSlice({
 export const {
   setFriends,
   setRequests,
+  setSentRequests,
   setFriendsLoading,
   setRequestsLoading,
-  setSuggestionsLoading,
-  setSuggestions
+  setSentRequestsLoading,
 } = friendsSlice.actions;
 export const getFriendsList = (state) => state.friends.friendlist;
 export const getRequestsList = (state) => state.friends.requests;
-export const getSuggestionsList = (state) => state.friends.suggestions;
+export const getSentRequestsList = (state) => state.friends.sentRequests;
 export const friendsLoadingState = (state) => state.friends.friendsLoading;
 export const requestsLoadingState = (state) => state.friends.requestsLoading;
-export const suggestionsLoadingState = (state) =>
-  state.friends.suggestionsLoading;
+export const sentRequestsLoadingState = (state) =>
+  state.friends.sentRequestsLoading;
 
 export default friendsSlice.reducer;
