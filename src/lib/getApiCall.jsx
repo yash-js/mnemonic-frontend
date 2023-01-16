@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const API = process.env.REACT_APP_API
+
 export const signIn = async (data) => {
   try {
     const resp = await axios.post("/signin", data);
