@@ -9,6 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector } from "react-redux";
 import { getRequestsList, getSentRequestsList } from "../features/friendsSlice";
 import { useDispatch } from "react-redux";
+import { useFriends } from "../hooks/friends";
 
 const Searchbar = () => {
   const {
@@ -23,7 +24,7 @@ const Searchbar = () => {
     setResults,
     callAddFriendApi,
     sendRequestLoading,
-  } = useSearch();
+  } = useFriends();
 
   const sentRequests = useSelector(getSentRequestsList)
   

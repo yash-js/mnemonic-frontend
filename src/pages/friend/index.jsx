@@ -6,12 +6,9 @@ import { useFriends } from "../../hooks/friends";
 import AlertComponent from "../../components/AlertComponent";
 
 function Friend() {
-   const {
-    friends,
+  const {
     loading,
     requests,
-    friendsLoading,
-    requestsLoading,
     getFriendsApiCall,
     getRequestsApiCall,
     removeFriendApiCall,
@@ -21,18 +18,28 @@ function Friend() {
     setMessage,
     type,
     setType,
-    acceptFriendRequestApiCall
+    acceptFriendRequestApiCall,
+    friend,
+    request,
   } = useFriends();
 
   useEffect(() => {
     document.title = "Friends";
-
     return () => {
-      // getFriendsApiCall();
-      // getRequestsApiCall();
+      getFriendsApiCall();
+      getRequestsApiCall();
     };
   }, []);
 
+  // useEffect(() => {
+  //   return () => getFriendsApiCall();
+  // }, [friend]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(setFriends(user?.friends));
+  //     console.log("Friends Updateds");
+  //   };
+  // }, [friends]);
   return (
     <div className="friend">
       <Grid container spacing={1} className="friendbox">
@@ -48,18 +55,18 @@ function Friend() {
           <div className="friends">
             <div className="friendsheading">
               <p>Friends</p>
-              <p>{friends && friends?.length}</p>
+              <p>{friend && friend?.length}</p>
             </div>
             <div className="friendscontent">
-              {(loading || friendsLoading) ? (
+              {loading ? (
                 <FriendsSkeleton />
-              ) : friends && friends?.length > 0 ? (
-                friends?.map((item) => {
+              ) : friend && friend.length > 0 ? (
+                friend.map((item, index) => {
                   return (
                     <FriendCard
-                      key={item._id}
+                      key={item._id + index}
                       name="friends"
-                      onClick={()=>removeFriendApiCall(item?._id)}
+                      onClick={() => removeFriendApiCall(item?._id)}
                       profileimage={item?.profilePic}
                       profileFirstname={item?.firstName}
                       porfileLastname={item?.lastName}
@@ -85,23 +92,23 @@ function Friend() {
           <div className="friendrequest">
             <div className="friendrequestheading">
               <p>Friend Requests</p>
-              <p>{requests && requests.length }</p>
+              <p>{requests && requests.length}</p>
             </div>
             <div className="friendrequestcontent">
-              {(loading || requestsLoading) ? (
+              {loading ? (
                 <FriendsSkeleton />
-              ) : requests && requests.length > 0 ? (
-                requests.map((item, index) => {
+              ) : request && request.length > 0 ? (
+                request.map((item, index) => {
                   return (
                     <FriendCard
-                      key={item._id}
+                      key={item._id + index}
                       name="friendrequest"
                       profileimage={item?.profilePic}
                       profileFirstname={item?.firstName}
                       porfileLastname={item?.lastName}
                       profileusername={item?.username}
                       custombuttonremoveclass={true}
-                      onClick={()=>acceptFriendRequestApiCall(item?._id)}
+                      onClick={() => acceptFriendRequestApiCall(item?._id)}
                     />
                   );
                 })

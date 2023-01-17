@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { getToken, isLoading, userdata, userData,  } from "../features/userSlice";
+import { getToken, isLoading, userdata, userData } from "../features/userSlice";
 import { getUser } from "../lib/getApiCall";
 
 const RequireAuth = ({ children }) => {
   const location = useLocation();
-  const token = useSelector(getToken);
+  const token = localStorage.getItem("token");
   const user = useSelector(userData);
   const dispatch = useDispatch();
   useEffect(() => {
     return async () => {
       if (token && (!user || user === null)) {
-        dispatch(isLoading(true))
+        dispatch(isLoading(true));
         const response = await getUser(token);
         dispatch(userdata(response?.data?.user));
-        dispatch(isLoading(false))
+        dispatch(isLoading(false));
       }
     };
   });

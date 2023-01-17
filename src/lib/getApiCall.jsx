@@ -5,7 +5,6 @@ const API = process.env.REACT_APP_API;
 const headers = {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
-    "Access-Control-Allow-Origin": "*",
   },
 };
 
@@ -79,7 +78,7 @@ export const getSuggestions = async () => {
 
 export const removeFriend = async (id) => {
   try {
-    const resp = await axios.delete(`${API}/friend/remove/${id}`,headers);
+    const resp = await axios.delete(`${API}/friend/remove/${id}`, headers);
     return resp;
   } catch (error) {
     return error;

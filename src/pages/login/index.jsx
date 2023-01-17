@@ -33,9 +33,8 @@ function Login() {
     setLoading(true);
     const res = await signIn({ username, password });
     if (res?.status === 200 && res?.data && res?.data?.user) {
+      localStorage.setItem("token", res?.data?.user.token);
       dispatch(login(res?.data?.user));
-      dispatch(setFriends(res?.data?.user?.friends));
-      dispatch(setRequests(res?.data?.user?.requests));
       navigate("/");
     } else {
       setLoading(false);

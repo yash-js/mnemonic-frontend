@@ -22,7 +22,6 @@ const ProfileMenu = ({ profilePic, loading }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,15 +30,16 @@ const ProfileMenu = ({ profilePic, loading }) => {
   };
 
   const handleSignOut = async () => {
-    dispatch(isLoading(true))
+    dispatch(isLoading(true));
     const res = await signOut();
     if (res.status === 200) {
-        dispatch(isLoading(false))
-        navigate("/signin");
-        dispatch(logout());
+      localStorage.removeItem("token");
+      navigate("/signin");
+      dispatch(isLoading(false));
+      dispatch(logout());
     }
   };
-  
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -51,12 +51,20 @@ const ProfileMenu = ({ profilePic, loading }) => {
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
-            className='profileimage'
+            className="profileimage"
           >
             {loading ? (
-              <Skeleton width={50} height={80} style={{borderRadius:'50%'}} />
+              <Skeleton
+                width={50}
+                height={80}
+                style={{ borderRadius: "50%" }}
+              />
             ) : (
-              <Avatar sx={{ width: 50, height: "auto" }} src={profilePic} className='profileavatar' />
+              <Avatar
+                sx={{ width: 50, height: "auto" }}
+                src={profilePic}
+                className="profileavatar"
+              />
             )}
           </IconButton>
         </Tooltip>
