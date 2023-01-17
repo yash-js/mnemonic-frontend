@@ -3,7 +3,10 @@ import axios from "axios";
 const API = process.env.REACT_APP_API;
 
 const headers = {
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    "Access-Control-Allow-Origin": "*",
+  },
 };
 
 export const signIn = async (data) => {
@@ -31,7 +34,7 @@ export const signUp = async (data) => {
 
 export const signOut = async () => {
   try {
-    const resp = await axios.get(`${API}/signout`,headers);
+    const resp = await axios.get(`${API}/signout`, headers);
     return resp;
   } catch (error) {
     return error;
@@ -58,7 +61,7 @@ export const getFriends = async () => {
 
 export const getFriendRequests = async () => {
   try {
-    const resp = await axios.get(`${API}/friend/requests`,headers);
+    const resp = await axios.get(`${API}/friend/requests`, headers);
     return resp;
   } catch (error) {
     return error;
@@ -67,7 +70,7 @@ export const getFriendRequests = async () => {
 
 export const getSuggestions = async () => {
   try {
-    const resp = await axios.get(`${API}/friend/suggestions`,headers);
+    const resp = await axios.get(`${API}/friend/suggestions`, headers);
     return resp;
   } catch (error) {
     return error;
@@ -85,7 +88,7 @@ export const removeFriend = async (id) => {
 
 export const acceptFriendRequest = async (id) => {
   try {
-    const resp = await axios.post(`${API}/friend/accept/${id}`,headers);
+    const resp = await axios.post(`${API}/friend/accept/${id}`, {}, headers);
     return resp;
   } catch (error) {
     return error;
@@ -94,16 +97,16 @@ export const acceptFriendRequest = async (id) => {
 
 export const searchUser = async (query) => {
   try {
-    const resp = await axios.get(`${API}/user/search/${query}`,headers);
+    const resp = await axios.get(`${API}/user/search/${query}`, headers);
     return resp;
   } catch (error) {
     return error;
   }
 };
 
-export const addFriend = async (id) => {  
+export const addFriend = async (id) => {
   try {
-    const resp = await axios.post(`${API}/friend/add/${id}`,headers);
+    const resp = await axios.post(`${API}/friend/add/${id}`, {}, headers);
     return resp;
   } catch (error) {
     return error;
