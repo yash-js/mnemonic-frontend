@@ -1,12 +1,13 @@
 /* for Inputfield */
 
-.MuiButtonBase-root{
+.MuiButtonBase-root.MuiButton-root {
   max-width: 100px !important;
 }
 
 .textfield,
 .buttoncomponent {
   width: 100% !important;
+  border-radius: 10px !important;
 }
 
 .buttoncomponent {
