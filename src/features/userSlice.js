@@ -15,6 +15,7 @@ export const userSlice = createSlice({
     login: (state, action) => {
       localStorage.setItem("token", action.payload.token);
       state.token = action.payload;
+      state.user = action.payload;
     },
     logout: (state) => {
       state.token = null;
