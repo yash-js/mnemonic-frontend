@@ -50,7 +50,7 @@ function PopoverComponent({
   ];
 
   return (
-    <div className="notebtn">
+    <div className="notebtn" style={{display: anchorEl ? 'none' : 'block'}}>
       <IconButton
         color="primary"
         aria-label="upload picture"
@@ -60,7 +60,7 @@ function PopoverComponent({
         {btnname ? (
           btnname
         ) : (
-          <AddIcon style={{ color: "black", width: "40px", height: "40px" }} />
+          <AddIcon style={{ color: "black", width: "40px", height: "40px"}} />
         )}
       </IconButton>
       {anchorEl !== null && (
