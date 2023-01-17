@@ -3,14 +3,17 @@ import Popover from "@mui/material/Popover";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
+import { useDispatch } from "react-redux";
+import { setActivePopOver } from "../features/popoverslice";
 
 function PopoverComponent({
   btnname,
   popoverheading,
   popovercontent,
   popoverclassname,
-  popoverclose,
+  popoverclose
 }) {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(popoverclose|| null);
 
   const open = Boolean(anchorEl);
@@ -22,6 +25,7 @@ function PopoverComponent({
 
   const handleClose = () => {
     setAnchorEl(null);
+    dispatch(setActivePopOver(''))
   };
 
   const popoverContent = [
@@ -52,18 +56,18 @@ function PopoverComponent({
 
   return (
     <div className="notebtn" style={{display: anchorEl ? 'none' : 'block'}}>
-      <IconButton
-        color="primary"
-        aria-label="upload picture"
-        component="label"
-        onClick={handleClick}
-      >
-        {btnname ? (
-          btnname
-        ) : (
-          <AddIcon style={{ color: "black", width: "40px", height: "40px"}} />
-        )}
-      </IconButton>
+      {
+        btnname === 'home' && (
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="label"
+            onClick={handleClick}
+          >
+            <AddIcon style={{ color: "black", width: "40px", height: "40px"}} />
+          </IconButton>
+        )
+      }
       {anchorEl !== null && (
         <Popover
           id={id}

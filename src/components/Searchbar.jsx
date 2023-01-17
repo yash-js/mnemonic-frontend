@@ -3,7 +3,6 @@ import { Box } from "@mui/system";
 import InputField from "./InputField";
 import search from "../assets/images/search.svg";
 import FriendCard from "../layouts/FriendCard";
-import { useSearch } from "../hooks/search";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector } from "react-redux";
