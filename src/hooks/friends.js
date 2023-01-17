@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import {  useState } from "react";
+import { useState } from "react";
 import {
   friendsLoadingState,
   getFriendsList,
@@ -11,7 +11,7 @@ import {
   setRequests,
   setRequestsLoading,
 } from "../features/friendsSlice";
-import { isLoading, loadingState } from "../features/userSlice";
+import { isLoading, loadingState, userdata, userData } from "../features/userSlice";
 import {
   getFriendRequests,
   getFriends,
@@ -20,13 +20,13 @@ import {
 } from "../lib/getApiCall";
 
 export const useFriends = () => {
-  const friends = useSelector(getFriendsList);
-  const requests = useSelector(getRequestsList);
+  const user = useSelector(userData);
+  const friends = user && user?.friends ? user?.friends : [];
+  const requests = user && user?.requests ? user?.requests : [];
   const loading = useSelector(loadingState);
   const friendsLoading = useSelector(friendsLoadingState);
   const requestsLoading = useSelector(requestsLoadingState);
   const dispatch = useDispatch();
-
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
@@ -50,7 +50,7 @@ export const useFriends = () => {
       dispatch(setRequestsLoading(false));
     }
   };
-  
+
   // const getSuggestionsApiCall = async () => {
   //   if (!suggestions || suggestions.length < 1) {
   //     const resp = await getSuggestionsList();
@@ -68,7 +68,7 @@ export const useFriends = () => {
       setMessage(res?.data?.message);
       setType("success");
       setOpen(true);
-      dispatch(setFriends(friends.filter((friend) => friend.id !== id)));
+      dispatch(userdata(res?.data?.currentUser));
       dispatch(setFriendsLoading(false));
     } else {
       setMessage("Something Went Wrong!");
@@ -86,9 +86,9 @@ export const useFriends = () => {
       setType("success");
       setOpen(true);
       dispatch(setRequests(requests.filter((friend) => friend.id !== id)));
-      // dispatch(setFriends([...friends, ))
+      dispatch(userdata(res?.data?.currentUser));
       dispatch(setRequestsLoading(false));
-    } else{
+    } else {
       setMessage("Something Went Wrong!");
       setType("error");
       dispatch(setRequestsLoading(false));

@@ -28,8 +28,8 @@ function Friend() {
     document.title = "Friends";
 
     return () => {
-      getFriendsApiCall();
-      getRequestsApiCall();
+      // getFriendsApiCall();
+      // getRequestsApiCall();
     };
   }, []);
 
