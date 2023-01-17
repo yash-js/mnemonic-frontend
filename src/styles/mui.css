@@ -1,6 +1,6 @@
 /* for Inputfield */
 
-.MuiButtonBase-root.MuiButton-root {
+.friendactions .MuiButtonBase-root.MuiButton-root {
   max-width: 100px !important;
 }
 

@@ -9,8 +9,9 @@ function PopoverComponent({
   popoverheading,
   popovercontent,
   popoverclassname,
+  popoverclose,
 }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(popoverclose|| null);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
