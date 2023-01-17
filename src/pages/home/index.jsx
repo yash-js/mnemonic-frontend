@@ -9,7 +9,7 @@ const Home = () => {
   const [closehomepopover, setclosehomepopover] = React.useState(false);
 
   useEffect(() => {
-    document.title = "Mnemonic";
+ return ()=> document.title = "Mnemonic";
   },[]);
 
   const handlenotes = (type) => {
@@ -24,10 +24,10 @@ const Home = () => {
 
   const popovercontent = [
     <div className="notebottomcontent">
-      <div className="normalnotes" onClick={handlenotes('normal')}>
+      <div className="normalnotes" onClick={()=>handlenotes('normal')}>
         <ButtonComponent buttontext='Normal Notes' customButtonStyle={{backgroundColor: 'black', width: '70%', maxWidth: '250px'}} starticon={<Avatar>N</Avatar>}/>
       </div>
-      <div className="Mnemonicnotes" onClick={handlenotes('mnemonic')}>
+      <div className="Mnemonicnotes" onClick={()=>handlenotes('mnemonic')}>
         <ButtonComponent buttontext='Mnemonic Notes' customButtonStyle={{backgroundColor: '#1976d2', width: '70%', maxWidth: '250px'}} starticon={<Avatar>M</Avatar>}/>
       </div>
     </div>
