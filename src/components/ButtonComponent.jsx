@@ -3,9 +3,9 @@ import Button from '@mui/material/Button';
 import '../styles/mui.css';
 import { CircularProgress } from '@mui/material';
 
-function ButtonComponent({extraclass,onClick,buttontext, isLoading, disabled, color}) {
+function ButtonComponent({extraclass,onClick,buttontext, isLoading, disabled, color,customButtonStyle, starticon, endicon}) {
     return (
-        <Button disabled={disabled} variant="contained" color={color} className={`buttoncomponent ${extraclass}`} onClick={onClick}>{isLoading === true ?   <CircularProgress /> : buttontext}</Button>
+        <Button disabled={disabled} variant="contained" color={color} className={`buttoncomponent ${extraclass}`} startIcon={starticon} endIcon={endicon} onClick={onClick} style={customButtonStyle}>{isLoading === true ?   <CircularProgress color='"#4F7BD2"' /> : buttontext}</Button>
     )
 }
 

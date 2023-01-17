@@ -25,6 +25,7 @@ function PopoverComponent({
 
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
+      <div className="notebottom">{popovercontent}</div>
       <div className="notetop">
         <div
           className="noteheading"
@@ -45,8 +46,7 @@ function PopoverComponent({
           </IconButton>
         </div>
       </div>
-      <div className="notebottom">{popovercontent}</div>
-    </span>,
+    </span>
   ];
 
   return (
