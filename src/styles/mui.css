@@ -99,3 +99,12 @@
 }
 
 /** for popover ends **/
+
+
+/* Disbaled Btn CSS */
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root.Mui-disabled{
+  color: white;
+    box-shadow: none;
+    background-color: rgb(25 118 210 / 57%);
+}

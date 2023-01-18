@@ -12,7 +12,7 @@ function FriendCard({
   friendsadd,
   friendsremove,
   requestBtnText,
-  isLoading,
+  isLoading,disabled
 }) {
   return (
     <div className="friendcard">
@@ -33,6 +33,7 @@ function FriendCard({
               extraclass="requestbutton"
               buttontext={requestBtnText ? requestBtnText : "Add Friend"}
               isLoading={isLoading}
+              disabled={disabled}
             />
           </div>
         )}

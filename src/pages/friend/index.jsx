@@ -21,6 +21,7 @@ function Friend() {
     acceptFriendRequestApiCall,
     friend,
     request,
+    callGetSentRequests,cancelRequestApiCall
   } = useFriends();
 
   useEffect(() => {
@@ -28,6 +29,7 @@ function Friend() {
     return () => {
       getFriendsApiCall();
       getRequestsApiCall();
+      callGetSentRequests()
     };
   }, []);
 
@@ -101,8 +103,8 @@ function Friend() {
                   return (
                     <FriendCard
                       key={item._id + index}
-                      friendrequestaccept={() => acceptFriendRequestApiCall(item?._id)}
-                      friendrequestremove={() => removeFriendApiCall(item?._id)}
+                      friendrequestaccept={() => acceptFriendRequestApiCall(item)}
+                      friendrequestremove={() => cancelRequestApiCall(item?._id)}
                       profileimage={item?.profilePic}
                       profileFirstname={item?.firstName}
                       porfileLastname={item?.lastName}

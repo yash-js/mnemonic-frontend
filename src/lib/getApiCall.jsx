@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API = process.env.REACT_APP_API;
+const API = " http://localhost:5000";
 
-const headers = {
+const config = {
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
@@ -33,7 +33,7 @@ export const signUp = async (data) => {
 
 export const signOut = async () => {
   try {
-    const resp = await axios.get(`${API}/signout`, headers);
+    const resp = await axios.get(`${API}/signout`, config);
     return resp;
   } catch (error) {
     return error;
@@ -42,7 +42,7 @@ export const signOut = async () => {
 
 export const getUser = async () => {
   try {
-    const resp = await axios.get(`${API}/user/getuser`, headers);
+    const resp = await axios.get(`${API}/user/getuser`, config);
     return resp;
   } catch (error) {
     return error;
@@ -51,7 +51,7 @@ export const getUser = async () => {
 
 export const getFriends = async () => {
   try {
-    const resp = await axios.get(`${API}/friend`, headers);
+    const resp = await axios.get(`${API}/friend`, config);
     return resp;
   } catch (error) {
     return error;
@@ -60,7 +60,7 @@ export const getFriends = async () => {
 
 export const getFriendRequests = async () => {
   try {
-    const resp = await axios.get(`${API}/friend/requests`, headers);
+    const resp = await axios.get(`${API}/friend/requests`, config);
     return resp;
   } catch (error) {
     return error;
@@ -69,7 +69,7 @@ export const getFriendRequests = async () => {
 
 export const getSuggestions = async () => {
   try {
-    const resp = await axios.get(`${API}/friend/suggestions`, headers);
+    const resp = await axios.get(`${API}/friend/suggestions`, config);
     return resp;
   } catch (error) {
     return error;
@@ -78,7 +78,16 @@ export const getSuggestions = async () => {
 
 export const removeFriend = async (id) => {
   try {
-    const resp = await axios.delete(`${API}/friend/remove/${id}`, headers);
+    const resp = await axios.delete(`${API}/friend/remove/${id}`, config);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const cancelRequest = async (id) => {
+  try {
+    const resp = await axios.delete(`${API}/friend/cancel/${id}`, config);
     return resp;
   } catch (error) {
     return error;
@@ -87,7 +96,7 @@ export const removeFriend = async (id) => {
 
 export const acceptFriendRequest = async (id) => {
   try {
-    const resp = await axios.post(`${API}/friend/accept/${id}`, {}, headers);
+    const resp = await axios.post(`${API}/friend/accept/${id}`, {}, config);
     return resp;
   } catch (error) {
     return error;
@@ -96,7 +105,7 @@ export const acceptFriendRequest = async (id) => {
 
 export const searchUser = async (query) => {
   try {
-    const resp = await axios.get(`${API}/user/search/${query}`, headers);
+    const resp = await axios.get(`${API}/user/search/${query}`, config);
     return resp;
   } catch (error) {
     return error;
@@ -105,7 +114,16 @@ export const searchUser = async (query) => {
 
 export const addFriend = async (id) => {
   try {
-    const resp = await axios.post(`${API}/friend/add/${id}`, {}, headers);
+    const resp = await axios.post(`${API}/friend/add/${id}`, {}, config);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getSentRequests = async () => {
+  try {
+    const resp = await axios.get(`${API}/friend/sent`, config);
     return resp;
   } catch (error) {
     return error;
