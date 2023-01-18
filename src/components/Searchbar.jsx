@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box } from "@mui/system";
 import InputField from "./InputField";
 import search from "../assets/images/search.svg";
