@@ -58,7 +58,7 @@ const Searchbar = () => {
             profileusername={option?.username}
             profileimage={option?.profilePic}
             porfileLastname={option?.lastName}
-            name={"friendsuggestion"}
+            friendsadd={() => callAddFriendApi(option)}
             custombuttonrequestclass={"searchAddFriend"}
             requestBtnText={
               sentRequests &&
@@ -67,7 +67,6 @@ const Searchbar = () => {
                 ? "Requested"
                 : "Add Friend"
             }
-            onClick={() => callAddFriendApi(option)}
             isLoading={sendRequestLoading}
           />
         </Box>

@@ -7,10 +7,10 @@ function FriendCard({
   profileFirstname,
   porfileLastname,
   profileusername,
-  custombuttonacceptclass,
-  custombuttonremoveclass,
-  custombuttonrequestclass,
-  onClick,
+  friendrequestaccept,
+  friendrequestremove,
+  friendsadd,
+  friendsremove,
   requestBtnText,
   isLoading,
 }) {
@@ -26,37 +26,44 @@ function FriendCard({
         </div>
       </div>
       <div className="friendactions">
-        {name === "friendrequest" || name === "friends" ? (
-          <div
-            className={`remove ${
-              custombuttonremoveclass ? "custombuttonremoveclass" : null
-            }`}
-          >
+        {friendsadd && (
+          <div className='request'>
+            <ButtonComponent
+              onClick={friendsadd}
+              extraclass="requestbutton"
+              buttontext={requestBtnText ? requestBtnText : "Add Friend"}
+              isLoading={isLoading}
+            />
+          </div>
+        )}
+        {friendsremove && (
+          <div className='remove'>
             <ButtonComponent
               color={"error"}
               extraclass="removebutton"
-              onClick={onClick}
-              buttontext={custombuttonremoveclass ? "Delete" : "Remove"}
+              onClick={friendsremove}
+              buttontext={"Remove"}
             />
           </div>
-        ) : null}
-        {name === "friendrequest" && (
-          <div className={`accept ${custombuttonacceptclass}`}>
+        )}
+        {friendrequestremove && (
+          <div className='remove'>
+            <ButtonComponent
+              color={"error"}
+              extraclass="removebutton"
+              onClick={friendrequestremove}
+              buttontext={"Delete"}
+            />
+          </div>
+        )
+        }
+        {friendrequestaccept && (
+          <div className='accept'>
             <ButtonComponent
               color={"primary"}
               extraclass="acceptbutton"
               buttontext="Accept"
-              onClick={onClick}
-            />
-          </div>
-        )}
-        {name === "friendsuggestion" && (
-          <div className={`request ${custombuttonrequestclass}`}>
-            <ButtonComponent
-              onClick={onClick}
-              extraclass="requestbutton"
-              buttontext={requestBtnText ? requestBtnText : "Add Friend"}
-              isLoading={isLoading}
+              onClick={friendrequestaccept}
             />
           </div>
         )}

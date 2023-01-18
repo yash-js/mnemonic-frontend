@@ -65,8 +65,7 @@ function Friend() {
                   return (
                     <FriendCard
                       key={item._id + index}
-                      name="friends"
-                      onClick={() => removeFriendApiCall(item?._id)}
+                      friendsremove={() => removeFriendApiCall(item?._id)}
                       profileimage={item?.profilePic}
                       profileFirstname={item?.firstName}
                       porfileLastname={item?.lastName}
@@ -102,13 +101,12 @@ function Friend() {
                   return (
                     <FriendCard
                       key={item._id + index}
-                      name="friendrequest"
+                      friendrequestaccept={() => acceptFriendRequestApiCall(item?._id)}
+                      friendrequestremove={() => removeFriendApiCall(item?._id)}
                       profileimage={item?.profilePic}
                       profileFirstname={item?.firstName}
                       porfileLastname={item?.lastName}
                       profileusername={item?.username}
-                      custombuttonremoveclass={true}
-                      onClick={() => acceptFriendRequestApiCall(item?._id)}
                     />
                   );
                 })
@@ -118,44 +116,6 @@ function Friend() {
             </div>
           </div>
         </Grid>
-        {/* <Grid
-          item
-          xs={12}
-          sm={12}
-          md={6}
-          lg={4}
-          xl={4}
-          className="friendcontentbox"
-        >
-          <div className="friendsuggestion">
-            <div className="friendsuggestionheading">
-              <p>Suggestions</p>
-              <p>{suggestions && suggestions.length}</p>
-            </div>
-            <div className="friendsuggestioncontent">
-              {(loading || suggestionLoading) ? (
-                <FriendsSkeleton />
-              ) : suggestions && suggestions.length > 0 ? (
-                suggestions.map((item) => {
-                  console.log('i', item);
-                  return (
-                    <FriendCard
-                    key={item._id}
-                    name="friendsuggestion"
-                    profileimage={item?.profilePic}
-                    profileFirstname={item?.firstName}
-                    porfileLastname={item?.lastName}
-                    profileusername={item?.username}
-                    custombuttonremoveclass={true}
-                  />
-                  );
-                })
-              ) : (
-                <p className="noFriends">No Suggestions</p>
-              )}
-            </div>
-          </div>
-        </Grid> */}
       </Grid>
       <AlertComponent
         setOpen={setOpen}
