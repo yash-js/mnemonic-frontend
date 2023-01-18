@@ -18,7 +18,8 @@ function PopoverComponent({
 }) {
 
   const {
-    richtextdata
+    richtextdata,
+    htmldata
   } = useRichTextEditor();
 
   const dispatch = useDispatch();
@@ -37,8 +38,8 @@ function PopoverComponent({
   };
 
   const handleRichText = () => {
+    console.log(richtextdata, htmldata);
     handleClose();
-    console.log(richtextdata);
   }
 
   const popoverContent = [
