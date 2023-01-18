@@ -87,13 +87,14 @@
   position: absolute;
   top: 0 !important;
   left: 0 !important;
+  background: #00000040;
 }
 
 #simple-popover .MuiPaper-elevation{
-  position: revert !important;
+  position: initial !important;
   width: 70%;
   min-width: 280px;
-  height: 75%;
+  height: 80%;
   background-color: transparent !important;
   box-shadow: none !important;
 }

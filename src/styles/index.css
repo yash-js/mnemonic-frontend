@@ -522,23 +522,6 @@ p {
   align-items: center;
 }
 
-.notebottom .notebottomcontent.normalnotebox {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.notebottom .notebottomcontent.normalnotebox .normalnotesheading,{
-  width: 100%;
-  height: 70px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .notebottom .notebottomcontent .normalnotes,
 .notebottom .notebottomcontent .Mnemonicnotes{
   width: 50%;
@@ -561,9 +544,82 @@ p {
   color: black;
 }
 
+.notebottom .notebottomcontent.normalnotebox, 
+.notebottom .notebottomcontent.mnemonicnotebox{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center;
+}
 
+.notebottom .notebottomcontent.normalnotebox .normalnotesheading,
+.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading{
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.notebottom .notebottomcontent.normalnotebox .normalnotesheading h3,
+.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading h3{
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px !important;
+  line-height: 23px;
+  color: #000000;
+  margin: 0px !important;
+}
+
+.notebottom .notebottomcontent.normalnotebox .normalnotescontent,
+.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotescontent{
+  width: 100%;
+  height: calc(100% - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
 /** popover css ends **/
+
+/** richtexteditor css **/
+
+.richtexteditor{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.rdw-editor-wrapper{
+  height: 100% 
+}
+
+.rdw-editor-toolbar{
+  height: 30% !important;
+  position: sticky;
+  top: 0px;
+}
+
+.rdw-editor-main{
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid #F1F1F1;
+  background: white;
+  padding: 5px 10px;
+  position: fixed !important;
+  width: calc(100% - 40px) !important;
+  height: calc(70% - 130px) !important;
+  overflow: scroll !important;
+}
+
+/** richtexteditor css ends **/
 
 /** home css **/
 

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
-import PopoverComponent from "../../components/PopoverComponent";
-import ButtonComponent from "../../components/ButtonComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { getActivePopOver, setActivePopOver } from "../../features/popoverslice";
+import ButtonComponent from "../../components/ButtonComponent";
+import RichTextEditor from "../../components/RichTextEditor";
+import PopoverComponent from "../../components/PopoverComponent";
+import Avatar from "@mui/material/Avatar";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const Home = () => {
   const [closehomepopover, setclosehomepopover] = React.useState(false);
 
   useEffect(() => {
- return ()=> document.title = "Mnemonic";
+    return ()=> document.title = "Mnemonic";
   },[]);
 
   const handlenotes = (type) => {
@@ -36,18 +37,25 @@ const Home = () => {
   ]
 
   const popovernormalcontent = [
-    <div className="notebottomcontent .normalnotebox">
+    <div className="notebottomcontent normalnotebox">
       <div className="normalnotesheading">
-        <h1>Normal Notes</h1>
+        <h3>Normal Notes</h3>
       </div>
       <div className="normalnotescontent">
-          ``
+        <RichTextEditor/>
       </div>
     </div>
   ]
 
   const popovermnemoniccontent = [
-    <h1>Mnemonic Notes</h1>
+    <div className="notebottomcontent mnemonicnotebox">
+      <div className="mnemonicnotesheading">
+        <h3>Mnemonic Notes</h3>
+      </div>
+      <div className="mnemonicnotescontent">
+        <h1>Mnemonic Notes</h1>
+      </div>
+    </div>
   ]
 
   return (
@@ -57,7 +65,7 @@ const Home = () => {
           Home
           {
             activepopover === 'normal' ? (
-              <PopoverComponent popoverclassname={'normalnotes'} popovercontent={popovernormalcontent}/>
+              <PopoverComponent popoverclassname={'normalnotes'} popovercontent={popovernormalcontent} richtext={true}/>
             ) : activepopover === 'mnemonic' ? (
               <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={popovermnemoniccontent}/>
             ) : (

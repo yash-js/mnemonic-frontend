@@ -6,14 +6,21 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
 import { setActivePopOver } from "../features/popoverslice";
+import { useRichTextEditor } from "../hooks/richtexteditor";
 
 function PopoverComponent({
   btnname,
   popoverheading,
   popovercontent,
   popoverclassname,
-  popoverclose
+  popoverclose,
+  richtext,
 }) {
+
+  const {
+    richtextdata
+  } = useRichTextEditor();
+
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(popoverclose|| null);
 
@@ -29,11 +36,21 @@ function PopoverComponent({
     dispatch(setActivePopOver(''))
   };
 
+  const handleRichText = () => {
+    handleClose();
+    console.log(richtextdata);
+  }
+
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notebottom">{popovercontent}</div>
       <div className="notetop">
         <div className="noteclosebtn">
+          {
+            richtext && (
+              <ButtonComponent buttontext="Save" onClick={handleRichText} />
+            )
+          }
           {btnname === 'home' ? (
             <IconButton
               color="primary"
@@ -46,7 +63,7 @@ function PopoverComponent({
               />
             </IconButton>
           ) : (
-            <ButtonComponent buttontext="Cancel" onClick={handleClose} />
+            <ButtonComponent color={'error'} buttontext="Cancel" onClick={handleClose} />
           )}
         </div>
       </div>
