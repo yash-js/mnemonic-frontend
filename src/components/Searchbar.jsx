@@ -21,7 +21,8 @@ const Searchbar = () => {
     setResults,
     callAddFriendApi,
     sendRequestLoading,
-    sent,callGetSentRequests
+    sent,
+    callGetSentRequests,friend
   } = useFriends();
 
   return (
@@ -48,9 +49,9 @@ const Searchbar = () => {
         noOptionsText={"User Not Found"}
         loading={searchResLoading}
         options={results}
-        onFocus={() =>{
-          !window.location.pathname !== "/friend" && navigate("/friend")
-          callGetSentRequests()
+        onFocus={() => {
+          !window.location.pathname !== "/friend" && navigate("/friend");
+          callGetSentRequests();
         }}
         renderOption={(props, option) => (
           <Box key={option._id} className="customOptionContainer">
@@ -67,6 +68,8 @@ const Searchbar = () => {
               requestBtnText={
                 sent.filter((request) => request._id === option._id).length > 0
                   ? "Requested"
+                  : friend.filter((f) => f._id === option._id).length > 0
+                  ? null
                   : "Add"
               }
               isLoading={sendRequestLoading}
