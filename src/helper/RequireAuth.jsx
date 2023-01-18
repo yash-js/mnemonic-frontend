@@ -18,7 +18,9 @@ const RequireAuth = ({ children }) => {
         if(response.status === 200){
           dispatch(userdata(response?.data?.user));
         } else{
+          if(token){
           location.removeItem('token')
+        }
           navigate('/signin')
         }
         dispatch(isLoading(false));
