@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import _ from "lodash";
 import { useState } from "react";
 import {
   friendsLoadingState,
   requestsLoadingState,
-  setFriends,
   setFriendsLoading,
-  setRequests,
-  setRequestsLoading,
 } from "../features/friendsSlice";
 import { userdata, userData } from "../features/userSlice";
 import {
@@ -38,7 +35,7 @@ export const useFriends = () => {
   const [sent, setSent] = useState([]);
 
   const [searchResLoading, setSearchResLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("yash");
+  const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [sendRequestLoading, setSendRequestLoading] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -46,7 +43,6 @@ export const useFriends = () => {
   const getFriendsApiCall = async () => {
     setLoading(true);
     const resp = await getFriends();
-    console.log(resp);
     if (resp && resp?.status === 200 && resp?.data) {
       setFriend(resp?.data);
     }
@@ -123,40 +119,45 @@ export const useFriends = () => {
     });
   }
 
-  const onChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const searchApiCall = () => {
-    setSearchResLoading(true);
-    setSearchOpen(true);
-    setTimeout(async () => {
-      const res = await searchUser(searchQuery);
-      console.log(res);
-      if (res?.status === 200) {
-        setResults(res?.data?.result);
-      }
-      setSearchResLoading(false);
-    }, 1500);
-    return clearTimeout();
-  };
-
-  const callAddFriendApi = async (friend) => {
-    setSendRequestLoading(true);
-    const res = await addFriend(friend._id);
-    if (res === 200) {
-      setMessage(res?.data?.message);
-      setType("success");
-      setOpen(true);
-      setSent([...sent, friend]);
-      setRequest([...request, friend]);
-      setSendRequestLoading(false);
+  useEffect(() => {
+    if (!searchQuery && searchOpen) {
       setSearchOpen(false);
       setSearchQuery("");
       setResults([]);
+    }
+  }, [searchQuery]);
+
+  const onChange = (e) => {
+    setSearchQuery(e.target.value);
+    debounceSearch(e.target.value);
+  };
+
+  const searchApiCall = async (value) => {
+    setSearchResLoading(true);
+    setSearchOpen(true);
+    const res = await searchUser(value);
+    if (res?.status === 200) {
+      setResults(res?.data?.result);
+    }
+    setSearchResLoading(false);
+  };
+
+  const debounceSearch = _.debounce(searchApiCall, 1000);
+
+  const callAddFriendApi = async (friendData) => {
+    setSendRequestLoading(true);
+    const res = await addFriend(friendData._id);
+    if (res.status === 200) {
+      setType("success");
+      setOpen(true);
+      setMessage(res?.data?.message);
+      setSent([...sent, friendData]);
     } else {
       setSendRequestLoading(false);
     }
+    setSearchOpen(false);
+    setSearchQuery("");
+    setResults([]);
   };
 
   const callGetSentRequests = async () => {
@@ -206,8 +207,6 @@ export const useFriends = () => {
     getRequestsApiCall,
     removeFriendApiCall,
     acceptFriendRequestApiCall,
-    open,
-    setOpen,
     message,
     setMessage,
     type,
@@ -219,18 +218,16 @@ export const useFriends = () => {
     setSearchQuery,
     onChange,
     results,
-    open,
     searchResLoading,
     setResults,
     open,
     setOpen,
     searchApiCall,
-    setSearchQuery,
-    setResults,
     callAddFriendApi,
-    sendRequestLoading,
     sent,
     callGetSentRequests,
-    cancelRequestApiCall,setSearchOpen,searchOpen 
+    cancelRequestApiCall,
+    setSearchOpen,
+    searchOpen,
   };
 };

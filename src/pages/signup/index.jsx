@@ -69,7 +69,6 @@ function Signup() {
     document.title = "Sign Up";
   });
 
-  console.log("errobj", error);
   return (
     <Grid container className="signup">
       <Grid item xs={6} className="signupleft">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/system";
 import InputField from "./InputField";
 import search from "../assets/images/search.svg";
@@ -7,8 +7,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useFriends } from "../hooks/friends";
 import { useNavigate } from "react-router-dom";
-import AlertComponent from "./AlertComponent";
-
 const Searchbar = () => {
   const navigate = useNavigate();
   const {
@@ -23,15 +21,9 @@ const Searchbar = () => {
     setResults,
     callAddFriendApi,
     sendRequestLoading,
-    sent,
-    open,
-    setOpen,
-    message,
-    setMessage,
-    type,
-    setType,
+    sent,callGetSentRequests
   } = useFriends();
-console.log('SEARCH', searchOpen);
+
   return (
     <>
       <Autocomplete
@@ -39,7 +31,6 @@ console.log('SEARCH', searchOpen);
         sx={{
           width: 300,
           "& .MuiOutlinedInput-root": {
-            // border: "1px solid yellow",
             borderRadius: "0",
           },
           "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
@@ -57,11 +48,12 @@ console.log('SEARCH', searchOpen);
         noOptionsText={"User Not Found"}
         loading={searchResLoading}
         options={results}
-        onFocus={() =>
+        onFocus={() =>{
           !window.location.pathname !== "/friend" && navigate("/friend")
-        }
+          callGetSentRequests()
+        }}
         renderOption={(props, option) => (
-          <Box className="customOptionContainer">
+          <Box key={option._id} className="customOptionContainer">
             <FriendCard
               profileFirstname={option?.firstName}
               profileusername={option?.username}
@@ -69,11 +61,13 @@ console.log('SEARCH', searchOpen);
               porfileLastname={option?.lastName}
               friendsadd={() => callAddFriendApi(option)}
               custombuttonrequestclass={"searchAddFriend"}
-              disabled={sent.filter((request) => request._id === option._id)}
+              disabled={
+                sent.filter((request) => request._id === option._id).length > 0
+              }
               requestBtnText={
-                sent.filter((request) => request._id === option._id)
+                sent.filter((request) => request._id === option._id).length > 0
                   ? "Requested"
-                  : "Add Friend"
+                  : "Add"
               }
               isLoading={sendRequestLoading}
             />
@@ -108,14 +102,6 @@ console.log('SEARCH', searchOpen);
             }}
           />
         )}
-      />
-      <AlertComponent
-        setOpen={setOpen}
-        setType={setType}
-        setMessage={setMessage}
-        alertOpen={open}
-        alertMessage={message}
-        alertType={type}
       />
     </>
   );

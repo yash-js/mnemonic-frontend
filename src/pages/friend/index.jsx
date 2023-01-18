@@ -21,27 +21,19 @@ function Friend() {
     acceptFriendRequestApiCall,
     friend,
     request,
-    callGetSentRequests,cancelRequestApiCall
+    cancelRequestApiCall,
+    callGetSentRequests,
   } = useFriends();
 
   useEffect(() => {
-    document.title = "Friends";
+    callGetSentRequests();
+    getFriendsApiCall();
+    getRequestsApiCall();
     return () => {
-      getFriendsApiCall();
-      getRequestsApiCall();
-      callGetSentRequests()
+      document.title = "Friends";
     };
   }, []);
 
-  // useEffect(() => {
-  //   return () => getFriendsApiCall();
-  // }, [friend]);
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(setFriends(user?.friends));
-  //     console.log("Friends Updateds");
-  //   };
-  // }, [friends]);
   return (
     <div className="friend">
       <Grid container spacing={1} className="friendbox">
@@ -103,8 +95,12 @@ function Friend() {
                   return (
                     <FriendCard
                       key={item._id + index}
-                      friendrequestaccept={() => acceptFriendRequestApiCall(item)}
-                      friendrequestremove={() => cancelRequestApiCall(item?._id)}
+                      friendrequestaccept={() =>
+                        acceptFriendRequestApiCall(item)
+                      }
+                      friendrequestremove={() =>
+                        cancelRequestApiCall(item?._id)
+                      }
                       profileimage={item?.profilePic}
                       profileFirstname={item?.firstName}
                       porfileLastname={item?.lastName}

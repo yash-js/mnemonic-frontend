@@ -25,6 +25,9 @@ function SideBar() {
   useEffect(() => {
     return () => handleClick(window.location.pathname.replace("/", ""));
   },[]);
+  useEffect(() => {
+    return () => handleClick(window.location.pathname.replace("/", ""));
+  },[window.location.pathname]);
 
   return (
     <div className="sidebar">

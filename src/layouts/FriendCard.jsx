@@ -31,7 +31,7 @@ function FriendCard({
             <ButtonComponent
               onClick={friendsadd}
               extraclass="requestbutton"
-              buttontext={requestBtnText ? requestBtnText : "Add Friend"}
+              buttontext={requestBtnText}
               isLoading={isLoading}
               disabled={disabled}
             />
