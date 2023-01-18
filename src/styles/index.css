@@ -492,25 +492,22 @@ p {
 
 #simple-popover .notecontent .notetop{
   width: calc(100% - 40px);
-  height: 70px;
+  height: 100px;
   padding: 0px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
-#simple-popover .notecontent .notetop .noteheading h1{
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 33px;
-  color: #ffffff;
+#simple-popover .notecontent .notetop button{
+  width: 125px !important;
+  height: 50px;
+  margin: 0px 15px 0px 0px !important; 
 }
 
 #simple-popover .notecontent .notebottom{
   width: calc(100% - 40px);
-  height: calc(100% - 70px);
+  height: calc(100% - 100px);
   padding: 0px 20px;
   display: flex;
   justify-content: center;
@@ -522,6 +519,23 @@ p {
   height: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.notebottom .notebottomcontent.normalnotebox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.notebottom .notebottomcontent.normalnotebox .normalnotesheading,{
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -546,6 +560,8 @@ p {
   background-color: white;
   color: black;
 }
+
+
 
 /** popover css ends **/
 

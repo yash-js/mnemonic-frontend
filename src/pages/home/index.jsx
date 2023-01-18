@@ -36,7 +36,14 @@ const Home = () => {
   ]
 
   const popovernormalcontent = [
-    <h1>Normal Notes</h1>
+    <div className="notebottomcontent .normalnotebox">
+      <div className="normalnotesheading">
+        <h1>Normal Notes</h1>
+      </div>
+      <div className="normalnotescontent">
+          ``
+      </div>
+    </div>
   ]
 
   const popovermnemoniccontent = [

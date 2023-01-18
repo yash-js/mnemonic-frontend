@@ -1,5 +1,6 @@
 import React from "react";
 import Popover from "@mui/material/Popover";
+import ButtonComponent from "./ButtonComponent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
@@ -32,23 +33,21 @@ function PopoverComponent({
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notebottom">{popovercontent}</div>
       <div className="notetop">
-        <div
-          className="noteheading"
-          style={{ display: popoverheading ? "block" : "hide" }}
-        >
-          <h1>{popoverheading}</h1>
-        </div>
         <div className="noteclosebtn">
-          <IconButton
-            color="primary"
-            aria-label="upload picture"
-            component="label"
-            onClick={handleClose}
-          >
-            <CloseIcon
-              style={{ color: "black", width: "35px", height: "35px" }}
-            />
-          </IconButton>
+          {btnname === 'home' ? (
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="label"
+              onClick={handleClose}
+            >
+              <CloseIcon
+                style={{ color: "black", width: "35px", height: "35px" }}
+              />
+            </IconButton>
+          ) : (
+            <ButtonComponent buttontext="Cancel" onClick={handleClose} />
+          )}
         </div>
       </div>
     </span>
