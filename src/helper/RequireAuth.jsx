@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { getToken, isLoading, userdata, userData } from "../features/userSlice";
 import { getUser } from "../lib/getApiCall";
 
@@ -9,12 +9,17 @@ const RequireAuth = ({ children }) => {
   const token = localStorage.getItem("token");
   const user = useSelector(userData);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   useEffect(() => {
     return async () => {
       if (token && (!user || user === null)) {
         dispatch(isLoading(true));
         const response = await getUser(token);
-        dispatch(userdata(response?.data?.user));
+        if(response.status === 200){
+          dispatch(userdata(response?.data?.user));
+        } else{
+          navigate('/signin')
+        }
         dispatch(isLoading(false));
       }
     };
