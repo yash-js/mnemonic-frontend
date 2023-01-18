@@ -103,15 +103,16 @@
 
 /* Disbaled Btn CSS */
 
-.css-sghohy-MuiButtonBase-root-MuiButton-root.Mui-disabled{
-  color: white;
-    box-shadow: none;
-    background-color: rgb(25 118 210 / 57%);
+.Mui-disabled{
+  color: white !important;
+    box-shadow: none !important;
+    background-color: rgb(25 118 210 / 57%) !important;
 }
 
 
 .customOptionContainer .friendactions .request button .MuiCircularProgress-root{
-  width: 20px;
-  height: 20px;
-  color: white;
+  width: 20px !important;
+  height: 20px !important;
+  color: white !important;
+
 }
