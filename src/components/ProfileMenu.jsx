@@ -1,6 +1,7 @@
-import { Logout } from "@mui/icons-material";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
+  Fab,
   Box,
   IconButton,
   ListItemIcon,
@@ -9,20 +10,50 @@ import {
   Skeleton,
   Tooltip,
 } from "@mui/material";
-import React from "react";
-import PopoverComponent from "./PopoverComponent";
-import { useDispatch, useSelector } from "react-redux";
+import Grid from '@mui/material/Grid';
+import { Logout, Add } from "@mui/icons-material";
+import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
-import { logout, isLoading } from "../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut, signUp } from "../lib/getApiCall";
+import { logout, isLoading, userData, loadingState } from "../features/userSlice";
 import { getActivePopOver, setActivePopOver } from "../features/popoverslice";
-import { signOut } from "../lib/getApiCall";
+import PopoverComponent from "./PopoverComponent";
+import InputField from "./InputField";
+import ButtonComponent from "./ButtonComponent";
+import AlertComponent from "./AlertComponent";
+import convertToBase64 from "../helper/Convert";
 
-const ProfileMenu = ({ profilePic, loading }) => {
+const ProfileMenu = () => {
+  const loading = useSelector(loadingState);
+  const user = useSelector(userData);
+  const [profilemenu, setProfilemenu] = React.useState(null);
+  const [firstName, setFirstName] = useState(user?.firstName);
+  const [lastName, setLastName] = useState(user?.lastName);
+  const [email, setEmail] = useState(user?.email);
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState(user?.username);
+  const [type, setType] = useState("");
+  const [file, setFile] = useState(user?.profilePic);
+  const [disabled, setDisabled] = useState(true);
+  const [error, setError] = useState({});
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [isLoadingEdit, setLoadingEdit] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const activepopover = useSelector(getActivePopOver);
-  const [profilemenu, setProfilemenu] = React.useState(null);
   const openmenu = Boolean(profilemenu);
+  const activepopover = useSelector(getActivePopOver);
+
+  useEffect(() => {
+    setDisabled(true);
+  }, [profilemenu]);
+
+  const openAlert = (open, type, message) => {
+    setOpen(open);
+    setMessage(message);
+    setType(type);
+  };
 
   const handleClickMenu = (event) => {
     setProfilemenu(event.currentTarget);
@@ -46,14 +77,178 @@ const ProfileMenu = ({ profilePic, loading }) => {
   const handleProfile = () => {
     dispatch(setActivePopOver("profile"));
   }
+
+  const handleClick = async () => {
+    onFocusField()
+    setLoadingEdit(true);
+    const res = await signUp({
+      firstName,
+      lastName,
+      email,
+      password,
+      username,
+      profilePic: file,
+    });
+    if (res?.status === 200) {
+      setLoadingEdit(false);
+      navigate("/signin");
+    } else {
+      setLoadingEdit(false);
+      if (res?.response?.data?.field) {
+        setError({
+          field: res?.response?.data?.field,
+          error: res?.response?.data?.error,
+        });
+      } else {
+        openAlert(true, "error", res?.response?.data?.error);
+      }
+    }
+  };
+
+  const onUpload = async (e) => {
+    const base64 = await convertToBase64(e.target.files[0]);
+    setFile(base64);
+  };
+
+  const onFocusField = () => setError({});
+
+  useEffect(() => {
+    document.title = "Sign Up";
+  });
   
   const popoverprofilecontent = [
     <div className="notebottomcontent profilebox">
       <div className="profileheading">
         <h3>User Profile</h3>
+        {
+          disabled && (
+            <IconButton style={{width: '40px',height: '40px',background: '#c8c8c866'}} onClick={() => setDisabled(false)}>
+              <EditIcon />
+            </IconButton>
+          )
+        }
       </div>
       <div className="profilecontent">
-        <h1>Profile Details</h1>
+        <Grid container spacing={2}>
+          <Grid
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent="space-evenly"
+            alignItems={"center"}
+            item
+            xs={12}
+          >
+            <label
+              className="uploadPhotoContainer"
+              htmlFor="upload-photo"
+            >
+              <input
+                style={{ display: "none" }}
+                id="upload-photo"
+                name="upload-photo"
+                type="file"
+                onChange={onUpload}
+                accept="image/*"
+              />
+              <Avatar
+                style={{
+                  height: "100px",
+                  width: "100px",
+                  marginBottom: "15px",
+                }}
+                src={file || ""}
+              />
+              <Fab
+                color={file ? "secondary" : "primary"}
+                size="small"
+                component="span"
+                aria-label="add"
+                variant="extended"
+                disabled={disabled}
+              >
+                <Add /> {file ? <> Change photo</> : <> Upload photo</>}
+              </Fab>
+            </label>
+          </Grid>
+          <Grid item xs={6}>
+            <InputField
+              extraclass={"signupInput"}
+              type="text"
+              label="First Name"
+              name="firstname"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              disabled={isLoadingEdit || disabled}
+              error={error && error.field === "firstName"}
+              errorText={
+                error && error.field === "firstName" && error.error
+              }
+              onFocusField={onFocusField}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <InputField
+              extraclass={"signupInput"}
+              type="text"
+              label="Last Name"
+              name="lastname"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              disabled={isLoadingEdit || disabled}
+              error={error && error.field === "lastName"}
+              errorText={
+                error && error.field === "lastName" && error.error
+              }
+              onFocusField={onFocusField}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <InputField
+              extraclass={"signupInput"}
+              type="email"
+              label="Email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoadingEdit || disabled}
+              error={error && error.field === "email"}
+              errorText={error && error.field === "email" && error.error}
+              onFocusField={onFocusField}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <InputField
+              extraclass={"signupInput"}
+              type="text"
+              label="User Name"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              disabled={isLoadingEdit || disabled}
+              error={error && error.field === "username"}
+              errorText={
+                error && error.field === "username" && error.error
+              }
+              onFocusField={onFocusField}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <InputField
+              extraclass={"signupInput"}
+              type="password"
+              label="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoadingEdit || disabled}
+              error={error && error.field === "password"}
+              errorText={
+                error && error.field === "password" && error.error
+              }
+              onFocusField={onFocusField}
+            />
+          </Grid>
+        </Grid>
       </div>
     </div>
   ]
@@ -80,7 +275,7 @@ const ProfileMenu = ({ profilePic, loading }) => {
             ) : (
               <Avatar
                 sx={{ width: 50, height: "auto" }}
-                src={profilePic}
+                src={user && user?.profilePic}
                 className="profileavatar"
               />
             )}
@@ -123,7 +318,7 @@ const ProfileMenu = ({ profilePic, loading }) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleProfile}>
-          <Avatar src={profilePic} /> Profile
+          <Avatar src={user && user?.profilePic} /> Profile
         </MenuItem>
         <MenuItem onClick={handleSignOut}>
           <ListItemIcon>
@@ -135,6 +330,14 @@ const ProfileMenu = ({ profilePic, loading }) => {
       {
         activepopover === 'profile' && <PopoverComponent popoverclassname={'profile'} popovercontent={popoverprofilecontent} popoverstate={true}/>
       }
+      <AlertComponent
+        setOpen={setOpen}
+        setType={setType}
+        setMessage={setMessage}
+        alertOpen={open}
+        alertMessage={message}
+        alertType={type}
+      />
     </>
   );
 };

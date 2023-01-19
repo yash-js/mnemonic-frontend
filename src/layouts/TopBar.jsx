@@ -32,7 +32,7 @@ function TopBar() {
             )}
           </div>
           <div style={{ marginRight: "10px" }}>
-            <ProfileMenu loading={loading} profilePic={user?.profilePic} />
+            <ProfileMenu />
           </div>
         </div>
       </div>

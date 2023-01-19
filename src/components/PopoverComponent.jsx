@@ -4,9 +4,10 @@ import ButtonComponent from "./ButtonComponent";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setActivePopOver } from "../features/popoverslice";
 import { useRichTextEditor } from "../hooks/richtexteditor";
+import { getActivePopOver } from "../features/popoverslice";
 
 function PopoverComponent({
   btnname,
@@ -23,6 +24,7 @@ function PopoverComponent({
   } = useRichTextEditor();
 
   const dispatch = useDispatch();
+  const activepopover = useSelector(getActivePopOver);
   const [anchorEl, setAnchorEl] = React.useState(popoverstate|| null);
 
   const open = Boolean(anchorEl);
@@ -64,7 +66,10 @@ function PopoverComponent({
               />
             </IconButton>
           ) : (
-            <ButtonComponent color={'error'} buttontext="Cancel" onClick={handleClose} />
+            <>
+              {activepopover === 'profile' && (<ButtonComponent buttontext="Save" onClick={handleClose} />)}
+              <ButtonComponent color={'error'} buttontext="Cancel" onClick={handleClose} />
+            </>
           )}
         </div>
       </div>
