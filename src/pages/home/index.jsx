@@ -69,7 +69,7 @@ const Home = () => {
             ) : activepopover === 'mnemonic' ? (
               <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={popovermnemoniccontent}/>
             ) : (
-              <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverclose={closehomepopover} />
+              <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverstate={closehomepopover} />
             )
           }
         </div>

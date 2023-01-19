@@ -13,7 +13,7 @@ function PopoverComponent({
   popoverheading,
   popovercontent,
   popoverclassname,
-  popoverclose,
+  popoverstate,
   richtext,
 }) {
 
@@ -23,7 +23,7 @@ function PopoverComponent({
   } = useRichTextEditor();
 
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(popoverclose|| null);
+  const [anchorEl, setAnchorEl] = React.useState(popoverstate|| null);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;

@@ -10,23 +10,26 @@ import {
   Tooltip,
 } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import PopoverComponent from "./PopoverComponent";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout, isLoading } from "../features/userSlice";
+import { getActivePopOver, setActivePopOver } from "../features/popoverslice";
 import { signOut } from "../lib/getApiCall";
 
 const ProfileMenu = ({ profilePic, loading }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const activepopover = useSelector(getActivePopOver);
+  const [profilemenu, setProfilemenu] = React.useState(null);
+  const openmenu = Boolean(profilemenu);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClickMenu = (event) => {
+    setProfilemenu(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const handleCloseMenu = () => {
+    setProfilemenu(null);
   };
 
   const handleSignOut = async () => {
@@ -40,17 +43,32 @@ const ProfileMenu = ({ profilePic, loading }) => {
     }
   };
 
+  const handleProfile = () => {
+    dispatch(setActivePopOver("profile"));
+  }
+  
+  const popoverprofilecontent = [
+    <div className="notebottomcontent profilebox">
+      <div className="profileheading">
+        <h3>User Profile</h3>
+      </div>
+      <div className="profilecontent">
+        <h1>Profile Details</h1>
+      </div>
+    </div>
+  ]
+
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account">
           <IconButton
-            onClick={handleClick}
+            onClick={handleClickMenu}
             size="small"
             sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
+            aria-controls={openmenu ? "account-menu" : undefined}
             aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
+            aria-expanded={openmenu ? "true" : undefined}
             className="profileimage"
           >
             {loading ? (
@@ -70,11 +88,11 @@ const ProfileMenu = ({ profilePic, loading }) => {
         </Tooltip>
       </Box>
       <Menu
-        anchorEl={anchorEl}
+        anchorEl={profilemenu}
         id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
+        open={openmenu}
+        onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -104,7 +122,7 @@ const ProfileMenu = ({ profilePic, loading }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem onClick={handleProfile}>
           <Avatar src={profilePic} /> Profile
         </MenuItem>
         <MenuItem onClick={handleSignOut}>
@@ -114,6 +132,9 @@ const ProfileMenu = ({ profilePic, loading }) => {
           Sign Out
         </MenuItem>
       </Menu>
+      {
+        activepopover === 'profile' && <PopoverComponent popoverclassname={'profile'} popovercontent={popoverprofilecontent} popoverstate={true}/>
+      }
     </>
   );
 };

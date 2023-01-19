@@ -480,7 +480,8 @@ p {
 }
 
 #simple-popover .notecontent.mnemonicnotes,
-#simple-popover .notecontent.normalnotes{
+#simple-popover .notecontent.normalnotes,
+#simple-popover .notecontent.profile{
   display: block !important;
   width: 100%;
   height: 97%;
@@ -545,7 +546,8 @@ p {
 }
 
 .notebottom .notebottomcontent.normalnotebox, 
-.notebottom .notebottomcontent.mnemonicnotebox{
+.notebottom .notebottomcontent.mnemonicnotebox,
+.notebottom .notebottomcontent.profilebox{
   width: 100%;
   height: 100%;
   display: flex;
@@ -555,7 +557,8 @@ p {
 }
 
 .notebottom .notebottomcontent.normalnotebox .normalnotesheading,
-.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading{
+.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading,
+.notebottom .notebottomcontent.profilebox .profileheading{
   width: 100%;
   height: 70px;
   display: flex;
@@ -564,7 +567,8 @@ p {
 }
 
 .notebottom .notebottomcontent.normalnotebox .normalnotesheading h3,
-.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading h3{
+.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading h3,
+.notebottom .notebottomcontent.profilebox .profileheading h3{
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -575,7 +579,8 @@ p {
 }
 
 .notebottom .notebottomcontent.normalnotebox .normalnotescontent,
-.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotescontent{
+.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotescontent,
+.notebottom .notebottomcontent.profilebox .profilecontent{
   width: 100%;
   height: calc(100% - 70px);
   display: flex;
