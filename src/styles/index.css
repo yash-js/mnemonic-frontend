@@ -513,6 +513,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: scroll;
 }
 
 .notebottom .notebottomcontent{
@@ -566,6 +567,12 @@ p {
   align-items: center;
 }
 
+.notebottom .notebottomcontent.profilebox .profileheading{
+  position: sticky;
+  top: 15px;
+  margin-top: 15px;
+}
+
 .notebottom .notebottomcontent.normalnotebox .normalnotesheading h3,
 .notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading h3,
 .notebottom .notebottomcontent.profilebox .profileheading h3{
@@ -590,6 +597,13 @@ p {
 
 .notebottom .notebottomcontent.profilebox .profilecontent{
   padding-top: 20px;
+}
+
+.notebottom .notebottomcontent.profilebox .profilecontent .profilepic{
+  position: sticky;
+  top: 69px;
+  background: #f5f5f5;
+  z-index: 10;
 }
 
 /** popover css ends **/

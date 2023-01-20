@@ -5,6 +5,7 @@ const initialState = {
   token: token ? token : null,
   user: null,
   loading: false,
+  profiledata: false,
 };
 
 export const userSlice = createSlice({
@@ -25,12 +26,16 @@ export const userSlice = createSlice({
     isLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setProfiledata: (state, action) => {
+      state.profiledata = action.payload;
+    }
   },
 });
 
-export const { login, logout, userdata, isLoading } = userSlice.actions;
+export const { login, logout, userdata, isLoading, setProfiledata} = userSlice.actions;
 export const getToken = (state) => state.user.token;
 export const userData = (state) => state.user.user;
 export const loadingState = (state) => state.user.loading;
+export const profiledata = (state) => state.user.profiledata;
 
 export default userSlice.reducer;

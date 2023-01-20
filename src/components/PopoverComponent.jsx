@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActivePopOver } from "../features/popoverslice";
 import { useRichTextEditor } from "../hooks/richtexteditor";
 import { getActivePopOver } from "../features/popoverslice";
+import {profiledata} from "../features/userSlice";
 
 function PopoverComponent({
   btnname,
@@ -25,6 +26,7 @@ function PopoverComponent({
 
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
+  const profiledisabled = useSelector(profiledata);
   const [anchorEl, setAnchorEl] = React.useState(popoverstate|| null);
 
   const open = Boolean(anchorEl);
@@ -67,7 +69,7 @@ function PopoverComponent({
             </IconButton>
           ) : (
             <>
-              {activepopover === 'profile' && (<ButtonComponent buttontext="Save" onClick={handleClose} />)}
+              {activepopover === 'profile' && (<ButtonComponent disabled={profiledisabled} buttontext="Save" onClick={handleClose} />)}
               <ButtonComponent color={'error'} buttontext="Cancel" onClick={handleClose} />
             </>
           )}

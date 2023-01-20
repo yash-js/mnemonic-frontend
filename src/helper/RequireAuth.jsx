@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation} from "react-router-dom";
 import {
-  getToken,
   isLoading,
   logout,
   userdata,
@@ -15,7 +14,6 @@ const RequireAuth = ({ children }) => {
   const token = localStorage.getItem("token");
   const user = useSelector(userData);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   useEffect(() => {
     return async () => {
       if (

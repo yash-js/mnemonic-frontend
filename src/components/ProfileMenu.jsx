@@ -15,48 +15,57 @@ import { Logout, Add } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut, signUp } from "../lib/getApiCall";
+import { signOut } from "../lib/getApiCall";
 import {
   logout,
   userData,
   loadingState,
+  setProfiledata,
 } from "../features/userSlice";
 import { getActivePopOver, setActivePopOver } from "../features/popoverslice";
 import PopoverComponent from "./PopoverComponent";
 import InputField from "./InputField";
-import AlertComponent from "./AlertComponent";
 import convertToBase64 from "../helper/Convert";
 
 const ProfileMenu = () => {
   const loading = useSelector(loadingState);
   const user = useSelector(userData);
+  const [editdata, setEditdata] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    file: "",
+  })
   const [profilemenu, setProfilemenu] = React.useState(null);
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState(user?.username);
-  const [type, setType] = useState("");
-  const [file, setFile] = useState(user?.profilePic);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState({});
-  const [message, setMessage] = useState("");
-  const [open, setOpen] = useState(false);
-  const [isLoadingEdit, setLoadingEdit] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const openmenu = Boolean(profilemenu);
   const activepopover = useSelector(getActivePopOver);
   const token = localStorage.getItem("token");
+
   useEffect(() => {
     setDisabled(true);
-  }, [profilemenu]);
+    return () => {
+      setEditdata({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+        username: user?.username,
+        file: user?.profilePic,
+      })
+    }
+  }, [user]);
 
-  const openAlert = (open, type, message) => {
-    setOpen(open);
-    setMessage(message);
-    setType(type);
-  };
+  useEffect(() => {
+    if(editdata.firstName !== user?.firstName || editdata.lastName !== user?.lastName || editdata.email !== user?.email || editdata.username !== user?.username || editdata.file !== user?.profilePic) {
+      dispatch(setProfiledata(false))
+    }else{
+      dispatch(setProfiledata(true))
+    }
+  },[editdata, user, dispatch])
 
   const handleClickMenu = (event) => {
     setProfilemenu(event.currentTarget);
@@ -79,36 +88,9 @@ const ProfileMenu = () => {
     dispatch(setActivePopOver("profile"));
   };
 
-  const handleClick = async () => {
-    onFocusField();
-    setLoadingEdit(true);
-    const res = await signUp({
-      firstName,
-      lastName,
-      email,
-      password,
-      username,
-      profilePic: file,
-    });
-    if (res?.status === 200) {
-      setLoadingEdit(false);
-      navigate("/signin");
-    } else {
-      setLoadingEdit(false);
-      if (res?.response?.data?.field) {
-        setError({
-          field: res?.response?.data?.field,
-          error: res?.response?.data?.error,
-        });
-      } else {
-        openAlert(true, "error", res?.response?.data?.error);
-      }
-    }
-  };
-
   const onUpload = async (e) => {
     const base64 = await convertToBase64(e.target.files[0]);
-    setFile(base64);
+    setEditdata({...editdata, file: base64});
   };
 
   const onFocusField = () => setError({});
@@ -117,128 +99,127 @@ const ProfileMenu = () => {
     <div className="notebottomcontent profilebox">
       <div className="profileheading">
         <h3>User Profile</h3>
-        {disabled && (
-          <IconButton
-            style={{ width: "40px", height: "40px", background: "#c8c8c866" }}
-            onClick={() => setDisabled(false)}
-          >
-            <EditIcon />
-          </IconButton>
-        )}
+        {
+          disabled && (
+            <IconButton style={{width: '40px',height: '40px',background: '#c8c8c866'}} onClick={() => setDisabled(false)}>
+              <EditIcon />
+            </IconButton>
+          )
+        }
       </div>
       <div className="profilecontent">
         <Grid container spacing={2}>
           <Grid
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent="space-evenly"
-            alignItems={"center"}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            className="profilepic"
             item
             xs={12}
-          >
-            <label className="uploadPhotoContainer" htmlFor="upload-photo">
-              <input
-                style={{ display: "none" }}
-                id="upload-photo"
-                name="upload-photo"
-                type="file"
-                onChange={onUpload}
-                accept="image/*"
-              />
-              <Avatar
-                style={{
-                  height: "100px",
-                  width: "100px",
-                  marginBottom: "15px",
-                }}
-                src={file || ""}
-              />
-              <Fab
-                color={file ? "secondary" : "primary"}
-                size="small"
-                component="span"
-                aria-label="add"
-                variant="extended"
-                disabled={disabled}
+            md={4}>
+              <label
+                className="uploadPhotoContainer"
+                htmlFor="upload-photo"
+                style={{display: 'flex', flexDirection: 'column',justifyContent: 'space-evenly',alignItems: 'center',width: '100%',height: '180px'}}
               >
-                <Add /> {file ? <> Change photo</> : <> Upload photo</>}
-              </Fab>
-            </label>
+                <input
+                  style={{ display: "none" }}
+                  id="upload-photo"
+                  name="upload-photo"
+                  type="file"
+                  onChange={onUpload}
+                  accept="image/*"
+                />
+                <Avatar
+                  style={{
+                    height: "100px",
+                    width: "100px",
+                    marginBottom: "15px",
+                  }}
+                  src={editdata?.file || ""}
+                />
+                <Fab
+                  color={editdata?.file ? "secondary" : "primary"}
+                  size="small"
+                  component="span"
+                  aria-label="add"
+                  variant="extended"
+                  disabled={disabled}
+                >
+                  <Add /> {editdata?.file ? <> Change photo</> : <> Upload photo</>}
+                </Fab>
+              </label>
           </Grid>
-          <Grid item xs={6}>
-            <InputField
-              extraclass={"signupInput"}
-              type="text"
-              label="First Name"
-              name="firstname"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              disabled={isLoadingEdit || disabled}
-              error={error && error.field === "firstName"}
-              errorText={error && error.field === "firstName" && error.error}
-              onFocusField={onFocusField}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <InputField
-              extraclass={"signupInput"}
-              type="text"
-              label="Last Name"
-              name="lastname"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              disabled={isLoadingEdit || disabled}
-              error={error && error.field === "lastName"}
-              errorText={error && error.field === "lastName" && error.error}
-              onFocusField={onFocusField}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <InputField
-              extraclass={"signupInput"}
-              type="email"
-              label="Email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={isLoadingEdit || disabled}
-              error={error && error.field === "email"}
-              errorText={error && error.field === "email" && error.error}
-              onFocusField={onFocusField}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <InputField
-              extraclass={"signupInput"}
-              type="text"
-              label="User Name"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              disabled={isLoadingEdit || disabled}
-              error={error && error.field === "username"}
-              errorText={error && error.field === "username" && error.error}
-              onFocusField={onFocusField}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <InputField
-              extraclass={"signupInput"}
-              type="password"
-              label="Password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={isLoadingEdit || disabled}
-              error={error && error.field === "password"}
-              errorText={error && error.field === "password" && error.error}
-              onFocusField={onFocusField}
-            />
+          <Grid item xs={12} md={8}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <InputField
+                  extraclass={"signupInput"}
+                  type="text"
+                  label="First Name"
+                  name="firstname"
+                  value={editdata?.firstName}
+                  onChange={(e) => setEditdata({...editdata, firstName: e.target.value})}
+                  disabled={disabled}
+                  error={error && error.field === "firstName"}
+                  errorText={
+                    error && error.field === "firstName" && error.error
+                  }
+                  onFocusField={onFocusField}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField
+                  extraclass={"signupInput"}
+                  type="text"
+                  label="Last Name"
+                  name="lastname"
+                  value={editdata?.lastName}
+                  onChange={(e) => setEditdata({...editdata, lastName: e.target.value})}
+                  disabled={disabled}
+                  error={error && error.field === "lastName"}
+                  errorText={
+                    error && error.field === "lastName" && error.error
+                  }
+                  onFocusField={onFocusField}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField
+                  extraclass={"signupInput"}
+                  type="email"
+                  label="Email"
+                  name="email"
+                  value={editdata?.email}
+                  onChange={(e) => setEditdata({...editdata, email: e.target.value})}
+                  disabled={disabled}
+                  error={error && error.field === "email"}
+                  errorText={error && error.field === "email" && error.error}
+                  onFocusField={onFocusField}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField
+                  extraclass={"signupInput"}
+                  type="text"
+                  label="User Name"
+                  name="username"
+                  value={editdata?.username}
+                  onChange={(e) => setEditdata({...editdata, username: e.target.value})}
+                  disabled={disabled}
+                  error={error && error.field === "username"}
+                  errorText={
+                    error && error.field === "username" && error.error
+                  }
+                  onFocusField={onFocusField}
+                />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </div>
-    </div>,
-  ];
+    </div>
+  ]
 
   return (
     <>
@@ -314,21 +295,9 @@ const ProfileMenu = () => {
           Sign Out
         </MenuItem>
       </Menu>
-      {activepopover === "profile" && (
-        <PopoverComponent
-          popoverclassname={"profile"}
-          popovercontent={popoverprofilecontent}
-          popoverstate={true}
-        />
-      )}
-      <AlertComponent
-        setOpen={setOpen}
-        setType={setType}
-        setMessage={setMessage}
-        alertOpen={open}
-        alertMessage={message}
-        alertType={type}
-      />
+      {
+        activepopover === 'profile' && <PopoverComponent profiledata={editdata}  popoverclassname={'profile'} popovercontent={popoverprofilecontent} popoverstate={true}/>
+      }
     </>
   );
 };
