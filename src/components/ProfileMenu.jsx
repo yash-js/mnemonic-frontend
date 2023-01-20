@@ -45,6 +45,11 @@ const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
+
+  useEffect(() => {
+    setDisabled(true);
+  }, [openmenu]);
+
   useEffect(() => {
     return () => {
       setCurrentUserdata({
@@ -170,10 +175,9 @@ const ProfileMenu = () => {
       if (res?.status === 200) {
         Object.keys(editdata).map((editData) => {
           Object.keys(currentUserData).filter((data) => {
-            return data != editData;
+            return data !== editData;
           });
         });
-        console.log(currentUserData);
         openAlert(true, "success", res?.data?.message);
         dispatch(userdata({ ...currentUserData, editdata }));
         setEditdata({});
