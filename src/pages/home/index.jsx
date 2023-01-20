@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getActivePopOver, setActivePopOver } from "../../features/popoverslice";
+import { getActivePopOver, getHidePopOver, setActivePopOver, setHidePopOver } from "../../features/popoverslice";
 import ButtonComponent from "../../components/ButtonComponent";
 import RichTextEditor from "../../components/RichTextEditor";
 import PopoverComponent from "../../components/PopoverComponent";
@@ -10,7 +11,7 @@ import NoteCard from "../../components/NoteCard";
 const Home = () => {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
-  const [closehomepopover, setclosehomepopover] = React.useState(false);
+  const hidepopover = useSelector(getHidePopOver);
 
   useEffect(() => {
     return ()=> document.title = "Mnemonic";
@@ -19,10 +20,10 @@ const Home = () => {
   const handlenotes = (type) => {
     if(type === 'normal'){
       dispatch(setActivePopOver('normal'));
-      setclosehomepopover(true)
+      dispatch(setHidePopOver('home'));
     }else if(type === 'mnemonic'){
       dispatch(setActivePopOver('mnemonic'));
-      setclosehomepopover(true)
+      dispatch(setHidePopOver('home'));
     }
   }
 
@@ -48,7 +49,7 @@ const Home = () => {
       }],
       date: '12/12/2021',
       time: '12:12:12',
-      type: 'normal',
+      type: 'mnemonic',
       id: 2
     },
     {
@@ -102,18 +103,22 @@ const Home = () => {
     <>
       <div className="home">
         <div className="homecontent">
-          {
-            cardcontent.map((item, index) => (
-                <NoteCard heading={item.heading} content={item.content}/>
-            ))
-          }
+          <Grid container spacing={3}>
+            {
+              cardcontent.map((item, index) => (
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <NoteCard heading={item.heading} content={item.content} sharing={item.sharing} type={item.type}/>
+                </Grid>
+              ))
+            }
+          </Grid>
           {
             activepopover === 'normal' ? (
               <PopoverComponent popoverclassname={'normalnotes'} popovercontent={popovernormalcontent} richtext={true}/>
             ) : activepopover === 'mnemonic' ? (
               <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={popovermnemoniccontent}/>
             ) : (
-              <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverstate={closehomepopover} />
+              <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverstate={hidepopover === 'home' ? true : false} />
             )
           }
         </div>
