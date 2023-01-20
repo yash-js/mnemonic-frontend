@@ -95,7 +95,7 @@
   width: 70%;
   min-width: 280px;
   height: 80%;
-  background-color: transparent !important;
+  background-color: transparent ;
   box-shadow: none !important;
 }
 
@@ -115,5 +115,15 @@
   width: 20px !important;
   height: 20px !important;
   color: white !important;
+
+}
+
+
+/* Alert Component CSS */
+.MuiSnackbar-root .MuiAlert-standardError{
+  background-color: #fdeded !important;
+}
+.MuiSnackbar-root .MuiAlert-standardSuccess{
+  background-color: #edf7ed !important;
 
 }

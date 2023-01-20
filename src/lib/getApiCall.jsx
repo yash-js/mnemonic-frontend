@@ -129,3 +129,12 @@ export const getSentRequests = async () => {
     return error;
   }
 };
+
+export const updateProfile = async (data) => {
+  try {
+    const resp = await axios.put(`${API}/user/edit`, data, config);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
