@@ -15,28 +15,25 @@ import { Logout, Add } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../lib/getApiCall";
+import { signOut, updateProfile } from "../lib/getApiCall";
 import {
   logout,
   userData,
   loadingState,
   setProfiledata,
+  userdata,
 } from "../features/userSlice";
 import { getActivePopOver, setActivePopOver } from "../features/popoverslice";
 import PopoverComponent from "./PopoverComponent";
 import InputField from "./InputField";
 import convertToBase64 from "../helper/Convert";
+import AlertComponent from "./AlertComponent";
 
 const ProfileMenu = () => {
   const loading = useSelector(loadingState);
   const user = useSelector(userData);
-  const [editdata, setEditdata] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    file: "",
-  })
+  const [currentUserData, setCurrentUserdata] = useState({});
+  const [editdata, setEditdata] = useState({});
   const [profilemenu, setProfilemenu] = React.useState(null);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState({});
@@ -45,27 +42,20 @@ const ProfileMenu = () => {
   const openmenu = Boolean(profilemenu);
   const activepopover = useSelector(getActivePopOver);
   const token = localStorage.getItem("token");
-
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
   useEffect(() => {
-    setDisabled(true);
     return () => {
-      setEditdata({
+      setCurrentUserdata({
         firstName: user?.firstName,
         lastName: user?.lastName,
         email: user?.email,
         username: user?.username,
-        file: user?.profilePic,
-      })
-    }
+        profilePic: user?.profilePic,
+      });
+    };
   }, [user]);
-
-  useEffect(() => {
-    if(editdata.firstName !== user?.firstName || editdata.lastName !== user?.lastName || editdata.email !== user?.email || editdata.username !== user?.username || editdata.file !== user?.profilePic) {
-      dispatch(setProfiledata(false))
-    }else{
-      dispatch(setProfiledata(true))
-    }
-  },[editdata, user, dispatch])
 
   const handleClickMenu = (event) => {
     setProfilemenu(event.currentTarget);
@@ -90,22 +80,131 @@ const ProfileMenu = () => {
 
   const onUpload = async (e) => {
     const base64 = await convertToBase64(e.target.files[0]);
-    setEditdata({...editdata, file: base64});
+    setEditdata({ ...editdata, profilePic: base64 });
   };
 
   const onFocusField = () => setError({});
+
+  const onChange = (e) => {
+    if (e.target.name === "firstName") {
+      if (e.target.value !== userData.firstName) {
+        dispatch(setProfiledata(false));
+        setEditdata({
+          ...editdata,
+          [e.target.name]: e.target.value,
+        });
+        setCurrentUserdata({
+          ...userdata,
+          [e.target.name]: e.target.value,
+        });
+      }
+    } else if (e.target.name === "lastName") {
+      if (e.target.value !== userData.lastName) {
+        dispatch(setProfiledata(false));
+        setEditdata({
+          ...editdata,
+          [e.target.name]: e.target.value,
+        });
+        setCurrentUserdata({
+          ...currentUserData,
+          [e.target.name]: e.target.value,
+        });
+      }
+    } else if (e.target.name === "email") {
+      if (e.target.value !== userData.email) {
+        dispatch(setProfiledata(false));
+        setEditdata({
+          ...editdata,
+          [e.target.name]: e.target.value,
+        });
+        setCurrentUserdata({
+          ...currentUserData,
+          [e.target.name]: e.target.value,
+        });
+      }
+    } else if (e.target.name === "username") {
+      if (e.target.value !== userData.username) {
+        dispatch(setProfiledata(false));
+        setEditdata({
+          ...editdata,
+          [e.target.name]: e.target.value,
+        });
+        setCurrentUserdata({
+          ...currentUserData,
+          [e.target.name]: e.target.value,
+        });
+      }
+    } else {
+      setEditdata({});
+      setCurrentUserdata({
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+        username: user?.username,
+        file: user?.profilePic,
+      });
+      dispatch(setProfiledata(true));
+    }
+  };
+
+  const openAlert = (open, type, message) => {
+    setOpen(open);
+    setMessage(message);
+    setType(type);
+  };
+
+  const updateProfileApiCall = async () => {
+    if (
+      editdata &&
+      !editdata?.username &&
+      !editdata?.firstName &&
+      !editdata?.lastName &&
+      !editdata?.email &&
+      !editdata?.profilePic
+    ) {
+      setEditdata({});
+      setDisabled(true);
+      return openAlert(true, "error", "Nothing to update!");
+    } else {
+      const res = await updateProfile(editdata);
+      if (res?.status === 200) {
+        Object.keys(editdata).map((editData) => {
+          Object.keys(currentUserData).filter((data) => {
+            return data != editData;
+          });
+        });
+        console.log(currentUserData);
+        openAlert(true, "success", res?.data?.message);
+        dispatch(userdata({ ...currentUserData, editdata }));
+        setEditdata({});
+        setDisabled(true);
+      } else {
+          setCurrentUserdata({
+          firstName: user?.firstName,
+          lastName: user?.lastName,
+          email: user?.email,
+          username: user?.username,
+          profilePic: user?.profilePic,
+        });
+        openAlert(true, "error", res?.response?.data?.error);
+        setDisabled(true);
+        setEditdata({})
+      }
+    }
+  };
 
   const popoverprofilecontent = [
     <div className="notebottomcontent profilebox">
       <div className="profileheading">
         <h3>User Profile</h3>
-        {
-          disabled && (
-            <IconButton style={{width: '40px',height: '40px',background: '#c8c8c866'}} onClick={() => setDisabled(false)}>
-              <EditIcon />
-            </IconButton>
-          )
-        }
+        {disabled && (
+          <IconButton
+            style={{ width: "40px", height: "40px", background: "#c8c8c866" }}
+            onClick={() => setDisabled(false)}
+          >
+            <EditIcon />
+          </IconButton>
+        )}
       </div>
       <div className="profilecontent">
         <Grid container spacing={2}>
@@ -116,39 +215,52 @@ const ProfileMenu = () => {
             className="profilepic"
             item
             xs={12}
-            md={4}>
-              <label
-                className="uploadPhotoContainer"
-                htmlFor="upload-photo"
-                style={{display: 'flex', flexDirection: 'column',justifyContent: 'space-evenly',alignItems: 'center',width: '100%',height: '180px'}}
+            md={4}
+          >
+            <label
+              className="uploadPhotoContainer"
+              htmlFor="upload-photo"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                width: "100%",
+                height: "180px",
+              }}
+            >
+              <input
+                style={{ display: "none" }}
+                id="upload-photo"
+                name="upload-photo"
+                type="file"
+                onChange={onUpload}
+                accept="image/*"
+              />
+              <Avatar
+                style={{
+                  height: "100px",
+                  width: "100px",
+                  marginBottom: "15px",
+                }}
+                src={currentUserData?.profilePic || ""}
+              />
+              <Fab
+                color={currentUserData?.profilePic ? "secondary" : "primary"}
+                size="small"
+                component="span"
+                aria-label="add"
+                variant="extended"
+                disabled={disabled}
               >
-                <input
-                  style={{ display: "none" }}
-                  id="upload-photo"
-                  name="upload-photo"
-                  type="file"
-                  onChange={onUpload}
-                  accept="image/*"
-                />
-                <Avatar
-                  style={{
-                    height: "100px",
-                    width: "100px",
-                    marginBottom: "15px",
-                  }}
-                  src={editdata?.file || ""}
-                />
-                <Fab
-                  color={editdata?.file ? "secondary" : "primary"}
-                  size="small"
-                  component="span"
-                  aria-label="add"
-                  variant="extended"
-                  disabled={disabled}
-                >
-                  <Add /> {editdata?.file ? <> Change photo</> : <> Upload photo</>}
-                </Fab>
-              </label>
+                <Add />{" "}
+                {currentUserData?.profilePic ? (
+                  <> Change photo</>
+                ) : (
+                  <> Upload photo</>
+                )}
+              </Fab>
+            </label>
           </Grid>
           <Grid item xs={12} md={8}>
             <Grid container spacing={2}>
@@ -157,9 +269,9 @@ const ProfileMenu = () => {
                   extraclass={"signupInput"}
                   type="text"
                   label="First Name"
-                  name="firstname"
-                  value={editdata?.firstName}
-                  onChange={(e) => setEditdata({...editdata, firstName: e.target.value})}
+                  name="firstName"
+                  value={currentUserData?.firstName}
+                  onChange={onChange}
                   disabled={disabled}
                   error={error && error.field === "firstName"}
                   errorText={
@@ -173,14 +285,12 @@ const ProfileMenu = () => {
                   extraclass={"signupInput"}
                   type="text"
                   label="Last Name"
-                  name="lastname"
-                  value={editdata?.lastName}
-                  onChange={(e) => setEditdata({...editdata, lastName: e.target.value})}
+                  name="lastName"
+                  value={currentUserData?.lastName}
+                  onChange={onChange}
                   disabled={disabled}
                   error={error && error.field === "lastName"}
-                  errorText={
-                    error && error.field === "lastName" && error.error
-                  }
+                  errorText={error && error.field === "lastName" && error.error}
                   onFocusField={onFocusField}
                 />
               </Grid>
@@ -190,8 +300,8 @@ const ProfileMenu = () => {
                   type="email"
                   label="Email"
                   name="email"
-                  value={editdata?.email}
-                  onChange={(e) => setEditdata({...editdata, email: e.target.value})}
+                  value={currentUserData?.email}
+                  onChange={onChange}
                   disabled={disabled}
                   error={error && error.field === "email"}
                   errorText={error && error.field === "email" && error.error}
@@ -204,13 +314,11 @@ const ProfileMenu = () => {
                   type="text"
                   label="User Name"
                   name="username"
-                  value={editdata?.username}
-                  onChange={(e) => setEditdata({...editdata, username: e.target.value})}
+                  value={currentUserData?.username}
+                  onChange={onChange}
                   disabled={disabled}
                   error={error && error.field === "username"}
-                  errorText={
-                    error && error.field === "username" && error.error
-                  }
+                  errorText={error && error.field === "username" && error.error}
                   onFocusField={onFocusField}
                 />
               </Grid>
@@ -218,8 +326,16 @@ const ProfileMenu = () => {
           </Grid>
         </Grid>
       </div>
-    </div>
-  ]
+      <AlertComponent
+        setOpen={setOpen}
+        setType={setType}
+        setMessage={setMessage}
+        alertOpen={open}
+        alertMessage={message}
+        alertType={type}
+      />
+    </div>,
+  ];
 
   return (
     <>
@@ -295,9 +411,16 @@ const ProfileMenu = () => {
           Sign Out
         </MenuItem>
       </Menu>
-      {
-        activepopover === 'profile' && <PopoverComponent profiledata={editdata}  popoverclassname={'profile'} popovercontent={popoverprofilecontent} popoverstate={true}/>
-      }
+      {activepopover === "profile" && (
+        <PopoverComponent
+          profiledata={editdata}
+          popoverclassname={"profile"}
+          popovercontent={popoverprofilecontent}
+          popoverstate={true}
+          updateProfile={updateProfileApiCall}
+          saveBtnDisabled={disabled}
+        />
+      )}
     </>
   );
 };

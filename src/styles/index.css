@@ -245,7 +245,7 @@ p {
   margin-bottom: 15px;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 /* Index ROute CSS Ends*/
@@ -376,7 +376,7 @@ p {
   width: 100%;
 }
 
-.searchAddFriend button{
+.searchAddFriend button {
   width: 105px !important;
 }
 
@@ -384,7 +384,7 @@ p {
 
 /* for notification dropdown box */
 
-.topbar .notificationbox button{
+.topbar .notificationbox button {
   margin: 0px;
 }
 
@@ -463,13 +463,13 @@ p {
 
 /** popover css **/
 
-.notebtn{
+.notebtn {
   position: absolute;
   bottom: 3%;
   right: 3%;
 }
 
-#simple-popover .notecontent.homecontentpopover{
+#simple-popover .notecontent.homecontentpopover {
   display: block !important;
   width: 100%;
   height: 97%;
@@ -481,17 +481,21 @@ p {
 
 #simple-popover .notecontent.mnemonicnotes,
 #simple-popover .notecontent.normalnotes,
-#simple-popover .notecontent.profile{
+#simple-popover .notecontent.profile {
   display: block !important;
   width: 100%;
   height: 97%;
-  background: #F5F5F5;;
+  background: #f5f5f5;
   backdrop-filter: blur(10px);
   /* Note: backdrop-filter has minimal browser support */
   border-radius: 7px;
 }
 
-#simple-popover .notecontent .notetop{
+#simple-popover .notecontent.profile {
+  height: 100%;
+}
+
+#simple-popover .notecontent .notetop {
   width: calc(100% - 40px);
   height: 100px;
   padding: 0px 20px;
@@ -500,13 +504,13 @@ p {
   align-items: center;
 }
 
-#simple-popover .notecontent .notetop button{
+#simple-popover .notecontent .notetop button {
   width: 125px !important;
   height: 50px;
-  margin: 0px 15px 0px 0px !important; 
+  margin: 0px 15px 0px 0px !important;
 }
 
-#simple-popover .notecontent .notebottom{
+#simple-popover .notecontent .notebottom {
   width: calc(100% - 40px);
   height: calc(100% - 100px);
   padding: 0px 20px;
@@ -516,7 +520,7 @@ p {
   overflow: scroll;
 }
 
-.notebottom .notebottomcontent{
+.notebottom .notebottomcontent {
   width: 100%;
   height: 100%;
   display: flex;
@@ -525,7 +529,7 @@ p {
 }
 
 .notebottom .notebottomcontent .normalnotes,
-.notebottom .notebottomcontent .Mnemonicnotes{
+.notebottom .notebottomcontent .Mnemonicnotes {
   width: 50%;
   height: 100%;
   display: flex;
@@ -534,21 +538,21 @@ p {
 }
 
 .notebottom .notebottomcontent .normalnotes button,
-.notebottom .notebottomcontent .Mnemonicnotes button{
+.notebottom .notebottomcontent .Mnemonicnotes button {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
 .notebottom .notebottomcontent .normalnotes button .MuiAvatar-circular,
-.notebottom .notebottomcontent .Mnemonicnotes button .MuiAvatar-circular{
+.notebottom .notebottomcontent .Mnemonicnotes button .MuiAvatar-circular {
   background-color: white;
   color: black;
 }
 
-.notebottom .notebottomcontent.normalnotebox, 
+.notebottom .notebottomcontent.normalnotebox,
 .notebottom .notebottomcontent.mnemonicnotebox,
-.notebottom .notebottomcontent.profilebox{
+.notebottom .notebottomcontent.profilebox {
   width: 100%;
   height: 100%;
   display: flex;
@@ -559,7 +563,7 @@ p {
 
 .notebottom .notebottomcontent.normalnotebox .normalnotesheading,
 .notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading,
-.notebottom .notebottomcontent.profilebox .profileheading{
+.notebottom .notebottomcontent.profilebox .profileheading {
   width: 100%;
   height: 70px;
   display: flex;
@@ -567,7 +571,7 @@ p {
   align-items: center;
 }
 
-.notebottom .notebottomcontent.profilebox .profileheading{
+.notebottom .notebottomcontent.profilebox .profileheading {
   position: sticky;
   top: 15px;
   margin-top: 15px;
@@ -575,7 +579,7 @@ p {
 
 .notebottom .notebottomcontent.normalnotebox .normalnotesheading h3,
 .notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading h3,
-.notebottom .notebottomcontent.profilebox .profileheading h3{
+.notebottom .notebottomcontent.profilebox .profileheading h3 {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -587,7 +591,7 @@ p {
 
 .notebottom .notebottomcontent.normalnotebox .normalnotescontent,
 .notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotescontent,
-.notebottom .notebottomcontent.profilebox .profilecontent{
+.notebottom .notebottomcontent.profilebox .profilecontent {
   width: 100%;
   height: calc(100% - 70px);
   display: flex;
@@ -595,11 +599,11 @@ p {
   align-items: flex-start;
 }
 
-.notebottom .notebottomcontent.profilebox .profilecontent{
+.notebottom .notebottomcontent.profilebox .profilecontent {
   padding-top: 20px;
 }
 
-.notebottom .notebottomcontent.profilebox .profilecontent .profilepic{
+.notebottom .notebottomcontent.profilebox .profilecontent .profilepic {
   position: sticky;
   top: 69px;
   background: #f5f5f5;
@@ -610,7 +614,7 @@ p {
 
 /** richtexteditor css **/
 
-.richtexteditor{
+.richtexteditor {
   width: 100%;
   height: 100%;
   display: flex;
@@ -619,21 +623,21 @@ p {
   justify-content: flex-start;
 }
 
-.rdw-editor-wrapper{
-  height: 100% 
+.rdw-editor-wrapper {
+  height: 100%;
 }
 
-.rdw-editor-toolbar{
+.rdw-editor-toolbar {
   height: 30% !important;
   position: sticky;
   top: 0px;
 }
 
-.rdw-editor-main{
+.rdw-editor-main {
   height: 100%;
   box-sizing: border-box;
   border-radius: 2px;
-  border: 1px solid #F1F1F1;
+  border: 1px solid #f1f1f1;
   background: white;
   padding: 5px 10px;
   position: fixed !important;
@@ -658,8 +662,6 @@ p {
   justify-content: center;
   align-items: center;
 }
-
-
 
 /** home css ends **/
 
@@ -696,7 +698,9 @@ p {
   overflow-y: scroll;
 }
 
-.friends, .friendrequest, .friendsuggestion {
+.friends,
+.friendrequest,
+.friendsuggestion {
   height: calc(100% - 10px) !important;
 }
 
@@ -767,7 +771,10 @@ p {
   justify-content: flex-start;
 }
 
-.friendcard .profileimagebox:hover, .friendcard .profileimagebox .profilename:hover, .friendcard .profileimagebox .profilename h3:hover, .friendcard .profileimagebox .profilename h4:hover {
+.friendcard .profileimagebox:hover,
+.friendcard .profileimagebox .profilename:hover,
+.friendcard .profileimagebox .profilename h3:hover,
+.friendcard .profileimagebox .profilename h4:hover {
   background-color: transparent !important;
 }
 
@@ -831,7 +838,10 @@ p {
   justify-content: flex-end;
 }
 
-.friendcard .friendactions:hover, .friendcard .friendactions .accept:hover, .friendcard .friendactions .remove:hover, .friendcard .friendactions .request:hover{
+.friendcard .friendactions:hover,
+.friendcard .friendactions .accept:hover,
+.friendcard .friendactions .remove:hover,
+.friendcard .friendactions .request:hover {
   background: transparent !important;
 }
 

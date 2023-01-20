@@ -5,7 +5,6 @@ import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
 import { signIn } from "../../lib/getApiCall";
 import { login } from "../../features/userSlice";
-import { setFriends, setRequests } from "../../features/friendsSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
 import "../../styles/index.css";
