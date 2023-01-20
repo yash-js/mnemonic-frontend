@@ -104,7 +104,7 @@
 
 /* Disbaled Btn CSS */
 
-.Mui-disabled{
+.searchAddFriend.Mui-disabled{
   color: white !important;
     box-shadow: none !important;
     background-color: rgb(25 118 210 / 57%) !important;
