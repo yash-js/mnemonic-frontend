@@ -644,6 +644,25 @@ p {
 
 /** richtexteditor css ends **/
 
+/** notecard css **/
+
+.notecard{
+  width: 332px;
+  height: auto;
+  min-height: 200px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/** notecard css ends **/
+
 /** home css **/
 
 .home {
