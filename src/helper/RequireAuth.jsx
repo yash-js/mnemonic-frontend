@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { getToken, isLoading, userdata, userData } from "../features/userSlice";
+import {
+  getToken,
+  isLoading,
+  logout,
+  userdata,
+  userData,
+} from "../features/userSlice";
 import { getUser } from "../lib/getApiCall";
 
 const RequireAuth = ({ children }) => {
@@ -9,29 +15,28 @@ const RequireAuth = ({ children }) => {
   const token = localStorage.getItem("token");
   const user = useSelector(userData);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     return async () => {
-      if (token && (!user || user === null)) {
+      if (
+        token &&
+        token !== undefined &&
+        token !== null &&
+        (!user || user === null || Object.keys(user).length < 1)
+      ) {
         dispatch(isLoading(true));
         const response = await getUser(token);
-        if(response.status === 200){
-          dispatch(userdata(response?.data?.user));
-        } else{
-          if(token){
-          location.removeItem('token')
-        }
-          navigate('/signin')
-        }
-        dispatch(isLoading(false));
+        dispatch(userdata(response?.data?.user));
       }
+      dispatch(isLoading(false));
     };
   });
-  if (!token) {
+  if (!token && Object.keys(user).length > 1) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience
     // than dropping them off on the home page.
+    dispatch(logout());
     return <Navigate to="/signin" state={{ from: location }} replace />;
   }
 

@@ -10,17 +10,20 @@ import {
   Skeleton,
   Tooltip,
 } from "@mui/material";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import { Logout, Add } from "@mui/icons-material";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut, signUp } from "../lib/getApiCall";
-import { logout, isLoading, userData, loadingState } from "../features/userSlice";
+import {
+  logout,
+  userData,
+  loadingState,
+} from "../features/userSlice";
 import { getActivePopOver, setActivePopOver } from "../features/popoverslice";
 import PopoverComponent from "./PopoverComponent";
 import InputField from "./InputField";
-import ButtonComponent from "./ButtonComponent";
 import AlertComponent from "./AlertComponent";
 import convertToBase64 from "../helper/Convert";
 
@@ -44,7 +47,7 @@ const ProfileMenu = () => {
   const navigate = useNavigate();
   const openmenu = Boolean(profilemenu);
   const activepopover = useSelector(getActivePopOver);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     setDisabled(true);
   }, [profilemenu]);
@@ -64,22 +67,20 @@ const ProfileMenu = () => {
   };
 
   const handleSignOut = async () => {
-    dispatch(isLoading(true));
-    const res = await signOut();
-    if (res.status === 200) {
+    signOut();
+    if (token || token === "" || token === undefined || token === null) {
       localStorage.removeItem("token");
-      navigate("/signin");
-      dispatch(isLoading(false));
-      dispatch(logout());
     }
+    navigate("/signin");
+    dispatch(logout());
   };
 
   const handleProfile = () => {
     dispatch(setActivePopOver("profile"));
-  }
+  };
 
   const handleClick = async () => {
-    onFocusField()
+    onFocusField();
     setLoadingEdit(true);
     const res = await signUp({
       firstName,
@@ -112,21 +113,18 @@ const ProfileMenu = () => {
 
   const onFocusField = () => setError({});
 
-  useEffect(() => {
-    document.title = "Sign Up";
-  });
-  
   const popoverprofilecontent = [
     <div className="notebottomcontent profilebox">
       <div className="profileheading">
         <h3>User Profile</h3>
-        {
-          disabled && (
-            <IconButton style={{width: '40px',height: '40px',background: '#c8c8c866'}} onClick={() => setDisabled(false)}>
-              <EditIcon />
-            </IconButton>
-          )
-        }
+        {disabled && (
+          <IconButton
+            style={{ width: "40px", height: "40px", background: "#c8c8c866" }}
+            onClick={() => setDisabled(false)}
+          >
+            <EditIcon />
+          </IconButton>
+        )}
       </div>
       <div className="profilecontent">
         <Grid container spacing={2}>
@@ -138,10 +136,7 @@ const ProfileMenu = () => {
             item
             xs={12}
           >
-            <label
-              className="uploadPhotoContainer"
-              htmlFor="upload-photo"
-            >
+            <label className="uploadPhotoContainer" htmlFor="upload-photo">
               <input
                 style={{ display: "none" }}
                 id="upload-photo"
@@ -180,9 +175,7 @@ const ProfileMenu = () => {
               onChange={(e) => setFirstName(e.target.value)}
               disabled={isLoadingEdit || disabled}
               error={error && error.field === "firstName"}
-              errorText={
-                error && error.field === "firstName" && error.error
-              }
+              errorText={error && error.field === "firstName" && error.error}
               onFocusField={onFocusField}
             />
           </Grid>
@@ -196,9 +189,7 @@ const ProfileMenu = () => {
               onChange={(e) => setLastName(e.target.value)}
               disabled={isLoadingEdit || disabled}
               error={error && error.field === "lastName"}
-              errorText={
-                error && error.field === "lastName" && error.error
-              }
+              errorText={error && error.field === "lastName" && error.error}
               onFocusField={onFocusField}
             />
           </Grid>
@@ -226,9 +217,7 @@ const ProfileMenu = () => {
               onChange={(e) => setUsername(e.target.value)}
               disabled={isLoadingEdit || disabled}
               error={error && error.field === "username"}
-              errorText={
-                error && error.field === "username" && error.error
-              }
+              errorText={error && error.field === "username" && error.error}
               onFocusField={onFocusField}
             />
           </Grid>
@@ -242,16 +231,14 @@ const ProfileMenu = () => {
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoadingEdit || disabled}
               error={error && error.field === "password"}
-              errorText={
-                error && error.field === "password" && error.error
-              }
+              errorText={error && error.field === "password" && error.error}
               onFocusField={onFocusField}
             />
           </Grid>
         </Grid>
       </div>
-    </div>
-  ]
+    </div>,
+  ];
 
   return (
     <>
@@ -327,9 +314,13 @@ const ProfileMenu = () => {
           Sign Out
         </MenuItem>
       </Menu>
-      {
-        activepopover === 'profile' && <PopoverComponent popoverclassname={'profile'} popovercontent={popoverprofilecontent} popoverstate={true}/>
-      }
+      {activepopover === "profile" && (
+        <PopoverComponent
+          popoverclassname={"profile"}
+          popovercontent={popoverprofilecontent}
+          popoverstate={true}
+        />
+      )}
       <AlertComponent
         setOpen={setOpen}
         setType={setType}
