@@ -3,23 +3,14 @@ import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
-import { useDispatch } from "react-redux";
-import {  setActivePopOver, setHidePopOver  } from "../features/popoverslice";
+import TooltipComponent from "./TooltipComponent";
 
 function NoteCard({ heading, content, sharing, date, time, type, id }) {
-  const dispatch = useDispatch();
   const total = sharing && sharing.length ? sharing.length : 0;
 
-  const handelNoteCard = (type) => {
-    if (type === 'normal') {
-      dispatch(setActivePopOver('normal'))
-      dispatch(setHidePopOver('home'))
-    } else if (type === 'mnemonic') {
-      dispatch(setActivePopOver('mnemonic'))
-      dispatch(setHidePopOver('home'))
-    }
+  const handleClick = () => {
+    console.log("edit");
   }
-
   return (
     <>
       <div className={`notecard ${type}`}>
@@ -27,7 +18,7 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
           <h3>{heading}</h3>
           <IconButton
             className="editicon"
-            onClick={() => handelNoteCard(type)}
+            onClick={() => handleClick()}
           >
             <EditIcon/>
           </IconButton>
@@ -40,12 +31,14 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
             {sharing &&
               sharing.length > 0 &&
               sharing.map((user) => (
-                <Avatar
-                  alt={user.name}
-                  src={user.image}
-                  height={"30px"}
-                  width={"30px"}
-                />
+                <TooltipComponent htmltitle={user.name}>
+                  <Avatar
+                    alt={user.name}
+                    src={user.image}
+                    height={"30px"}
+                    width={"30px"}
+                  />
+                </TooltipComponent>
               ))}
           </AvatarGroup>
         </div>

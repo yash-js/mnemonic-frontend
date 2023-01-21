@@ -32,8 +32,8 @@ const Home = () => {
       heading: 'Note 1',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eu nunc. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eu nunc.',
       sharing: [{
-        name: 'User 1',
-        image: 'https://images.unsplash.com/photo-1629209067863-8b2b2e1b2b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+        name: 'batman',
+        image: 'https://www.lifehacker.com.au/wp-content/uploads/sites/4/2022/02/01/The-Batman-.jpg?quality=80&w=832'
       }],
       date: '12/12/2021',
       time: '12:12:12',
@@ -44,8 +44,8 @@ const Home = () => {
       heading: 'Note 2',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eu nunc. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eu nunc.',
       sharing: [{
-        name: 'User 1',
-        image: 'https://images.unsplash.com/photo-1629209067863-8b2b2e1b2b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+        name: 'wonder woman',
+        image: 'https://www.lifehacker.com.au/wp-content/uploads/sites/4/2020/12/22/5e7ehPZf5RT6Jt2H9cQP6k-e1608616459844.jpg?quality=80&w=832'
       }],
       date: '12/12/2021',
       time: '12:12:12',
@@ -56,8 +56,8 @@ const Home = () => {
       heading: 'Note 3',
       content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eu nunc. Sed euismod, nunc vel tincidunt lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eu nunc.',
       sharing: [{
-        name: 'User 1',
-        image: 'https://images.unsplash.com/photo-1629209067863-8b2b2e1b2b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+        name: 'superman',
+        image: 'https://www.comicbasics.com/wp-content/uploads/2017/09/Superman.jpg'
       }],
       date: '12/12/2021',
       time: '12:12:12',
@@ -106,7 +106,7 @@ const Home = () => {
           <Grid container spacing={3}>
             {
               cardcontent.map((item, index) => (
-                <Grid item xs={12} sm={6} md={4} lg={3}>
+                <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
                   <NoteCard heading={item.heading} content={item.content} sharing={item.sharing} type={item.type}/>
                 </Grid>
               ))
