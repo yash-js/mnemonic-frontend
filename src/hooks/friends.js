@@ -5,9 +5,8 @@ import { useState } from "react";
 import {
   friendsLoadingState,
   requestsLoadingState,
-  setFriendsLoading,
 } from "../features/friendsSlice";
-import { userdata, userData } from "../features/userSlice";
+import { userData } from "../features/userSlice";
 import {
   getFriendRequests,
   getFriends,
@@ -59,56 +58,33 @@ export const useFriends = () => {
   };
 
   const removeFriendApiCall = async (id) => {
-    setLoading(true);
-    const res = await removeFriend(id);
-    if (res?.status === 200) {
-      setMessage(res?.data?.message);
-      setType("success");
-      setOpen(true);
-      setFriend(friend.filter((f) => f._id !== id));
-      setLoading(false);
-      dispatch(userdata(res?.data?.currentUser));
-    } else {
-      setMessage("Something Went Wrong!");
-      setType("error");
-      dispatch(setFriendsLoading(false));
-      setOpen(true);
-    }
+    setMessage("Friend Removed!");
+    setType("success");
+    setOpen(true);
+    setFriend(_.remove((friend) => friend._id === id));
+    // setFriend(friend.filter((f) => f._id !== id));
+    await removeFriend(id);
+    await getSentRequests();
+    await getFriends();
   };
 
   const cancelRequestApiCall = async (id) => {
-    setLoading(true);
-    const res = await cancelRequest(id);
-    if (res?.status === 200) {
-      setMessage(res?.data?.message);
-      setType("success");
-      setOpen(true);
-      setRequest(request.filter((r) => r._id !== id));
-      setLoading(false);
-    } else {
-      setMessage("Something Went Wrong!");
-      setType("error");
-      dispatch(setFriendsLoading(false));
-      setOpen(true);
-    }
+    setMessage("Friend Request Deleted");
+    setType("success");
+    setOpen(true);
+    setRequest(_.remove((request) => request._id === id));
+    await cancelRequest(id);
+    await getSentRequests();
   };
 
   const acceptFriendRequestApiCall = async (friendData) => {
-    setLoading(true);
-    const res = await acceptFriendRequest(friendData._id);
-    if (res?.status === 200) {
-      setMessage(res?.data?.message);
-      setType("success");
-      setOpen(true);
-      setFriend([...friend, friendData]);
-      setRequest(request.filter((r) => r._id !== friendData._id));
-      setLoading(false);
-    } else {
-      setMessage("Something Went Wrong!");
-      setType("error");
-      setLoading(false);
-      setOpen(true);
-    }
+    setMessage("Friend Request Accepted!");
+    setType("success");
+    setOpen(true);
+    setFriend([...friend, friendData]);
+    setRequest(_.remove((request) => request._id === friendData._id));
+    await acceptFriendRequest(friendData._id);
+    await getSentRequests();
   };
 
   // SEARCH
@@ -146,18 +122,15 @@ export const useFriends = () => {
 
   const callAddFriendApi = async (friendData) => {
     setSendRequestLoading(true);
-    const res = await addFriend(friendData._id);
-    if (res.status === 200) {
-      setType("success");
-      setOpen(true);
-      setMessage(res?.data?.message);
-      setSent([...sent, friendData]);
-    } else {
-      setSendRequestLoading(false);
-    }
+    setType("success");
+    setOpen(true);
+    setMessage("Friend Request Send");
+    setSent([...sent, friendData]);
+    setSendRequestLoading(false);
     setSearchOpen(false);
     setSearchQuery("");
     setResults([]);
+    await addFriend(friendData._id);
   };
 
   const callGetSentRequests = async () => {
@@ -229,5 +202,6 @@ export const useFriends = () => {
     cancelRequestApiCall,
     setSearchOpen,
     searchOpen,
+    user,setSearchResLoading
   };
 };

@@ -8,7 +8,6 @@ import AlertComponent from "../../components/AlertComponent";
 function Friend() {
   const {
     loading,
-    requests,
     getFriendsApiCall,
     getRequestsApiCall,
     removeFriendApiCall,
@@ -26,11 +25,12 @@ function Friend() {
   } = useFriends();
 
   useEffect(() => {
-    callGetSentRequests();
-    getFriendsApiCall();
-    getRequestsApiCall();
+
     return () => {
       document.title = "Friends";
+      callGetSentRequests();
+      getFriendsApiCall();
+      getRequestsApiCall();
     };
   }, []);
 
@@ -85,7 +85,7 @@ function Friend() {
           <div className="friendrequest">
             <div className="friendrequestheading">
               <p>Friend Requests</p>
-              <p>{requests && requests.length}</p>
+              <p>{request && request.length}</p>
             </div>
             <div className="friendrequestcontent">
               {loading ? (

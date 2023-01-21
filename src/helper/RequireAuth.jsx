@@ -1,12 +1,8 @@
+import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation} from "react-router-dom";
-import {
-  isLoading,
-  logout,
-  userdata,
-  userData,
-} from "../features/userSlice";
+import { Navigate, useLocation } from "react-router-dom";
+import { isLoading, logout, userdata, userData } from "../features/userSlice";
 import { getUser } from "../lib/getApiCall";
 
 const RequireAuth = ({ children }) => {
@@ -14,6 +10,7 @@ const RequireAuth = ({ children }) => {
   const token = localStorage.getItem("token");
   const user = useSelector(userData);
   const dispatch = useDispatch();
+  const memoizedGetUser = _.memoize(getUser);
   useEffect(() => {
     return async () => {
       if (
@@ -23,12 +20,12 @@ const RequireAuth = ({ children }) => {
         (!user || user === null || Object.keys(user).length < 1)
       ) {
         dispatch(isLoading(true));
-        const response = await getUser(token);
+        const response = await memoizedGetUser(token);
         dispatch(userdata(response?.data?.user));
       }
       dispatch(isLoading(false));
     };
-  });
+  }, [user]);
   if (!localStorage.getItem("token")) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them

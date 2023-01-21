@@ -22,7 +22,8 @@ const Searchbar = () => {
     callAddFriendApi,
     sendRequestLoading,
     sent,
-    callGetSentRequests,friend
+    callGetSentRequests,
+    friend,
   } = useFriends();
 
   return (
@@ -66,10 +67,10 @@ const Searchbar = () => {
                 sent.filter((request) => request._id === option._id).length > 0
               }
               requestBtnText={
-                sent.filter((request) => request._id === option._id).length > 0
+                _.find(sent, { _id: option._id })
                   ? "Requested"
-                  : friend.filter((f) => f._id === option._id).length > 0
-                  ? null
+                  : _.find(sent, { _id: option._id })
+                  ? "null"
                   : "Add"
               }
               isLoading={sendRequestLoading}
