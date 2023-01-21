@@ -7,6 +7,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useFriends } from "../hooks/friends";
 import { useNavigate } from "react-router-dom";
+import _ from "lodash";
 const Searchbar = () => {
   const navigate = useNavigate();
   const {
