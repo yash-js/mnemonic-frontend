@@ -31,12 +31,12 @@ function Login() {
   const handleClick = async () => {
     setLoading(true);
     const res = await signIn({ username, password });
+    setLoading(false);
     if (res?.status === 200 && res?.data && res?.data?.user) {
       localStorage.setItem("token", res?.data?.user.token);
-      dispatch(login(res?.data?.user));
       navigate("/");
+      dispatch(login(res?.data?.user));
     } else {
-      setLoading(false);
       openAlert(true, "error", res?.response?.data?.error);
     }
   };
