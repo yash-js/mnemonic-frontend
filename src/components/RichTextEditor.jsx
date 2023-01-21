@@ -8,6 +8,7 @@ function RichTextEditor() {
         richtextdata,
         setRichtextdata, 
     } = useRichTextEditor()
+
   return (
     <div className='richtexteditor'>
         <Editor

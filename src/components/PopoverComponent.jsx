@@ -43,7 +43,6 @@ function PopoverComponent({
 
   const handleRichText = () => {
     console.log(richtextdata, htmldata);
-    handleClose();
   };
 
   const popoverContent = [
