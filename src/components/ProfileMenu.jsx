@@ -177,6 +177,7 @@ const ProfileMenu = () => {
           Object.keys(currentUserData).filter((data) => {
             return data !== editData;
           });
+          return null;
         });
         openAlert(true, "success", res?.data?.message);
         dispatch(userdata({ ...currentUserData, editdata }));

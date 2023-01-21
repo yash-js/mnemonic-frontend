@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    activepopup: '',
-    closepopup: '',
+    activepopup: ''
 };
 
 export const popoverSlice = createSlice({
@@ -12,9 +11,6 @@ export const popoverSlice = createSlice({
   reducers: {
     setActivePopOver: (state, action) => {
       state.activepopoverlist = action.payload;
-    },
-    setHidePopOver: (state, action) => {
-      state.hidepopoverlist = action.payload;
     }
   },
 });
@@ -24,6 +20,5 @@ export const {
     setHidePopOver
 } = popoverSlice.actions;
 export const getActivePopOver = (state) => state.popover.activepopoverlist;
-export const getHidePopOver = (state) => state.popover.hidepopoverlist;
 
 export default popoverSlice.reducer;
