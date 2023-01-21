@@ -12,7 +12,6 @@ import { profiledata } from "../features/userSlice";
 
 function PopoverComponent({
   btnname,
-  popoverheading,
   popovercontent,
   popoverclassname,
   popoverstate,
@@ -30,8 +29,10 @@ function PopoverComponent({
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    dispatch(setActivePopOver(''));
   };
 
   const handleClose = () => {
@@ -112,7 +113,7 @@ function PopoverComponent({
           anchorEl={anchorEl}
           onClose={handleClose}
           anchorOrigin={{
-            vertical: "bottom",
+            vertical: "top",
             horizontal: "left",
           }}
         >

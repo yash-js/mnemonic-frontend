@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getActivePopOver, getHidePopOver, setActivePopOver, setHidePopOver } from "../../features/popoverslice";
+import { getActivePopOver, setActivePopOver} from "../../features/popoverslice";
 import ButtonComponent from "../../components/ButtonComponent";
 import RichTextEditor from "../../components/RichTextEditor";
 import PopoverComponent from "../../components/PopoverComponent";
@@ -11,7 +11,7 @@ import NoteCard from "../../components/NoteCard";
 const Home = () => {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
-  const hidepopover = useSelector(getHidePopOver);
+  const [homedisabled, setHomeDisabled] = React.useState(false);
 
   useEffect(() => {
     return ()=> document.title = "Mnemonic";
@@ -20,10 +20,10 @@ const Home = () => {
   const handlenotes = (type) => {
     if(type === 'normal'){
       dispatch(setActivePopOver('normal'));
-      dispatch(setHidePopOver('home'));
+      setHomeDisabled(true);
     }else if(type === 'mnemonic'){
       dispatch(setActivePopOver('mnemonic'));
-      dispatch(setHidePopOver('home'));
+      setHomeDisabled(true);
     }
   }
 
@@ -118,8 +118,8 @@ const Home = () => {
             ) : activepopover === 'mnemonic' ? (
               <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={popovermnemoniccontent}/>
             ) : (
-              <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverstate={hidepopover === 'home' ? true : false} />
-            )
+              <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverstate={homedisabled ? true : false} />
+            ) 
           }
         </div>
       </div>

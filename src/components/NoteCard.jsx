@@ -1,16 +1,49 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import TooltipComponent from "./TooltipComponent";
+import PopoverComponent from "./PopoverComponent";
+import RichTextEditor from "./RichTextEditor";
+import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
 
 function NoteCard({ heading, content, sharing, date, time, type, id }) {
+  const dispatch = useDispatch();
+  const activepopover = useSelector(getActivePopOver);
   const total = sharing && sharing.length ? sharing.length : 0;
 
-  const handleClick = () => {
-    console.log("edit");
+  const handleClick = (type) => {
+    if(type === 'normal'){
+      dispatch(setActivePopOver('normal'));
+    }else if(type === 'mnemonic'){
+      dispatch(setActivePopOver('mnemonic'));
+    }
   }
+
+  const popovernormalcontent = [
+    <div className="notebottomcontent normalnotebox">
+      <div className="normalnotesheading">
+        <h3>Normal Notes</h3>
+      </div>
+      <div className="normalnotescontent">
+        <RichTextEditor/>
+      </div>
+    </div>
+  ]
+
+  const popovermnemoniccontent = [
+    <div className="notebottomcontent mnemonicnotebox">
+      <div className="mnemonicnotesheading">
+        <h3>Mnemonic Notes</h3>
+      </div>
+      <div className="mnemonicnotescontent">
+        <h1>Mnemonic Notes</h1>
+      </div>
+    </div>
+  ]
+
   return (
     <>
       <div className={`notecard ${type}`}>
@@ -18,7 +51,7 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
           <h3>{heading}</h3>
           <IconButton
             className="editicon"
-            onClick={() => handleClick()}
+            onClick={() => handleClick(type)}
           >
             <EditIcon/>
           </IconButton>
@@ -43,6 +76,13 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
           </AvatarGroup>
         </div>
       </div>
+      {
+        activepopover === 'normal' ? (
+          <PopoverComponent popoverclassname={'normalnotes'} popovercontent={popovernormalcontent} richtext={true} popoverstate={true}/>
+        ) : activepopover === 'mnemonic' && (
+          <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={popovermnemoniccontent} popoverstate={true}/>
+        )
+      }
     </>
   );
 }
