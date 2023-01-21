@@ -71,7 +71,6 @@ const ProfileMenu = () => {
   };
 
   const handleSignOut = async () => {
-    signOut();
     if (token || token === "" || token === undefined || token === null) {
       localStorage.removeItem("token");
     }
@@ -184,7 +183,7 @@ const ProfileMenu = () => {
         setEditdata({});
         setDisabled(true);
       } else {
-          setCurrentUserdata({
+        setCurrentUserdata({
           firstName: user?.firstName,
           lastName: user?.lastName,
           email: user?.email,
@@ -193,7 +192,7 @@ const ProfileMenu = () => {
         });
         openAlert(true, "error", res?.response?.data?.error);
         setDisabled(true);
-        setEditdata({})
+        setEditdata({});
       }
     }
   };

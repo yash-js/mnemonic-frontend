@@ -10,23 +10,18 @@ const RequireAuth = ({ children }) => {
   const token = localStorage.getItem("token");
   const user = useSelector(userData);
   const dispatch = useDispatch();
-  const memoizedGetUser = _.memoize(getUser);
   useEffect(() => {
     return async () => {
-      if (
-        token &&
-        token !== undefined &&
-        token !== null &&
-        (!user || user === null || Object.keys(user).length < 1)
-      ) {
+      if (token && !user) {
         dispatch(isLoading(true));
-        const response = await memoizedGetUser(token);
+        const response = await getUser();
         dispatch(userdata(response?.data?.user));
+        console.log(user);
       }
       dispatch(isLoading(false));
     };
   }, [user]);
-  if (!localStorage.getItem("token")) {
+  if (!localStorage && localStorage.getItem("token")) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience
