@@ -1,12 +1,8 @@
+import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation} from "react-router-dom";
-import {
-  isLoading,
-  logout,
-  userdata,
-  userData,
-} from "../features/userSlice";
+import { Navigate, useLocation } from "react-router-dom";
+import { isLoading, logout, userdata, userData } from "../features/userSlice";
 import { getUser } from "../lib/getApiCall";
 
 const RequireAuth = ({ children }) => {
@@ -16,20 +12,16 @@ const RequireAuth = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     return async () => {
-      if (
-        token &&
-        token !== undefined &&
-        token !== null &&
-        (!user || user === null || Object.keys(user).length < 1)
-      ) {
+      if (token && !user) {
         dispatch(isLoading(true));
-        const response = await getUser(token);
+        const response = await getUser();
         dispatch(userdata(response?.data?.user));
+        console.log(user);
       }
       dispatch(isLoading(false));
     };
-  });
-  if (!localStorage.getItem("token")) {
+  }, [user]);
+  if (!localStorage && localStorage.getItem("token")) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience

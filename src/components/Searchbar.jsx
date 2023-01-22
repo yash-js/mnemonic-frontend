@@ -7,6 +7,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useFriends } from "../hooks/friends";
 import { useNavigate } from "react-router-dom";
+import _ from "lodash";
 const Searchbar = () => {
   const navigate = useNavigate();
   const {
@@ -22,7 +23,8 @@ const Searchbar = () => {
     callAddFriendApi,
     sendRequestLoading,
     sent,
-    callGetSentRequests,friend
+    callGetSentRequests,
+    friend,
   } = useFriends();
 
   return (
@@ -66,10 +68,10 @@ const Searchbar = () => {
                 sent.filter((request) => request._id === option._id).length > 0
               }
               requestBtnText={
-                sent.filter((request) => request._id === option._id).length > 0
+                _.find(sent, { _id: option._id })
                   ? "Requested"
-                  : friend.filter((f) => f._id === option._id).length > 0
-                  ? null
+                  : _.find(sent, { _id: option._id })
+                  ? "null"
                   : "Add"
               }
               isLoading={sendRequestLoading}

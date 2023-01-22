@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = process.env.REACT_APP_API;
+const API = 'http://localhost:5000';
 
 const config = {
   headers: {
