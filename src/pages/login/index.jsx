@@ -3,11 +3,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
-import { signIn } from "../../lib/getApiCall";
+import { signIn } from "../../lib/API_Calls";
 import { login } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
 import "../../styles/index.css";
+import { Typography } from "@mui/material";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -28,14 +29,14 @@ function Login() {
     setType(type);
   };
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.preventDefault()
     setLoading(true);
     const res = await signIn({ username, password });
-    setLoading(false);
     if (res?.status === 200 && res?.data && res?.data?.user) {
-      localStorage.setItem("token", res?.data?.user.token);
       navigate("/");
       dispatch(login(res?.data?.user));
+      setLoading(false);
     } else {
       openAlert(true, "error", res?.response?.data?.error);
     }
@@ -69,7 +70,13 @@ function Login() {
               <div className="inputcontainer">
                 <InputField
                   type="email"
-                  label={username ? emailRegex.test(username) ? "Email" : "Username" : "Email or Username"}
+                  label={
+                    username
+                      ? emailRegex.test(username)
+                        ? "Email"
+                        : "Username"
+                      : "Email or Username"
+                  }
                   name="email"
                   placeholder={"Email or Username"}
                   value={username}
@@ -91,6 +98,7 @@ function Login() {
                 </p>
                 <ButtonComponent
                   onClick={handleClick}
+                  type={"submit"}
                   buttontext="Login"
                   extraclass="loginbtn"
                   isLoading={isLoading}

@@ -2,7 +2,6 @@ import React from "react";
 import ButtonComponent from "../components/ButtonComponent";
 
 function FriendCard({
-  name,
   profileimage,
   profileFirstname,
   porfileLastname,
@@ -12,7 +11,8 @@ function FriendCard({
   friendsadd,
   friendsremove,
   requestBtnText,
-  isLoading,disabled
+  isLoading,
+  disabled,
 }) {
   return (
     <div className="friendcard">
@@ -26,8 +26,8 @@ function FriendCard({
         </div>
       </div>
       <div className="friendactions">
-        {friendsadd && (
-          <div className='request'>
+        {friendsadd && requestBtnText && (
+          <div className="request">
             <ButtonComponent
               onClick={friendsadd}
               extraclass="requestbutton"
@@ -38,7 +38,7 @@ function FriendCard({
           </div>
         )}
         {friendsremove && (
-          <div className='remove'>
+          <div className="remove">
             <ButtonComponent
               color={"error"}
               extraclass="removebutton"
@@ -48,7 +48,7 @@ function FriendCard({
           </div>
         )}
         {friendrequestremove && (
-          <div className='remove'>
+          <div className="remove">
             <ButtonComponent
               color={"error"}
               extraclass="removebutton"
@@ -56,10 +56,9 @@ function FriendCard({
               buttontext={"Delete"}
             />
           </div>
-        )
-        }
+        )}
         {friendrequestaccept && (
-          <div className='accept'>
+          <div className="accept">
             <ButtonComponent
               color={"primary"}
               extraclass="acceptbutton"

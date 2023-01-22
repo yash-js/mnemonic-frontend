@@ -13,6 +13,7 @@ function ButtonComponent({
   customButtonStyle,
   starticon,
   endicon,
+  type,
 }) {
   return (
     <Button
@@ -24,8 +25,9 @@ function ButtonComponent({
       endIcon={endicon}
       onClick={onClick}
       style={customButtonStyle}
+      type={type ? type : "button"}
     >
-      {isLoading === true ? <CircularProgress color="primary"  /> : buttontext}
+      {isLoading === true ? <CircularProgress color="primary" /> : buttontext}
     </Button>
   );
 }
