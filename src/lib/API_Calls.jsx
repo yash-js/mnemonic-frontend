@@ -1,16 +1,4 @@
-<<<<<<< HEAD:src/lib/getApiCall.jsx
-import axios from "axios";
-
-const API = 'https://mnemonic-backend.onrender.com';
-
-const config = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-};
-=======
 import { mnemonic } from "./axios";
->>>>>>> 64d93433673d89a8fce09fda6ed09ee54b7c951a:src/lib/API_Calls.jsx
 
 export const signIn = async (data) => {
   try {

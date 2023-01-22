@@ -4,7 +4,6 @@ import logo from "../assets/images/logo.svg";
 import home from "../assets/images/home.svg";
 import friends from "../assets/images/friends.svg";
 import mention from "../assets/images/mention.svg";
-import reminder from "../assets/images/reminder.svg";
 import shared from "../assets/images/shared.svg";
 import "../styles/index.css";
 
@@ -25,6 +24,7 @@ function SideBar() {
   useEffect(() => {
     return () => handleClick(window.location.pathname.replace("/", ""));
   },[]);
+
   useEffect(() => {
     return () => handleClick(window.location.pathname.replace("/", ""));
   },[window.location.pathname]);
@@ -56,14 +56,6 @@ function SideBar() {
           onClick={() => handleClick("mention")}
         >
           <img src={mention} alt="mention" width="30px" height="30px" />
-        </div>
-        <div
-          className={`${
-            active === "reminder" ? "active" : "inactive"
-          } sidebaritem`}
-          onClick={() => handleClick("reminder")}
-        >
-          <img src={reminder} alt="reminder" width="30px" height="30px" />
         </div>
         <div
           className={`${

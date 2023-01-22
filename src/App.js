@@ -10,7 +10,6 @@ const HomepageComponent = React.lazy(() => import("./pages/home"));
 const ErrorComponent = React.lazy(() => import("./layouts/ErrorPage"));
 const FriendsComponent = React.lazy(() => import("./pages/friend"));
 const MentionComponent = React.lazy(() => import("./pages/mention"));
-const ReminderComponent = React.lazy(() => import("./pages/reminder"));
 const ShareComponent = React.lazy(() => import("./pages/share"));
 
 const LoginComp = () => {
@@ -61,14 +60,6 @@ const MentionComp = () => {
   );
 };
 
-const ReminderComp = () => {
-  return (
-    <Suspense>
-      <ReminderComponent />
-    </Suspense>
-  );
-};
-
 const ShareComp = () => {
   return (
     <Suspense>
@@ -94,10 +85,6 @@ const router = createBrowserRouter([
       {
         path: "/mention",
         element: <MentionComp />,
-      },
-      {
-        path: "/reminder",
-        element: <ReminderComp />,
       },
       {
         path: "/share",
