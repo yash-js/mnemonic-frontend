@@ -3,16 +3,32 @@ import { Outlet, useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import TopBar from "./TopBar";
 import Loader from "../layouts/Loader";
-import { useSelector } from "react-redux";
-import { loadingState } from "../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  isLoading,
+  loadingState,
+  userdata,
+  userData,
+} from "../features/userSlice";
+import { getUser } from "../lib/API_Calls";
 
 const IndexRoute = () => {
   const loading = useSelector(loadingState);
   const navigate = useNavigate();
+  const user = useSelector(userData);
+  const dispatch = useDispatch();
   useEffect(() => {
-    return () => {
-      if (localStorage && !localStorage.getItem("token")) {
-        navigate("/signin");
+    return async () => {
+      if (!user || user === null || user?.token !== null) {
+        dispatch(isLoading(true));
+        const res = await getUser();
+        if (res.status === 200) {
+          dispatch(userdata(res?.data?.user));
+          dispatch(isLoading(false));
+        } else {
+          navigate("/signin");
+          dispatch(isLoading(false));
+        }
       }
     };
   }, []);

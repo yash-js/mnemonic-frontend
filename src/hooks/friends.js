@@ -17,7 +17,7 @@ import {
   getSentRequests,
   cancelRequest,
   getAllFriedsData,
-} from "../lib/getApiCall";
+} from "../lib/API_Calls";
 
 export const useFriends = () => {
   const user = useSelector(userData);
@@ -73,7 +73,7 @@ export const useFriends = () => {
     dispatch(
       userdata({
         ...user,
-        friends: user?.friends.filter((friend) => friend._id !== id),
+        friends: friends.filter((friend) => friend._id !== id),
       })
     );
     await removeFriend(id);
@@ -87,7 +87,7 @@ export const useFriends = () => {
     dispatch(
       userdata({
         ...user,
-        requests: user?.requests.filter((request) => request._id !== id),
+        requests: requests.filter((request) => request._id !== id),
       })
     );
     await cancelRequest(id);
@@ -104,7 +104,7 @@ export const useFriends = () => {
       userdata({
         ...user,
         friends: [...user.friends, friendData],
-        requests: user?.request.filter(
+        requests: request.filter(
           (request) => request._id !== friendData._id
         ),
       })
@@ -156,7 +156,7 @@ export const useFriends = () => {
     dispatch(
       userdata({
         ...user,
-        sentRequests: user?.sentRequests.filter(
+        sentRequests: sent.filter(
           (req) => req._id !== friendData
         ),
       })

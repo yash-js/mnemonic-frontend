@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
-import { signIn } from "../../lib/getApiCall";
+import { signIn } from "../../lib/API_Calls";
 import { login } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
@@ -35,7 +35,6 @@ function Login() {
     const res = await signIn({ username, password });
     if (res?.status === 200 && res?.data && res?.data?.user) {
       navigate("/");
-      localStorage.setItem("token", res?.data?.user?.token);
       dispatch(login(res?.data?.user));
       setLoading(false);
     } else {

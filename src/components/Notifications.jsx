@@ -1,9 +1,4 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getNotificationList,
-  getNotificationListCount,
-} from "../features/notificationSlice";
 import { NotificationsOutlined } from "@mui/icons-material";
 import {
   Box,
@@ -15,88 +10,31 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import AlertComponent from "./AlertComponent";
-import { getNotications } from "../lib/getApiCall";
-import { getToken, userData } from "../features/userSlice";
-import { useState } from "react";
-import FriendCard from "../layouts/FriendCard";
 import _ from "lodash";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNotifications } from "../hooks/notifications";
 
 const Notifications = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const token = useSelector(getToken);
-  const open = Boolean(anchorEl);
-  const API = "http://localhost:5000";
-  const navigate = useNavigate();
-  const user = useSelector(userData);
-  const [unread, setUnread] = useState([]);
-  const [all, setAll] = useState([]);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    if (unread.length > 0) {
-      onClickHandle();
-    }
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const getNotificationsApiCall = async () => {
-    const res = await getNotications(token);
-    setUnread(res?.data?.latest);
-    setAll(res?.data?.notification);
-  };
-
-  const onClickHandle = async () => {
-    try {
-      const resp = await axios.put(
-        `${API}/user/notifications`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return setUnread([]);
-    } catch (error) {
-      return error;
-    }
-  };
-
-  const removeNotificationApiCall = async (id) => {
-    try {
-      setUnread([]);
-      const resp = await axios.put(
-        `${API}/user/notification/remove/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return setUnread([]);
-    } catch (error) {
-      return error;
-    }
-  };
-
-  const notificationOnClick = (id) => {
-    navigate("/friend");
-    handleClose();
-    setAll(all.filter((notification) => notification._id !== id));
-    removeNotificationApiCall(id);
-  };
+  const {
+    anchorEl,
+    open,
+    unread,
+    all,
+    user,
+    handleClick,
+    handleClose,
+    getNotificationsApiCall,
+    notificationOnClick,
+    setAll,
+    setUnread
+  } = useNotifications();
 
   useEffect(() => {
     return async () => {
-      await getNotificationsApiCall();
-      setInterval(getNotificationsApiCall, 30000);
+      if (user && user?.token !== null) {
+        setAll(user?.notification)
+        setUnread(user?.latest)
+        setInterval(getNotificationsApiCall, 30000);
+      }
     };
   }, []);
 

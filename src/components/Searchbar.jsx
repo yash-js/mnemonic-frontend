@@ -48,7 +48,7 @@ const Searchbar = () => {
           setSearchQuery("");
           setResults([]);
         }}
-        getOptionLabel={(option) => option.firstName}
+        getOptionLabel={(option) => option._id}
         noOptionsText={"User Not Found"}
         loading={searchResLoading}
         options={results}

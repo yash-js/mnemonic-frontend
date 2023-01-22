@@ -15,13 +15,14 @@ import { Logout, Add } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut, updateProfile } from "../lib/getApiCall";
+import { signOut, updateProfile } from "../lib/API_Calls";
 import {
   logout,
   userData,
   loadingState,
   setProfiledata,
   userdata,
+  isLoading,
 } from "../features/userSlice";
 import { getActivePopOver, setActivePopOver } from "../features/popoverslice";
 import PopoverComponent from "./PopoverComponent";
@@ -71,10 +72,10 @@ const ProfileMenu = () => {
   };
 
   const handleSignOut = async () => {
-    if (token || (localStorage && localStorage.getItem("token"))) {
-      localStorage.removeItem("token");
-    }
+    dispatch(isLoading(true))
+    await signOut()
     dispatch(logout());
+    dispatch(isLoading(false))
     navigate("/signin");
   };
 
