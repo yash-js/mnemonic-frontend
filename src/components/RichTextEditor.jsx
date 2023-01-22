@@ -4,10 +4,10 @@ import { useRichTextEditor } from '../hooks/richtexteditor';
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 function RichTextEditor() {
-    const { 
-        richtextdata,
-        setRichtextdata, 
-    } = useRichTextEditor()
+  const {
+    richtextdata,
+    setRichtextdata
+  } = useRichTextEditor()
 
   return (
     <div className='richtexteditor'>

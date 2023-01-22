@@ -6,7 +6,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePopOver } from "../features/popoverslice";
-import { useRichTextEditor } from "../hooks/richtexteditor";
 import { getActivePopOver } from "../features/popoverslice";
 import { profiledata } from "../features/userSlice";
 
@@ -20,8 +19,6 @@ function PopoverComponent({
   saveBtnDisabled,
   setEditData,
 }) {
-  const { richtextdata, htmldata } = useRichTextEditor();
-
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const profiledisabled = useSelector(profiledata);
@@ -42,7 +39,7 @@ function PopoverComponent({
   };
 
   const handleRichText = () => {
-    console.log(richtextdata, htmldata);
+    console.log(JSON.parse(localStorage.getItem('notedata')));
   };
 
   const popoverContent = [

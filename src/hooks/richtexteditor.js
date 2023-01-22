@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-
+    
 export const useRichTextEditor = () => {
-    const [richtextdata, setRichtextdata] = useState((e) => EditorState.createEmpty(e));
-    const htmldata = draftToHtml(convertToRaw(richtextdata.getCurrentContent()))
-    const draftdata = htmlToDraft(htmldata)
+    const [richtextdata, setRichtextdata] = useState((e) => EditorState.createEmpty(e))
+    const savedata = localStorage.getItem('notedata') ? JSON.parse(localStorage.getItem('notedata')) : richtextdata
+    const draftdata = htmlToDraft(savedata)
 
     useEffect(() => {
-        console.log("htmldata", htmldata)
-    }, [htmldata])
+        localStorage.setItem('notedata', JSON.stringify(draftToHtml(convertToRaw(richtextdata.getCurrentContent()))));
+    }, [richtextdata])
 
-    return{
+    return {
         richtextdata,
         setRichtextdata,
-        htmldata,
+        savedata,
         draftdata
     }
 }
