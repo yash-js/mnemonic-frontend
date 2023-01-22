@@ -71,11 +71,11 @@ const ProfileMenu = () => {
   };
 
   const handleSignOut = async () => {
-    if (token || token === "" || token === undefined || token === null) {
+    if (token || (localStorage && localStorage.getItem("token"))) {
       localStorage.removeItem("token");
     }
-    navigate("/signin");
     dispatch(logout());
+    navigate("/signin");
   };
 
   const handleProfile = () => {

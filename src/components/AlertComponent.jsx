@@ -10,7 +10,6 @@ function AlertComponent({
   setMessage,
   name,
 }) {
-
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -26,9 +25,9 @@ function AlertComponent({
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       autoHideDuration={5000}
       onClose={handleClose}
-      className={name ? 'notificationalert' : 'alert'}
+      className={name ? "notificationalert" : "alert"}
     >
-      <Alert onClose={handleClose} severity={alertType}>
+      <Alert onClose={handleClose} severity={alertType ? alertType : "success"}>
         {alertMessage}
       </Alert>
     </Snackbar>

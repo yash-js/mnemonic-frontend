@@ -459,6 +459,14 @@ p {
   object-fit: contain;
 }
 
+.noNotifications {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 230px;
+  font-size: 1rem;
+}
 /** topbar css ends **/
 
 /** popover css **/
@@ -650,7 +658,7 @@ p {
 
 /** notecard css **/
 
-.notecard.normal{
+.notecard.normal {
   width: calc(100% - 40px);
   height: auto;
   min-height: 200px;
@@ -666,14 +674,14 @@ p {
   align-items: flex-start;
 }
 
-.notecard.mnemonic{
+.notecard.mnemonic {
   width: calc(100% - 40px);
   height: auto;
   min-height: 200px;
   border-radius: 20px;
   padding: 20px;
   color: #fff;
-  background: #06080F;
+  background: #06080f;
   backdrop-filter: blur(10px);
   /* Note: backdrop-filter has minimal browser support */
   display: flex;
@@ -683,7 +691,7 @@ p {
 }
 
 .notecard.normal .notecardheading,
-.notecard.mnemonic .notecardheading{
+.notecard.mnemonic .notecardheading {
   width: 100%;
   height: 40px;
   padding-bottom: 10px;
@@ -692,7 +700,7 @@ p {
   align-items: center;
 }
 
-.notecard.normal .notecardheading h3{
+.notecard.normal .notecardheading h3 {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -702,7 +710,7 @@ p {
   margin: 0px !important;
 }
 
-.notecard.mnemonic .notecardheading h3{
+.notecard.mnemonic .notecardheading h3 {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -713,27 +721,27 @@ p {
 }
 
 .notecard.normal .notecardheading .editicon,
-.notecard.mnemonic .notecardheading .editicon{
+.notecard.mnemonic .notecardheading .editicon {
   width: 30px;
   height: 30px;
   background: #c8c8c866;
   cursor: pointer;
 }
 
-.notecard.normal .notecardheading .editicon svg{
+.notecard.normal .notecardheading .editicon svg {
   width: 17px;
   height: 17px;
   fill: #000000;
 }
 
-.notecard.mnemonic .notecardheading .editicon svg{
+.notecard.mnemonic .notecardheading .editicon svg {
   width: 17px;
   height: 17px;
   fill: #ffffff;
 }
 
 .notecard.normal .notecardcontent,
-.notecard.mnemonic .notecardcontent{
+.notecard.mnemonic .notecardcontent {
   width: 100%;
   height: calc(100% - 100px);
   display: flex;
@@ -741,7 +749,7 @@ p {
   align-items: flex-start;
 }
 
-.notecard.normal .notecardcontent p{
+.notecard.normal .notecardcontent p {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -751,7 +759,7 @@ p {
   margin: 0px !important;
 }
 
-.notecard.mnemonic .notecardcontent p{
+.notecard.mnemonic .notecardcontent p {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -762,7 +770,7 @@ p {
 }
 
 .notecard.normal .notecardsharing,
-.notecard.mnemonic .notecardsharing{
+.notecard.mnemonic .notecardsharing {
   width: 100%;
   height: 45px;
   margin-top: 15px;

@@ -12,11 +12,10 @@ const RequireAuth = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     return async () => {
-      if (token && !user) {
+      if ((token || localStorage.getItem("token")) && user === null) {
         dispatch(isLoading(true));
-        const response = await getUser();
+        const response = await getUser(token);
         dispatch(userdata(response?.data?.user));
-        console.log(user);
       }
       dispatch(isLoading(false));
     };

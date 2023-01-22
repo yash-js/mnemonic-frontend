@@ -1,10 +1,11 @@
 import axios from "axios";
 
-const API = 'http://localhost:5000';
+const API = "http://localhost:5000";
+const localToken = localStorage.getItem("token");
 
 const config = {
   headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${localToken}`,
   },
 };
 
@@ -40,9 +41,13 @@ export const signOut = async () => {
   }
 };
 
-export const getUser = async () => {
+export const getUser = async (token) => {
   try {
-    const resp = await axios.get(`${API}/user/getuser`, config);
+    const resp = await axios.get(`${API}/user/getuser`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return resp;
   } catch (error) {
     return error;
@@ -133,6 +138,28 @@ export const getSentRequests = async () => {
 export const updateProfile = async (data) => {
   try {
     const resp = await axios.put(`${API}/user/edit`, data, config);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getNotications = async (token) => {
+  try {
+    const resp = await axios.get(`${API}/user/notifications`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllFriedsData = async () => {
+  try {
+    const resp = await axios.get(`${API}/friend/all`, config);
     return resp;
   } catch (error) {
     return error;
