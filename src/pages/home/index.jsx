@@ -99,6 +99,13 @@ const Home = () => {
     </div>
   ]
 
+  useEffect(()=>{
+    setTimeout(() => {
+    const newNote = new Notification("Hewllo")
+      
+    }, 10000);
+  },[])
+
   return (
     <>
       <div className="home">

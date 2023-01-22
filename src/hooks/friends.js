@@ -6,7 +6,7 @@ import {
   friendsLoadingState,
   requestsLoadingState,
 } from "../features/friendsSlice";
-import { userData } from "../features/userSlice";
+import { userdata, userData } from "../features/userSlice";
 import {
   getFriendRequests,
   getFriends,
@@ -16,7 +16,8 @@ import {
   searchUser,
   getSentRequests,
   cancelRequest,
-} from "../lib/getApiCall";
+  getAllFriedsData,
+} from "../lib/API_Calls";
 
 export const useFriends = () => {
   const user = useSelector(userData);
@@ -39,40 +40,56 @@ export const useFriends = () => {
   const [sendRequestLoading, setSendRequestLoading] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
-  const getFriendsApiCall = async () => {
+  const allDataApiCall = async () => {
     setLoading(true);
-    const resp = await getFriends();
-    if (resp && resp?.status === 200 && resp?.data) {
-      setFriend(resp?.data);
+    const res = await getAllFriedsData();
+    if (res.status === 200) {
+      setFriend(res?.data?.friends);
+      setRequest(res?.data?.requests);
+      setSent(res?.data?.sentRequests);
+    } else {
+      setOpen(true);
+      setType("error");
+      setMessage("Something Went Wrong");
     }
     setLoading(false);
   };
 
+  const getFriendsApiCall = async () => {
+    const resp = await getFriends();
+    setFriend(resp?.data);
+  };
+
   const getRequestsApiCall = async () => {
-    setLoading(true);
     const resp = await getFriendRequests();
-    if (resp && resp?.status === 200 && resp?.data) {
-      setRequest(resp?.data);
-    }
-    setLoading(false);
+    setRequest(resp?.data);
   };
 
   const removeFriendApiCall = async (id) => {
     setMessage("Friend Removed!");
     setType("success");
     setOpen(true);
-    setFriend(_.remove((friend) => friend._id === id));
-    // setFriend(friend.filter((f) => f._id !== id));
+    setFriend(friend.filter((friend) => friend._id !== id));
+    dispatch(
+      userdata({
+        ...user,
+        friends: friends.filter((friend) => friend._id !== id),
+      })
+    );
     await removeFriend(id);
-    await getSentRequests();
-    await getFriends();
   };
 
   const cancelRequestApiCall = async (id) => {
     setMessage("Friend Request Deleted");
     setType("success");
     setOpen(true);
-    setRequest(_.remove((request) => request._id === id));
+    setRequest(request.filter((request) => request._id !== id));
+    dispatch(
+      userdata({
+        ...user,
+        requests: requests.filter((request) => request._id !== id),
+      })
+    );
     await cancelRequest(id);
     await getSentRequests();
   };
@@ -82,7 +99,16 @@ export const useFriends = () => {
     setType("success");
     setOpen(true);
     setFriend([...friend, friendData]);
-    setRequest(_.remove((request) => request._id === friendData._id));
+    setRequest(request.filter((request) => request._id !== friendData._id));
+    dispatch(
+      userdata({
+        ...user,
+        friends: [...user.friends, friendData],
+        requests: request.filter(
+          (request) => request._id !== friendData._id
+        ),
+      })
+    );
     await acceptFriendRequest(friendData._id);
     await getSentRequests();
   };
@@ -116,9 +142,10 @@ export const useFriends = () => {
       setResults(res?.data?.result);
     }
     setSearchResLoading(false);
+    setSearchOpen(true);
   };
 
-  const debounceSearch = _.debounce(searchApiCall, 1000);
+  const debounceSearch = _.debounce(searchApiCall, 500);
 
   const callAddFriendApi = async (friendData) => {
     setSendRequestLoading(true);
@@ -126,6 +153,14 @@ export const useFriends = () => {
     setOpen(true);
     setMessage("Friend Request Send");
     setSent([...sent, friendData]);
+    dispatch(
+      userdata({
+        ...user,
+        sentRequests: sent.filter(
+          (req) => req._id !== friendData
+        ),
+      })
+    );
     setSendRequestLoading(false);
     setSearchOpen(false);
     setSearchQuery("");
@@ -135,13 +170,7 @@ export const useFriends = () => {
 
   const callGetSentRequests = async () => {
     const res = await getSentRequests();
-    if (res.status === 200) {
-      setSent(res?.data);
-    } else {
-      setMessage("Something Went Wrong!");
-      setType("error");
-      setOpen(true);
-    }
+    setSent(res?.data);
   };
 
   React.useEffect(() => {
@@ -202,6 +231,11 @@ export const useFriends = () => {
     cancelRequestApiCall,
     setSearchOpen,
     searchOpen,
-    user,setSearchResLoading
+    user,
+    setSearchResLoading,
+    allDataApiCall,
+    setFriend,
+    setRequest,
+    setSent,
   };
 };

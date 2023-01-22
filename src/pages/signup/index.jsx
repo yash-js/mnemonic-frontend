@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import InputField from "../../components/InputField";
 import ButtonComponent from "../../components/ButtonComponent";
-import { signUp } from "../../lib/getApiCall";
+import { signUp } from "../../lib/API_Calls";
 import AlertComponent from "../../components/AlertComponent";
 import { NavLink } from "react-router-dom";
 import { Avatar, Fab } from "@mui/material";

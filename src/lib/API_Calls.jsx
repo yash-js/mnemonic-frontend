@@ -1,16 +1,8 @@
-import axios from "axios";
-
-const API = 'http://localhost:5000';
-
-const config = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-};
+import { mnemonic } from "./axios";
 
 export const signIn = async (data) => {
   try {
-    const resp = await axios.post(`${API}/signin`, data);
+    const resp = await mnemonic.post(`/signin`, data);
     return resp;
   } catch (error) {
     return error;
@@ -24,7 +16,7 @@ export const signUp = async (data) => {
         data.firstName + "+" + data.lastName
       }`;
     }
-    const resp = await axios.post(`${API}/signup`, data);
+    const resp = await mnemonic.post(`/signup`, data);
     return resp;
   } catch (error) {
     return error;
@@ -33,7 +25,7 @@ export const signUp = async (data) => {
 
 export const signOut = async () => {
   try {
-    const resp = await axios.get(`${API}/signout`, config);
+    const resp = await mnemonic.get(`/signout`);
     return resp;
   } catch (error) {
     return error;
@@ -42,7 +34,7 @@ export const signOut = async () => {
 
 export const getUser = async () => {
   try {
-    const resp = await axios.get(`${API}/user/getuser`, config);
+    const resp = await mnemonic.get(`/user/getuser`);
     return resp;
   } catch (error) {
     return error;
@@ -51,7 +43,7 @@ export const getUser = async () => {
 
 export const getFriends = async () => {
   try {
-    const resp = await axios.get(`${API}/friend`, config);
+    const resp = await mnemonic.get(`/friend`);
     return resp;
   } catch (error) {
     return error;
@@ -60,7 +52,7 @@ export const getFriends = async () => {
 
 export const getFriendRequests = async () => {
   try {
-    const resp = await axios.get(`${API}/friend/requests`, config);
+    const resp = await mnemonic.get(`/friend/requests`);
     return resp;
   } catch (error) {
     return error;
@@ -69,7 +61,7 @@ export const getFriendRequests = async () => {
 
 export const getSuggestions = async () => {
   try {
-    const resp = await axios.get(`${API}/friend/suggestions`, config);
+    const resp = await mnemonic.get(`/friend/suggestions`);
     return resp;
   } catch (error) {
     return error;
@@ -78,7 +70,7 @@ export const getSuggestions = async () => {
 
 export const removeFriend = async (id) => {
   try {
-    const resp = await axios.delete(`${API}/friend/remove/${id}`, config);
+    const resp = await mnemonic.delete(`/friend/remove/${id}`);
     return resp;
   } catch (error) {
     return error;
@@ -87,7 +79,7 @@ export const removeFriend = async (id) => {
 
 export const cancelRequest = async (id) => {
   try {
-    const resp = await axios.delete(`${API}/friend/cancel/${id}`, config);
+    const resp = await mnemonic.delete(`/friend/cancel/${id}`);
     return resp;
   } catch (error) {
     return error;
@@ -96,7 +88,7 @@ export const cancelRequest = async (id) => {
 
 export const acceptFriendRequest = async (id) => {
   try {
-    const resp = await axios.post(`${API}/friend/accept/${id}`, {}, config);
+    const resp = await mnemonic.post(`/friend/accept/${id}`, {});
     return resp;
   } catch (error) {
     return error;
@@ -105,7 +97,7 @@ export const acceptFriendRequest = async (id) => {
 
 export const searchUser = async (query) => {
   try {
-    const resp = await axios.get(`${API}/user/search/${query}`, config);
+    const resp = await mnemonic.get(`/user/search/${query}`);
     return resp;
   } catch (error) {
     return error;
@@ -114,7 +106,7 @@ export const searchUser = async (query) => {
 
 export const addFriend = async (id) => {
   try {
-    const resp = await axios.post(`${API}/friend/add/${id}`, {}, config);
+    const resp = await mnemonic.post(`/friend/add/${id}`, {});
     return resp;
   } catch (error) {
     return error;
@@ -123,7 +115,7 @@ export const addFriend = async (id) => {
 
 export const getSentRequests = async () => {
   try {
-    const resp = await axios.get(`${API}/friend/sent`, config);
+    const resp = await mnemonic.get(`/friend/sent`);
     return resp;
   } catch (error) {
     return error;
@@ -132,7 +124,25 @@ export const getSentRequests = async () => {
 
 export const updateProfile = async (data) => {
   try {
-    const resp = await axios.put(`${API}/user/edit`, data, config);
+    const resp = await mnemonic.put(`/user/edit`, data);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getNotications = async () => {
+  try {
+    const resp = await mnemonic.get(`/user/notifications`);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAllFriedsData = async () => {
+  try {
+    const resp = await mnemonic.get(`/friend/all`);
     return resp;
   } catch (error) {
     return error;

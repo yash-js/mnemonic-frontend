@@ -8,8 +8,6 @@ import AlertComponent from "../../components/AlertComponent";
 function Friend() {
   const {
     loading,
-    getFriendsApiCall,
-    getRequestsApiCall,
     removeFriendApiCall,
     open,
     setOpen,
@@ -21,16 +19,18 @@ function Friend() {
     friend,
     request,
     cancelRequestApiCall,
-    callGetSentRequests,
+    user,
+    setFriend,
+    setRequest,
+    setSent,
   } = useFriends();
 
   useEffect(() => {
-
+    document.title = "Friends";
     return () => {
-      document.title = "Friends";
-      callGetSentRequests();
-      getFriendsApiCall();
-      getRequestsApiCall();
+      setFriend(user?.friends ? user?.friends : []);
+      setSent(user?.sentRequests ? user?.sentRequests : []);
+      setRequest(user?.requests ? user?.requests : []);
     };
   }, []);
 
