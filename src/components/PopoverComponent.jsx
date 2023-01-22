@@ -48,8 +48,13 @@ function PopoverComponent({
       <div className="notetop">
         <div className="noteclosebtn">
           {richtext && (
-            <ButtonComponent buttontext="Save" onClick={handleRichText} />
+            <ButtonComponent buttontext="Save" onClick={() => dispatch(setActivePopOver("notetitle"))} />
           )}
+          {
+             popoverclassname === 'notetitle' && (
+              <ButtonComponent buttontext="Save" onClick={handleRichText} />
+             )
+          }
           {btnname === "home" ? (
             <IconButton
               color="primary"

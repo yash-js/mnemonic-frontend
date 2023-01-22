@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { getActivePopOver, setActivePopOver} from "../../features/popoverslice";
+import { useDispatch } from "react-redux";
+import { setActivePopOver} from "../../features/popoverslice";
 import ButtonComponent from "../../components/ButtonComponent";
-import RichTextEditor from "../../components/RichTextEditor";
 import PopoverComponent from "../../components/PopoverComponent";
 import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const activepopover = useSelector(getActivePopOver);
   const [homedisabled, setHomeDisabled] = React.useState(false);
 
   useEffect(() => {
@@ -77,28 +75,6 @@ const Home = () => {
     </div>
   ]
 
-  const popovernormalcontent = [
-    <div className="notebottomcontent normalnotebox">
-      <div className="normalnotesheading">
-        <h3>Normal Notes</h3>
-      </div>
-      <div className="normalnotescontent">
-        <RichTextEditor/>
-      </div>
-    </div>
-  ]
-
-  const popovermnemoniccontent = [
-    <div className="notebottomcontent mnemonicnotebox">
-      <div className="mnemonicnotesheading">
-        <h3>Mnemonic Notes</h3>
-      </div>
-      <div className="mnemonicnotescontent">
-        <h1>Mnemonic Notes</h1>
-      </div>
-    </div>
-  ]
-
   useEffect(()=>{
     setTimeout(() => {
     const newNote = new Notification("Hewllo")
@@ -119,15 +95,7 @@ const Home = () => {
               ))
             }
           </Grid>
-          {
-            activepopover === 'normal' ? (
-              <PopoverComponent popoverclassname={'normalnotes'} popovercontent={popovernormalcontent} richtext={true}/>
-            ) : activepopover === 'mnemonic' ? (
-              <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={popovermnemoniccontent}/>
-            ) : (
-              <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverstate={homedisabled ? true : false} />
-            ) 
-          }
+          <PopoverComponent btnname={'home'} popoverclassname={'homecontentpopover'} popovercontent={popovercontent} popoverstate={homedisabled ? true : false} />
         </div>
       </div>
     </>

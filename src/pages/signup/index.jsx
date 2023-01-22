@@ -65,6 +65,7 @@ function Signup() {
   };
 
   const onFocusField = () => setError({});
+  
   useEffect(() => {
     document.title = "Sign Up";
   });

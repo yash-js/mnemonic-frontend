@@ -489,7 +489,8 @@ p {
 
 #simple-popover .notecontent.mnemonicnotes,
 #simple-popover .notecontent.normalnotes,
-#simple-popover .notecontent.profile {
+#simple-popover .notecontent.profile,
+#simple-popover .notecontent.notetitle {
   display: block !important;
   width: 100%;
   height: 97%;
@@ -532,12 +533,12 @@ p {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
 .notebottom .notebottomcontent .normalnotes,
-.notebottom .notebottomcontent .Mnemonicnotes {
+.notebottom .notebottomcontent .Mnemonicnotes{
   width: 50%;
   height: 100%;
   display: flex;
@@ -560,7 +561,8 @@ p {
 
 .notebottom .notebottomcontent.normalnotebox,
 .notebottom .notebottomcontent.mnemonicnotebox,
-.notebottom .notebottomcontent.profilebox {
+.notebottom .notebottomcontent.profilebox,
+.notebottom .notebottomcontent.notetitlebox {
   width: 100%;
   height: 100%;
   display: flex;
@@ -571,7 +573,8 @@ p {
 
 .notebottom .notebottomcontent.normalnotebox .normalnotesheading,
 .notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading,
-.notebottom .notebottomcontent.profilebox .profileheading {
+.notebottom .notebottomcontent.profilebox .profileheading,
+.notebottom .notebottomcontent.notetitlebox .notetitleheading {
   width: 100%;
   height: 70px;
   display: flex;
@@ -587,7 +590,8 @@ p {
 
 .notebottom .notebottomcontent.normalnotebox .normalnotesheading h3,
 .notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading h3,
-.notebottom .notebottomcontent.profilebox .profileheading h3 {
+.notebottom .notebottomcontent.profilebox .profileheading h3,
+.notebottom .notebottomcontent.notetitlebox .notetitleheading h3 {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -599,12 +603,35 @@ p {
 
 .notebottom .notebottomcontent.normalnotebox .normalnotescontent,
 .notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotescontent,
-.notebottom .notebottomcontent.profilebox .profilecontent {
+.notebottom .notebottomcontent.profilebox .profilecontent,
+.notebottom .notebottomcontent.notetitlebox .notetitlecontent {
   width: 100%;
   height: calc(100% - 70px);
   display: flex;
   justify-content: center;
   align-items: flex-start;
+}
+
+.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notedetails,
+.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notesharing {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 10px 10px;
+}
+
+.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notedetails h4,
+.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notesharing h4 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px !important;
+  line-height: 15px;
+  color: #000000;
+  margin: 10px 0px 15px 0px !important;
 }
 
 .notebottom .notebottomcontent.profilebox .profilecontent {
