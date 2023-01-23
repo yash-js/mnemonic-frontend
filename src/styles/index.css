@@ -650,36 +650,9 @@ p {
 
 /** richtexteditor css **/
 
-.richtexteditor {
+.normalnotescontent > div:first-child{
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.rdw-editor-wrapper {
-  height: 100%;
-}
-
-.rdw-editor-toolbar {
-  height: 30% !important;
-  position: sticky;
-  top: 0px;
-}
-
-.rdw-editor-main {
-  height: 100%;
-  box-sizing: border-box;
-  border-radius: 2px;
-  border: 1px solid #f1f1f1;
-  background: white;
-  padding: 5px 10px;
-  position: fixed !important;
-  width: calc(100% - 40px) !important;
-  height: calc(70% - 130px) !important;
-  overflow: scroll !important;
 }
 
 /** richtexteditor css ends **/
