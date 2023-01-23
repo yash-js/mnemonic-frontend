@@ -11,7 +11,6 @@ import {
   userData,
 } from "../features/userSlice";
 import { getUser } from "../lib/API_Calls";
-
 const IndexRoute = () => {
   const loading = useSelector(loadingState);
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const IndexRoute = () => {
       if (!user || user === null || !user?.token ) {
         dispatch(isLoading(true));
         const res = await getUser();
-        if (res.status === 200) {
+        if (res?.data?.user) {
           dispatch(userdata(res?.data?.user));
           dispatch(isLoading(false));
         } else {
