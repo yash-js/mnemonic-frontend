@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Grid, IconButton } from "@mui/material";
+import React, { useEffect } from "react";
+import { Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setActivePopOver } from "../../features/popoverslice";
 import ButtonComponent from "../../components/ButtonComponent";
 import PopoverComponent from "../../components/PopoverComponent";
 import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
-import NotesPopover from "../../components/PopoverComponents/NotesPopover";
-import AddIcon from "@mui/icons-material/Add";
-import { usePopover } from "../../hooks/popoverhook";
 
 const Home = () => {
   const dispatch = useDispatch();
