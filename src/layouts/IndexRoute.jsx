@@ -17,9 +17,10 @@ const IndexRoute = () => {
   const navigate = useNavigate();
   const user = useSelector(userData);
   const dispatch = useDispatch();
+
   useEffect(() => {
     return async () => {
-      if (!user || user === null || user?.token !== null) {
+      if (!user || user === null || !user?.token ) {
         dispatch(isLoading(true));
         const res = await getUser();
         if (res.status === 200) {
@@ -31,7 +32,7 @@ const IndexRoute = () => {
         }
       }
     };
-  }, []);
+  });
 
   return (
     <div className="indexRoute">

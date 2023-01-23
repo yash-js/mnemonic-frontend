@@ -8,7 +8,6 @@ import { login } from "../../features/userSlice";
 import { useDispatch } from "react-redux";
 import AlertComponent from "../../components/AlertComponent";
 import "../../styles/index.css";
-import { Typography } from "@mui/material";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -20,7 +19,7 @@ function Login() {
   const [type, setType] = useState("");
   const [isLoading, setLoading] = useState(false);
   const emailRegex = new RegExp(
-    /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
+    /^[A-Za-z0-9_!#$%&'*+=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
     "gm"
   );
   const openAlert = (open, type, message) => {
@@ -39,6 +38,7 @@ function Login() {
       setLoading(false);
     } else {
       openAlert(true, "error", res?.response?.data?.error);
+      setLoading(false);
     }
   };
 
