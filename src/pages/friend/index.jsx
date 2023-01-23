@@ -32,7 +32,7 @@ function Friend() {
       setSent(user?.sentRequests ? user?.sentRequests : []);
       setRequest(user?.requests ? user?.requests : []);
     };
-  }, []);
+  });
 
   return (
     <div className="friend">

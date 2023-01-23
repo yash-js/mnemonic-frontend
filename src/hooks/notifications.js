@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getNotications } from "../lib/API_Calls";
-import { userData } from "../features/userSlice";
+import { userdata, userData } from "../features/userSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { mnemonic } from "../lib/axios";
@@ -12,10 +12,17 @@ export const useNotifications = () => {
   const [unread, setUnread] = useState([]);
   const [all, setAll] = useState([]);
   const user = useSelector(userData);
+  const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    if (unread.length > 0) {
+    if (unread && unread.length > 0) {
+      dispatch(
+        userdata({
+          ...user,
+          latest: [],
+        })
+      );
       onClickHandle();
     }
   };
@@ -52,8 +59,6 @@ export const useNotifications = () => {
   const notificationOnClick = (id) => {
     navigate("/friend");
     handleClose();
-    setAll(all.filter((notification) => notification._id !== id));
-    removeNotificationApiCall(id);
   };
   return {
     anchorEl,

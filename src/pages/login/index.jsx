@@ -19,7 +19,7 @@ function Login() {
   const [type, setType] = useState("");
   const [isLoading, setLoading] = useState(false);
   const emailRegex = new RegExp(
-    /^[A-Za-z0-9_!#$%&'*+=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
+    /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
     "gm"
   );
   const openAlert = (open, type, message) => {

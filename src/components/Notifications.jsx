@@ -10,7 +10,6 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
-import _ from "lodash";
 import { useNotifications } from "../hooks/notifications";
 
 const Notifications = () => {
@@ -30,7 +29,7 @@ const Notifications = () => {
 
   useEffect(() => {
     return async () => {
-      if (user && user?.token !== null) {
+      if (user || user?.token !== null) {
         setAll(user?.notification)
         setUnread(user?.latest)
         setInterval(getNotificationsApiCall, 30000);

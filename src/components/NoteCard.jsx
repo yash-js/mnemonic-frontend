@@ -17,7 +17,6 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
   const total = sharing && sharing.length ? sharing.length : 0;
   const [noteTitle, setNoteTitle] = React.useState("");
   const [error, setError] = React.useState(null);
-  const [isLoading, setIsLoading] = React.useState(false);
 
   const onFocusField = () => setError({});
 
@@ -67,7 +66,6 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
                 name="noteTitle"
                 value={noteTitle}
                 onChange={(e) => setNoteTitle(e.target.value)}
-                disabled={isLoading}
                 error={error && error.field === "noteTitle"}
                 errorText={
                   error && error.field === "noteTitle" && error.error

@@ -42,7 +42,6 @@ const ProfileMenu = () => {
   const navigate = useNavigate();
   const openmenu = Boolean(profilemenu);
   const activepopover = useSelector(getActivePopOver);
-  const token = localStorage.getItem("token");
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
