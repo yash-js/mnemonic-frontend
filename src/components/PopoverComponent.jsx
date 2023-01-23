@@ -44,8 +44,10 @@ function PopoverComponent({
 
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
-      <div className="notebottom">{popovercontent}</div>
       <div className="notetop">
+        {popovercontent}
+      </div>
+      <div className="notebottom">
         <div className="noteclosebtn">
           {richtext && (
             <ButtonComponent buttontext="Next" onClick={() => dispatch(setActivePopOver("notetitle"))} />

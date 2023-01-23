@@ -29,18 +29,18 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
   }
 
   const popovernormalcontent = [
-    <div className="notebottomcontent normalnotebox">
+    <div className="notetopcontent normalnotebox">
       <div className="normalnotesheading">
         <h3>Normal Notes</h3>
       </div>
       <div className="normalnotescontent">
-        <RichTextEditor/>
+        <RichTextEditor />
       </div>
     </div>
   ]
 
   const popovermnemoniccontent = [
-    <div className="notebottomcontent mnemonicnotebox">
+    <div className="notetopcontent mnemonicnotebox">
       <div className="mnemonicnotesheading">
         <h3>Mnemonic Notes</h3>
       </div>
@@ -51,7 +51,7 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
   ]
 
   const popovernotetitlecontent = [
-    <div className="notebottomcontent notetitlebox">
+    <div className="notetopcontent notetitlebox">
       <div className="notetitleheading">
         <h3>Note Settings</h3>
       </div>

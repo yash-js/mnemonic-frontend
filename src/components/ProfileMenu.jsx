@@ -198,7 +198,7 @@ const ProfileMenu = () => {
   };
 
   const popoverprofilecontent = [
-    <div className="notebottomcontent profilebox">
+    <div className="notetopcontent profilebox">
       <div className="profileheading">
         <h3>User Profile</h3>
         {disabled && (

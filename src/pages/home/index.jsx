@@ -65,7 +65,7 @@ const Home = () => {
   ]
 
   const popovercontent = [
-    <div className="notebottomcontent">
+    <div className="notetopcontent">
       <div className="normalnotes" onClick={()=>handlenotes('normal')}>
         <ButtonComponent buttontext='Normal Notes' customButtonStyle={{backgroundColor: 'black', width: '70%', maxWidth: '250px'}} starticon={<Avatar>N</Avatar>}/>
       </div>

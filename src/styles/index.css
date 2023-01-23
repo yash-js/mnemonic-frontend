@@ -505,7 +505,7 @@ p {
   height: 100%;
 }
 
-#simple-popover .notecontent .notetop {
+#simple-popover .notecontent .notebottom {
   width: calc(100% - 40px);
   height: 100px;
   padding: 0px 20px;
@@ -514,13 +514,13 @@ p {
   align-items: center;
 }
 
-#simple-popover .notecontent .notetop button {
+#simple-popover .notecontent .notebottom button {
   width: 125px !important;
   height: 50px;
   margin: 0px 15px 0px 0px !important;
 }
 
-#simple-popover .notecontent .notebottom {
+#simple-popover .notecontent .notetop {
   width: calc(100% - 40px);
   height: calc(100% - 100px);
   padding: 0px 20px;
@@ -530,7 +530,7 @@ p {
   overflow: scroll;
 }
 
-.notebottom .notebottomcontent {
+.notetop .notetopcontent {
   width: 100%;
   height: 100%;
   display: flex;
@@ -538,8 +538,8 @@ p {
   align-items: center;
 }
 
-.notebottom .notebottomcontent .normalnotes,
-.notebottom .notebottomcontent .Mnemonicnotes{
+.notetop .notetopcontent .normalnotes,
+.notetop .notetopcontent .Mnemonicnotes{
   width: 50%;
   height: 100%;
   display: flex;
@@ -547,23 +547,23 @@ p {
   align-items: center;
 }
 
-.notebottom .notebottomcontent .normalnotes button,
-.notebottom .notebottomcontent .Mnemonicnotes button {
+.notetop .notetopcontent .normalnotes button,
+.notetop .notetopcontent .Mnemonicnotes button {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.notebottom .notebottomcontent .normalnotes button .MuiAvatar-circular,
-.notebottom .notebottomcontent .Mnemonicnotes button .MuiAvatar-circular {
+.notetop .notetopcontent .normalnotes button .MuiAvatar-circular,
+.notetop .notetopcontent .Mnemonicnotes button .MuiAvatar-circular {
   background-color: white;
   color: black;
 }
 
-.notebottom .notebottomcontent.normalnotebox,
-.notebottom .notebottomcontent.mnemonicnotebox,
-.notebottom .notebottomcontent.profilebox,
-.notebottom .notebottomcontent.notetitlebox {
+.notetop .notetopcontent.normalnotebox,
+.notetop .notetopcontent.mnemonicnotebox,
+.notetop .notetopcontent.profilebox,
+.notetop .notetopcontent.notetitlebox {
   width: 100%;
   height: 100%;
   display: flex;
@@ -572,10 +572,10 @@ p {
   align-items: center;
 }
 
-.notebottom .notebottomcontent.normalnotebox .normalnotesheading,
-.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading,
-.notebottom .notebottomcontent.profilebox .profileheading,
-.notebottom .notebottomcontent.notetitlebox .notetitleheading {
+.notetop .notetopcontent.normalnotebox .normalnotesheading,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotesheading,
+.notetop .notetopcontent.profilebox .profileheading,
+.notetop .notetopcontent.notetitlebox .notetitleheading {
   width: 100%;
   height: 70px;
   display: flex;
@@ -583,16 +583,16 @@ p {
   align-items: center;
 }
 
-.notebottom .notebottomcontent.profilebox .profileheading {
+.notetop .notetopcontent.profilebox .profileheading {
   position: sticky;
   top: 15px;
   margin-top: 15px;
 }
 
-.notebottom .notebottomcontent.normalnotebox .normalnotesheading h3,
-.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotesheading h3,
-.notebottom .notebottomcontent.profilebox .profileheading h3,
-.notebottom .notebottomcontent.notetitlebox .notetitleheading h3 {
+.notetop .notetopcontent.normalnotebox .normalnotesheading h3,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotesheading h3,
+.notetop .notetopcontent.profilebox .profileheading h3,
+.notetop .notetopcontent.notetitlebox .notetitleheading h3 {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -602,10 +602,10 @@ p {
   margin: 0px !important;
 }
 
-.notebottom .notebottomcontent.normalnotebox .normalnotescontent,
-.notebottom .notebottomcontent.mnemonicnotebox .mnemonicnotescontent,
-.notebottom .notebottomcontent.profilebox .profilecontent,
-.notebottom .notebottomcontent.notetitlebox .notetitlecontent {
+.notetop .notetopcontent.normalnotebox .normalnotescontent,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent,
+.notetop .notetopcontent.profilebox .profilecontent,
+.notetop .notetopcontent.notetitlebox .notetitlecontent {
   width: 100%;
   height: calc(100% - 70px);
   display: flex;
@@ -613,8 +613,8 @@ p {
   align-items: flex-start;
 }
 
-.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notedetails,
-.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notesharing {
+.notetop .notetopcontent.notetitlebox .notetitlecontent .notedetails,
+.notetop .notetopcontent.notetitlebox .notetitlecontent .notesharing {
   width: 100%;
   height: auto;
   display: flex;
@@ -624,8 +624,8 @@ p {
   margin: 10px 10px;
 }
 
-.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notedetails h4,
-.notebottom .notebottomcontent.notetitlebox .notetitlecontent .notesharing h4 {
+.notetop .notetopcontent.notetitlebox .notetitlecontent .notedetails h4,
+.notetop .notetopcontent.notetitlebox .notetitlecontent .notesharing h4 {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -635,11 +635,11 @@ p {
   margin: 10px 0px 15px 0px !important;
 }
 
-.notebottom .notebottomcontent.profilebox .profilecontent {
+.notetop .notetopcontent.profilebox .profilecontent {
   padding-top: 20px;
 }
 
-.notebottom .notebottomcontent.profilebox .profilecontent .profilepic {
+.notetop .notetopcontent.profilebox .profilecontent .profilepic {
   position: sticky;
   top: 69px;
   background: #f5f5f5;
