@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/system";
 import InputField from "./InputField";
 import search from "../assets/images/search.svg";
@@ -27,6 +27,10 @@ const Searchbar = () => {
     getFriendsApiCall,
     friend,
   } = useFriends();
+
+  useEffect(() => {
+    console.log("results", results);
+  }, [results]);
 
   return (
     <>
