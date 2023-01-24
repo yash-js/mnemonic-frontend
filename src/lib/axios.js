@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const mnemonic = axios.create({
-  baseURL: process.env.REACT_APP_API,
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });

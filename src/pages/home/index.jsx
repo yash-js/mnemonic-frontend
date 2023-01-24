@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setActivePopOver, getActivePopOver } from "../../features/popoverslice";
+import {
+  setActivePopOver,
+  getActivePopOver,
+} from "../../features/popoverslice";
 import ButtonComponent from "../../components/ButtonComponent";
 import PopoverComponent from "../../components/PopoverComponent";
 import RichTextEditor from "../../components/RichTextEditor";
@@ -10,14 +13,18 @@ import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
 import { createNote, getNotes } from "../../lib/API_Calls";
 import { useState } from "react";
+import { userData } from "../../features/userSlice";
+import { useQuill } from "react-quilljs";
 
 const Home = () => {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const [homedisabled, setHomeDisabled] = React.useState(false);
   const [noteTitle, setNoteTitle] = React.useState("");
+  const [noteContent, setNoteContent] = React.useState("");
   const [error, setError] = React.useState(null);
-
+  const [notes, setNotes] = useState([]);
+  const [value,setValue]=useState();
   const onFocusField = () => setError({});
 
   useEffect(() => {
@@ -40,10 +47,10 @@ const Home = () => {
         <h3>Normal Notes</h3>
       </div>
       <div className="normalnotescontent">
-        <RichTextEditor />
+        <RichTextEditor setValue={setValue} />
       </div>
-    </div>
-  ]
+    </div>,
+  ];
 
   const popovermnemoniccontent = [
     <div className="notetopcontent mnemonicnotebox">
@@ -53,8 +60,8 @@ const Home = () => {
       <div className="mnemonicnotescontent">
         <h1>Mnemonic Notes</h1>
       </div>
-    </div>
-  ]
+    </div>,
+  ];
 
   const popovernotetitlecontent = [
     <div className="notetopcontent notetitlebox">
@@ -62,30 +69,28 @@ const Home = () => {
         <h3>Note Settings</h3>
       </div>
       <div className="notetitlecontent">
-        <Grid container spacing={2}>
-          <Grid item xs={12} className={'notedetails'}>
+        <Grid container spacing={2}>  
+          <Grid item xs={12} className={"notedetails"}>
             <h4>Note Details</h4>
             <InputField
-                extraclass={"signupInput"}
-                type="text"
-                label="Note Title"
-                name="noteTitle"
-                value={noteTitle}
-                onChange={(e) => setNoteTitle(e.target.value)}
-                error={error && error.field === "noteTitle"}
-                errorText={
-                  error && error.field === "noteTitle" && error.error
-                }
-                onFocusField={onFocusField}
-              />
+              extraclass={"signupInput"}
+              type="text"
+              label="Note Title"
+              name="noteTitle"
+              value={noteTitle}
+              onChange={(e) => setNoteTitle(e.target.value)}
+              error={error && error.field === "noteTitle"}
+              errorText={error && error.field === "noteTitle" && error.error}
+              onFocusField={onFocusField}
+            />
           </Grid>
-          <Grid item xs={12} className={'notesharing'}>
+          <Grid item xs={12} className={"notesharing"}>
             <h4>Note Sharing</h4>
           </Grid>
         </Grid>
       </div>
-    </div>
-  ]
+    </div>,
+  ];
 
   const cardcontent = [
     {
@@ -138,12 +143,22 @@ const Home = () => {
     },
   ];
 
-  const [notes, setNotes] = useState([]);
+  useEffect(() => {
+    return () => {
+ console.log(value);
+    };
+  }, [value]);
+  const handleRichText = () => {
+    setNoteContent(JSON.parse(localStorage.getItem('notedata')));
+    console.log(setValue);
+  };
 
   const createNoteAPI = async () => {
     const res = await createNote();
     setNotes([...notes, res?.data?.saveNote]);
   };
+
+
 
   const getNotesAPI = async () => {
     const res = await getNotes();
@@ -151,7 +166,7 @@ const Home = () => {
   };
   useEffect(() => {
     return () => getNotesAPI();
-  });
+  }, []);
 
   const popovercontent = [
     <div className="notetopcontent">
@@ -185,34 +200,48 @@ const Home = () => {
       <div className="home">
         <div className="homecontent">
           <Grid container spacing={3}>
-            {notes.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
-                <NoteCard
-                  heading={item?.noteTitle}
-                  content={item?.noteContent}
-                  date={item?.notedOn}
-                  // sharing={item.sharing}
-                  type={"normal"}
-                />
-              </Grid>
-            ))}
+            {notes &&
+              notes.length > 0 &&
+              notes.map((item, index) => (
+                <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
+                  <NoteCard
+                    heading={item?.noteTitle}
+                    content={item?.noteContent}
+                    date={item?.notedOn}
+                    // sharing={item.sharing}
+                    type={"normal"}
+                  />
+                </Grid>
+              ))}
           </Grid>
-          {
-            activepopover === 'normal' ? (
-              <PopoverComponent popoverclassname={'normalnotes'} popovercontent={popovernormalcontent} richtext={true} popoverstate={true}/>
-            ) : activepopover === 'mnemonic' ? (
-              <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={popovermnemoniccontent} popoverstate={true}/>
-            ) : activepopover === 'notetitle' ? (
-              <PopoverComponent popoverclassname={'notetitle'} popovercontent={popovernotetitlecontent} popoverstate={true}/>
-            ) : (
-                <PopoverComponent
-                btnname={"home"}
-                popoverclassname={"homecontentpopover"}
-                popovercontent={popovercontent}
-                popoverstate={homedisabled ? true : false}
-              />
-            )
-          }
+          {activepopover === "normal" ? (
+            <PopoverComponent
+            handleRichText={handleRichText}
+              popoverclassname={"normalnotes"}
+              popovercontent={popovernormalcontent}
+              richtext={true}
+              popoverstate={true}
+            />
+          ) : activepopover === "mnemonic" ? (
+            <PopoverComponent
+              popoverclassname={"mnemonicnotes"}
+              popovercontent={popovermnemoniccontent}
+              popoverstate={true}
+            />
+          ) : activepopover === "notetitle" ? (
+            <PopoverComponent
+              popoverclassname={"notetitle"}
+              popovercontent={popovernotetitlecontent}
+              popoverstate={true}
+            />
+          ) : (
+            <PopoverComponent
+              btnname={"home"}
+              popoverclassname={"homecontentpopover"}
+              popovercontent={popovercontent}
+              popoverstate={homedisabled ? true : false}
+            />
+          )}
         </div>
       </div>
     </>

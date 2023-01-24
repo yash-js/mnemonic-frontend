@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css'; 
 
-function RichTextEditor() {
+function RichTextEditor({setValue}) {
   const { quill, quillRef } = useQuill();
-  const [value,setValue]=useState();
 
   useEffect(() => {
     if (quill) {
@@ -14,14 +13,7 @@ function RichTextEditor() {
     }
   }, [quill]);
 
-  useEffect(() => {
-    return () => {
-      localStorage.setItem(
-        "notedata",
-        JSON.stringify(value)
-      );
-    };
-  }, [value]);
+
 
   return(
       <div>

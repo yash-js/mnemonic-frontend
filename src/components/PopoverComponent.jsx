@@ -18,6 +18,7 @@ function PopoverComponent({
   updateProfile,
   saveBtnDisabled,
   setEditData,
+  handleRichText
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -38,9 +39,7 @@ function PopoverComponent({
     setEditData({});
   };
 
-  const handleRichText = () => {
-    console.log(JSON.parse(localStorage.getItem('notedata')));
-  };
+
 
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
