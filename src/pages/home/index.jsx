@@ -21,7 +21,8 @@ const Home = () => {
   const onFocusField = () => setError({});
 
   useEffect(() => {
-    return () => (document.title = "Mnemonic");
+    document.title = "Mnemonic"
+    return () => getNotesAPI();
   }, []);
 
   const handlenotes = (type) => {
@@ -149,9 +150,6 @@ const Home = () => {
     const res = await getNotes();
     setNotes(res?.data?.notes);
   };
-  useEffect(() => {
-    return () => getNotesAPI();
-  });
 
   const popovercontent = [
     <div className="notetopcontent">
@@ -185,7 +183,7 @@ const Home = () => {
       <div className="home">
         <div className="homecontent">
           <Grid container spacing={3}>
-            {notes.map((item, index) => (
+            {notes && notes.length > 0 && notes.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
                 <NoteCard
                   heading={item?.noteTitle}
