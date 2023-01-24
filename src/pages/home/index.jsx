@@ -13,8 +13,6 @@ import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
 import { createNote, getNotes } from "../../lib/API_Calls";
 import { useState } from "react";
-import { userData } from "../../features/userSlice";
-import { useQuill } from "react-quilljs";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,7 +22,7 @@ const Home = () => {
   const [noteContent, setNoteContent] = React.useState("");
   const [error, setError] = React.useState(null);
   const [notes, setNotes] = useState([]);
-  const [value,setValue]=useState();
+  const [value, setValue] = useState();
   const onFocusField = () => setError({});
 
   useEffect(() => {
@@ -69,7 +67,7 @@ const Home = () => {
         <h3>Note Settings</h3>
       </div>
       <div className="notetitlecontent">
-        <Grid container spacing={2}>  
+        <Grid container spacing={2}>
           <Grid item xs={12} className={"notedetails"}>
             <h4>Note Details</h4>
             <InputField
@@ -143,22 +141,18 @@ const Home = () => {
     },
   ];
 
-  useEffect(() => {
-    return () => {
- console.log(value);
-    };
-  }, [value]);
   const handleRichText = () => {
-    setNoteContent(JSON.parse(localStorage.getItem('notedata')));
-    console.log(setValue);
+    createNoteAPI();
   };
 
   const createNoteAPI = async () => {
-    const res = await createNote();
+    const res = await createNote({
+      noteTitle,
+      noteContent: value,
+      noteType: "normal",
+    });
     setNotes([...notes, res?.data?.saveNote]);
   };
-
-
 
   const getNotesAPI = async () => {
     const res = await getNotes();
@@ -216,7 +210,7 @@ const Home = () => {
           </Grid>
           {activepopover === "normal" ? (
             <PopoverComponent
-            handleRichText={handleRichText}
+              handleRichText={handleRichText}
               popoverclassname={"normalnotes"}
               popovercontent={popovernormalcontent}
               richtext={true}
