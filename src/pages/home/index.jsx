@@ -9,7 +9,6 @@ import ButtonComponent from "../../components/ButtonComponent";
 import PopoverComponent from "../../components/PopoverComponent";
 import RichTextEditor from "../../components/RichTextEditor";
 import InputField from "../../components/InputField";
-import AutoCompleteComponent from "../../components/AutoCompleteComponent";
 import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
 import { createNote ,getNotes } from "../../lib/API_Calls";
@@ -85,9 +84,6 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} className={"notesharing"}>
             <h4>Note Sharing</h4>
-            <div className="notesharingcontent">
-              <AutoCompleteComponent />
-            </div>
           </Grid>
         </Grid>
       </div>
