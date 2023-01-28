@@ -52,7 +52,7 @@ p {
   font-size: 1.3rem;
   line-height: 1.5rem;
   /* identical to box height */
-  color: #829fab;
+  color: #000000;
   margin: 0px;
 }
 
@@ -149,6 +149,7 @@ p {
 .login .loginleft .box .boxcontent p,
 .signup .signupleft .box .boxcontent p {
   margin-top: 15px;
+  color: #829fab;
 }
 
 .login .loginright .box,

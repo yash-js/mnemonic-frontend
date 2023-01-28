@@ -39,8 +39,6 @@ function PopoverComponent({
     setEditData({});
   };
 
-
-
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notetop">

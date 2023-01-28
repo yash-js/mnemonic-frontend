@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css'; 
 
@@ -11,9 +11,7 @@ function RichTextEditor({setValue}) {
         setValue(quillRef.current.firstChild.innerHTML)
       });
     }
-  }, [quill]);
-
-
+  }, [quill, setValue, quillRef]);
 
   return(
       <div>
