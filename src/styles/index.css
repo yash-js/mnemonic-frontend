@@ -636,6 +636,11 @@ p {
   margin: 10px 0px 15px 0px !important;
 }
 
+.notetop .notetopcontent.notetitlebox .notetitlecontent .notesharing .notesharingcontent{
+  width: 100%;
+  margin-top: 15px;
+}
+
 .notetop .notetopcontent.profilebox .profilecontent {
   padding-top: 20px;
 }

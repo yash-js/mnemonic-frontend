@@ -9,6 +9,7 @@ import ButtonComponent from "../../components/ButtonComponent";
 import PopoverComponent from "../../components/PopoverComponent";
 import RichTextEditor from "../../components/RichTextEditor";
 import InputField from "../../components/InputField";
+import AutoCompleteComponent from "../../components/AutoCompleteComponent";
 import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
 import { createNote ,getNotes } from "../../lib/API_Calls";
@@ -25,7 +26,8 @@ const Home = () => {
   const onFocusField = () => setError({});
 
   useEffect(() => {
-    return () => (document.title = "Mnemonic");
+    document.title = "Mnemonic"
+    return () => getNotesAPI();
   }, []);
 
   const handlenotes = (type) => {
@@ -83,6 +85,9 @@ const Home = () => {
           </Grid>
           <Grid item xs={12} className={"notesharing"}>
             <h4>Note Sharing</h4>
+            <div className="notesharingcontent">
+              <AutoCompleteComponent />
+            </div>
           </Grid>
         </Grid>
       </div>
@@ -102,9 +107,6 @@ const Home = () => {
     const res = await getNotes();
     setNotes(res?.data?.notes);
   };
-  useEffect(() => {
-    return () => getNotesAPI();
-  }, []);
 
   const popovercontent = [
     <div className="notetopcontent">
