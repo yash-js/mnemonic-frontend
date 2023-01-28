@@ -3,11 +3,16 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { useSelector } from 'react-redux';
 import { userData } from "../features/userSlice";
+import { useEffect } from 'react';
 
 function AutoCompleteComponent() {
   const user = useSelector(userData);
   const friends = user && user?.friends ? user?.friends : [];
   const [shareValue, setShareValue] = useState()
+
+  useEffect(() => {
+    console.log('friend', shareValue)
+  }, [shareValue])
 
   return (
     <Autocomplete

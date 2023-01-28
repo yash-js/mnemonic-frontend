@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import TooltipComponent from "./TooltipComponent";
 import PopoverComponent from "./PopoverComponent";
+import AutoCompleteComponent from "./AutoCompleteComponent";
 import RichTextEditor from "./RichTextEditor";
 import InputField from "./InputField";
 import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
@@ -75,6 +76,9 @@ function NoteCard({ heading, content, sharing, date, time, type, id }) {
           </Grid>
           <Grid item xs={12} className={'notesharing'}>
             <h4>Note Sharing</h4>
+            <div className="notesharingcontent">
+              <AutoCompleteComponent />
+            </div>
           </Grid>
         </Grid>
       </div>
