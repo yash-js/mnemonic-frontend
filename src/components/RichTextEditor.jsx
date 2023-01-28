@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css'; 
 
-function RichTextEditor() {
+function RichTextEditor({setValue}) {
   const { quill, quillRef } = useQuill();
-  const [value,setValue]=useState();
 
   useEffect(() => {
     if (quill) {
@@ -12,16 +11,7 @@ function RichTextEditor() {
         setValue(quillRef.current.firstChild.innerHTML)
       });
     }
-  }, [quill]);
-
-  useEffect(() => {
-    return () => {
-      localStorage.setItem(
-        "notedata",
-        JSON.stringify(value)
-      );
-    };
-  }, [value]);
+  }, [quill, setValue, quillRef]);
 
   return(
       <div>

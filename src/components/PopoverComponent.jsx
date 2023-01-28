@@ -18,6 +18,7 @@ function PopoverComponent({
   updateProfile,
   saveBtnDisabled,
   setEditData,
+  handleRichText
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -36,10 +37,6 @@ function PopoverComponent({
     setAnchorEl(null);
     dispatch(setActivePopOver(""));
     setEditData({});
-  };
-
-  const handleRichText = () => {
-    console.log(JSON.parse(localStorage.getItem('notedata')));
   };
 
   const popoverContent = [
