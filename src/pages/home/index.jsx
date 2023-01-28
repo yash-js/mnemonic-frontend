@@ -26,8 +26,8 @@ const Home = () => {
   const onFocusField = () => setError({});
 
   useEffect(() => {
-    document.title = "Mnemonic"
-    return () => getNotesAPI();
+    getNotesAPI();
+    return () => document.title = "Mnemonic"
   }, []);
 
   const handlenotes = (type) => {
@@ -105,7 +105,8 @@ const Home = () => {
 
   const getNotesAPI = async () => {
     const res = await getNotes();
-    setNotes(res?.data?.notes);
+    console.log(res.data)
+    setNotes(res?.data?.cursor);
   };
 
   const popovercontent = [
