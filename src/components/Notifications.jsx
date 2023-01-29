@@ -24,14 +24,14 @@ const Notifications = () => {
     getNotificationsApiCall,
     notificationOnClick,
     setAll,
-    setUnread
+    setUnread,
   } = useNotifications();
 
   useEffect(() => {
     return async () => {
-      if (user || user?.token !== null) {
-        setAll(user?.notification)
-        setUnread(user?.latest)
+      if (user || user !== null || user !== undefined) {
+        setAll(user?.notification);
+        setUnread(user?.latest);
         setInterval(getNotificationsApiCall, 30000);
       }
     };

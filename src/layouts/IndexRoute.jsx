@@ -19,7 +19,7 @@ const IndexRoute = () => {
 
   useEffect(() => {
     return async () => {
-      if (!user || user === null || !user?.token ) {
+      if (!user || user === null || user === undefined) {
         dispatch(isLoading(true));
         const res = await getUser();
         if (res?.data?.user) {
