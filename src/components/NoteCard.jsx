@@ -8,7 +8,7 @@ import TooltipComponent from "./TooltipComponent";
 import PopoverComponent from "./PopoverComponent";
 import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
 
-function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccontent, notetitlecontent, editorvalue }) {
+function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccontent, notetitlecontent, editorvalue, noteapi }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const total = sharing && sharing.length ? sharing.length : 0;
@@ -59,7 +59,7 @@ function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccont
         ) : activepopover === 'editmnemonic' ? (
           <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={mnemoniccontent} popoverstate={true}/>
         ) : activepopover === 'notetitle' && (
-          <PopoverComponent popoverclassname={'notetitle'} popovercontent={notetitlecontent} popoverstate={true}/>
+          <PopoverComponent popoverclassname={'notetitle'} popovercontent={notetitlecontent} popoverstate={true} handleRichText={noteapi}/>
         ) 
       }
     </>

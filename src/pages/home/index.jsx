@@ -159,6 +159,7 @@ const Home = () => {
                     mnemoniccontent={popovermnemoniccontent}
                     notetitlecontent={popovernotetitlecontent}
                     editorvalue={value}
+                    noteapi={createNoteAPI}
                   />
                 </Grid>
               ))
