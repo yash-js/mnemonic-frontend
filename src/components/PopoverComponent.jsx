@@ -17,6 +17,7 @@ function PopoverComponent({
   richtext,
   updateProfile,
   saveBtnDisabled,
+  nextBtnDisabled,
   setEditData,
   handleRichText
 }) {
@@ -41,6 +42,10 @@ function PopoverComponent({
     }
   };
 
+  const handleNext = () => {
+    nextBtnDisabled === false && dispatch(setActivePopOver("notetitle"));
+  }
+
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notetop">
@@ -49,7 +54,7 @@ function PopoverComponent({
       <div className="notebottom">
         <div className="noteclosebtn">
           {richtext && (
-            <ButtonComponent buttontext="Next" onClick={() => dispatch(setActivePopOver("notetitle"))} />
+            <ButtonComponent buttontext="Next" onClick={handleNext} disabled={nextBtnDisabled} />
           )}
           {
             popoverclassname === 'notetitle' && (

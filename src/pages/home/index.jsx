@@ -111,7 +111,7 @@ const Home = () => {
 
   const getNotesAPI = async () => {
     const res = await getNotes();
-    // setNotes(res?.data?.notes);
+    setNotes(res?.data?.notes);
   };
 
   const popovercontent = [
@@ -153,8 +153,12 @@ const Home = () => {
                     heading={item?.noteTitle}
                     content={item?.noteContent}
                     date={item?.notedOn}
-                    // sharing={item.sharing}
-                    type={"normal"}
+                    sharing={item?.mentions}
+                    type={item?.noteType}
+                    normalcontent={popovernormalcontent}
+                    mnemoniccontent={popovermnemoniccontent}
+                    notetitlecontent={popovernotetitlecontent}
+                    editorvalue={value}
                   />
                 </Grid>
               ))
@@ -176,6 +180,7 @@ const Home = () => {
               popovercontent={popovernormalcontent}
               richtext={true}
               popoverstate={true}
+              nextBtnDisabled={value && value.length > 0 ? false : true}
             />
           ) : activepopover === "mnemonic" ? (
             <PopoverComponent
