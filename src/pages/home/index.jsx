@@ -15,6 +15,7 @@ import NoteCard from "../../components/NoteCard";
 import { createNote, getNotes } from "../../lib/API_Calls";
 import { useState } from "react";
 import { userdata, userData } from "../../features/userSlice";
+import NotesSkeleton from "../../skeletons/NotesSkeleton";
 
 const Home = () => {
   const user = useSelector(userData);
@@ -26,13 +27,15 @@ const Home = () => {
   const [value, setValue] = useState();
   const [mentions, setMentions] = useState([]);
   const [notes, setNotes] = useState([]);
-
+  const [loading,setLoading] = useState(false)
   const onFocusField = () => setError({});
 
   useEffect(() => {
+    setLoading(true)
     if (user && user?.notes) {
       setNotes(user?.notes);
     }
+    setLoading(false)
     return () => (document.title = "Mnemonic");
   }, []);
 
@@ -119,11 +122,6 @@ const Home = () => {
     );
   };
 
-  const getNotesAPI = async () => {
-    const res = await getNotes();
-    setNotes(res?.data?.notes);
-  };
-
   const popovercontent = [
     <div className="notetopcontent">
       <div className="normalnotes" onClick={() => handlenotes("normal")}>
@@ -156,7 +154,7 @@ const Home = () => {
       <div className="home">
         <div className="homecontent">
           <Grid container spacing={3}>
-            {notes && notes.length > 0 ? (
+            {loading ?<NotesSkeleton/> :notes && notes.length > 0 ? (
               notes.map((item, index) => (
                 <Grid
                   key={index}

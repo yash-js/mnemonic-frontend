@@ -4,17 +4,21 @@ import NoteCard from "../../components/NoteCard";
 import RichTextEditor from "../../components/RichTextEditor";
 import { useDispatch, useSelector } from "react-redux";
 import { userData } from "../../features/userSlice";
+import NotesSkeleton from "../../skeletons/NotesSkeleton";
 
 function Share() {
   const [notes, setNotes] = useState([]);
   const [value, setValue] = useState();
+  const [loading, setLoading] = useState(false);
   const user = useSelector(userData);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setLoading(true);
     if (user && user?.notes) {
       setNotes(user?.notes);
     }
+    setLoading(false);
     return () => (document.title = "Share");
   }, []);
 
@@ -44,7 +48,9 @@ function Share() {
     <div className="share">
       <div className="sharecontent">
         <Grid container spacing={3}>
-          {notes && notes.length > 0 ? (
+          {loading ? (
+            <NotesSkeleton />
+          ) : notes && notes.length > 0 ? (
             notes.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
                 <NoteCard
