@@ -38,10 +38,10 @@ function PopoverComponent({
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+    dispatch(setActivePopOver(""));
     var element = document.getElementsByClassName("ql-editor");
     element[0].innerHTML = "";
-     setAnchorEl(null);
-    dispatch(setActivePopOver(""));
     if (value) {
       setValue("");
     }
