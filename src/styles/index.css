@@ -513,7 +513,7 @@ p {
 }
 
 #simple-popover .notecontent .notebottom {
-  width: 100%;
+  width: calc(100% - 40px);
   height: 100px;
   padding: 0px 20px;
   display: flex;
@@ -532,7 +532,7 @@ p {
 }
 
 #simple-popover .notecontent .notetop {
-  width: 100%;
+  width: calc(100% - 40px);
   height: calc(100% - 100px);
   padding: 0px 20px;
   display: flex;

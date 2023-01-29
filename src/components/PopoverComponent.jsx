@@ -34,7 +34,7 @@ function PopoverComponent({
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    dispatch(setActivePopOver(""));
+    dispatch(setActivePopOver("home"));
   };
 
   const handleClose = () => {
