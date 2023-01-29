@@ -34,7 +34,7 @@ function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccont
           </IconButton>
         </div>
         <div className="notecardcontent">
-          <p>{content}</p>
+          <p>{content.replace(/(<([^>]+)>)/gi, "")}</p>
         </div>
         <div className="notecardsharing">
           <AvatarGroup max={4} total={total}>
@@ -59,7 +59,7 @@ function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccont
         ) : activepopover === 'editmnemonic' ? (
           <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={mnemoniccontent} popoverstate={true}/>
         ) : activepopover === 'notetitle' && (
-          <PopoverComponent popoverclassname={'notetitle'} popovercontent={notetitlecontent} popoverstate={true} handleRichText={noteapi}/>
+          <PopoverComponent popoverclassname={'notetitle'} popovercontent={notetitlecontent} popoverstate={true} handleRichText={noteapi} />
         ) 
       }
     </>

@@ -46,6 +46,11 @@ function PopoverComponent({
     nextBtnDisabled === false && dispatch(setActivePopOver("notetitle"));
   }
 
+  const handleSave = () => {
+    handleRichText();
+    handleClose();
+  }
+
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notetop">
@@ -58,7 +63,7 @@ function PopoverComponent({
           )}
           {
             popoverclassname === 'notetitle' && (
-              <ButtonComponent buttontext="Save" onClick={handleRichText} />
+              <ButtonComponent buttontext="Save" onClick={handleSave} />
             )
           }
           {btnname === "home" ? (
