@@ -12,7 +12,7 @@ import InputField from "../../components/InputField";
 import AutoCompleteComponent from "../../components/AutoCompleteComponent";
 import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
-import { createNote ,getNotes } from "../../lib/API_Calls";
+import { createNote, getNotes } from "../../lib/API_Calls";
 import { useState } from "react";
 
 const Home = () => {
@@ -23,11 +23,13 @@ const Home = () => {
   const [error, setError] = React.useState(null);
   const [notes, setNotes] = useState([]);
   const [value, setValue] = useState();
+  const [mentions, setMentions] = useState([]);
+
   const onFocusField = () => setError({});
 
   useEffect(() => {
     getNotesAPI();
-    return () => document.title = "Mnemonic"
+    return () => (document.title = "Mnemonic");
   }, []);
 
   const handlenotes = (type) => {
@@ -86,7 +88,10 @@ const Home = () => {
           <Grid item xs={12} className={"notesharing"}>
             <h4>Note Sharing</h4>
             <div className="notesharingcontent">
-              <AutoCompleteComponent />
+              <AutoCompleteComponent
+                mentions={mentions}
+                setMentions={setMentions}
+              />
             </div>
           </Grid>
         </Grid>
@@ -99,14 +104,14 @@ const Home = () => {
       noteTitle,
       noteContent: value,
       noteType: "normal",
+      mentions: mentions,
     });
-    setNotes([...notes, res?.data?.saveNote]);
+    setNotes([...notes, res?.data?.savedNote]);
   };
 
   const getNotesAPI = async () => {
     const res = await getNotes();
-    console.log(res.data)
-    setNotes(res?.data?.cursor);
+    // setNotes(res?.data?.notes);
   };
 
   const popovercontent = [
@@ -141,8 +146,7 @@ const Home = () => {
       <div className="home">
         <div className="homecontent">
           <Grid container spacing={3}>
-            {notes &&
-              notes.length > 0 &&
+            {notes && notes.length > 0 ? (
               notes.map((item, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
                   <NoteCard
@@ -153,7 +157,18 @@ const Home = () => {
                     type={"normal"}
                   />
                 </Grid>
-              ))}
+              ))
+            ) : (
+              <Grid
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent="center"
+                alignItems={"center"}
+                width='100%'
+              >
+                <h2>Notes Not Found.</h2>
+              </Grid>
+            )}
           </Grid>
           {activepopover === "normal" ? (
             <PopoverComponent

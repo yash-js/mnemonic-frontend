@@ -36,7 +36,9 @@ function PopoverComponent({
   const handleClose = () => {
     setAnchorEl(null);
     dispatch(setActivePopOver(""));
-    setEditData({});
+    if(setEditData){
+      setEditData({});
+    }
   };
 
   const popoverContent = [

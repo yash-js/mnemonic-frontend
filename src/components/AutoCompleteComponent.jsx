@@ -1,36 +1,31 @@
-import React, { useState } from 'react'
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import { useSelector } from "react-redux";
 import { userData } from "../features/userSlice";
-import { useEffect } from 'react';
 
-function AutoCompleteComponent() {
+function AutoCompleteComponent({ mentions, setMentions }) {
   const user = useSelector(userData);
   const friends = user && user?.friends ? user?.friends : [];
-  const [shareValue, setShareValue] = useState()
-
-  useEffect(() => {
-    console.log('friend', shareValue)
-  }, [shareValue])
+  const onChange = (event, value) => {
+    const ids = value.map((i) => i._id);
+    setMentions(ids);
+  };
 
   return (
     <Autocomplete
       multiple
       id="asynchronous-demo"
-      sx={{ width: '100%' }}
-      isOptionEqualToValue={(option, value) => option.username === value.username}
+      sx={{ width: "100%" }}
+      isOptionEqualToValue={(option, value) =>
+        option.username === value.username
+      }
       getOptionLabel={(option) => option.username}
       options={friends}
-      onChange={(event, value) => setShareValue(value)}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search Friend"
-        />
-      )}
+      onChange={onChange}
+      renderInput={(params) => <TextField {...params} label="Search Friend" />}
     />
-  )
+  );
 }
 
-export default AutoCompleteComponent
+export default AutoCompleteComponent;
