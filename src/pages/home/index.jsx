@@ -48,7 +48,7 @@ const Home = () => {
         <h3>Normal Notes</h3>
       </div>
       <div className="normalnotescontent">
-        <RichTextEditor setValue={setValue} />
+        <RichTextEditor setValue={setValue} value={value} />
       </div>
     </div>,
   ];
@@ -150,6 +150,7 @@ const Home = () => {
               notes.map((item, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
                   <NoteCard
+                    name={'home'}
                     heading={item?.noteTitle}
                     content={item?.noteContent}
                     date={item?.notedOn}
@@ -160,6 +161,7 @@ const Home = () => {
                     notetitlecontent={popovernotetitlecontent}
                     editorvalue={value}
                     noteapi={createNoteAPI}
+                    seteditorvalue={setValue}
                   />
                 </Grid>
               ))
@@ -170,6 +172,7 @@ const Home = () => {
                 justifyContent="center"
                 alignItems={"center"}
                 width='100%'
+                height='100%'
               >
                 <h2>Notes Not Found.</h2>
               </Grid>

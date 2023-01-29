@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useQuill } from 'react-quilljs';
 import 'quill/dist/quill.snow.css'; 
 
-function RichTextEditor({setValue}) {
+function RichTextEditor({setValue, value}) {
   const { quill, quillRef } = useQuill();
 
   useEffect(() => {
@@ -10,8 +10,9 @@ function RichTextEditor({setValue}) {
       quill.on('text-change', () => {
         setValue(quillRef.current.firstChild.innerHTML)
       });
+      quill.clipboard.dangerouslyPasteHTML(value)
     }
-  }, [quill, setValue, quillRef]);
+  }, [quill, setValue, quillRef, value]);
 
   return(
       <div>

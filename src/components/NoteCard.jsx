@@ -8,7 +8,7 @@ import TooltipComponent from "./TooltipComponent";
 import PopoverComponent from "./PopoverComponent";
 import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
 
-function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccontent, notetitlecontent, editorvalue, noteapi }) {
+function NoteCard({ name , heading, content, sharing, type, normalcontent, mnemoniccontent, notetitlecontent, editorvalue, noteapi, seteditorvalue }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const total = sharing && sharing.length ? sharing.length : 0;
@@ -16,6 +16,7 @@ function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccont
   const handleClick = (type) => {
     if(type === 'normal'){
       dispatch(setActivePopOver('editnormal'));
+      seteditorvalue(content);
     }else if(type === 'mnemonic'){
       dispatch(setActivePopOver('editmnemonic'));
     }
@@ -23,7 +24,7 @@ function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccont
 
   return (
     <>
-      <div className={`notecard ${type}`}>
+      <div className={`notecard ${type} ${name}`}>
         <div className="notecardheading">
           <h3>{heading}</h3>
           <IconButton
@@ -55,7 +56,7 @@ function NoteCard({ heading, content, sharing, type, normalcontent, mnemoniccont
       </div>
       {
         activepopover === 'editnormal' ? (
-          <PopoverComponent popoverclassname={'normalnotes'} popovercontent={normalcontent} richtext={true} popoverstate={true} nextBtnDisabled={editorvalue && editorvalue.length > 0 ? false : true}/>
+          <PopoverComponent name={name} popoverclassname={'normalnotes'} popovercontent={normalcontent} richtext={true} popoverstate={true} nextBtnDisabled={editorvalue && editorvalue.length > 0 ? false : true}/>
         ) : activepopover === 'editmnemonic' ? (
           <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={mnemoniccontent} popoverstate={true}/>
         ) : activepopover === 'notetitle' && (

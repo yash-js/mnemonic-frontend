@@ -518,6 +518,10 @@ p {
   align-items: center;
 }
 
+#simple-popover .notecontent .notebottom .noteclosebtn {
+  display: flex;
+}
+
 #simple-popover .notecontent .notebottom button {
   width: 125px !important;
   height: 50px;
@@ -760,6 +764,11 @@ p {
   align-items: flex-start;
 }
 
+.notecard.normal.home .notecardcontent,
+.notecard.mnemonic.home .notecardcontent {
+  height: 150px;
+}
+
 .notecard.normal .notecardcontent p {
   font-family: "Roboto";
   font-style: normal;
@@ -780,6 +789,11 @@ p {
   margin: 0px !important;
 }
 
+.notecard.normal.home .notecardsharing,
+.notecard.mnemonic.home .notecardsharing {
+  display: none;
+}
+
 .notecard.normal .notecardsharing,
 .notecard.mnemonic .notecardsharing {
   width: 100%;
@@ -794,12 +808,14 @@ p {
 
 /** home css **/
 
-.home {
+.home,
+.share {
   width: 100%;
   height: 100%;
 }
 
-.home .homecontent {
+.home .homecontent,
+.share .sharecontent {
   width: 100%;
   height: 100%;
   display: flex;

@@ -10,6 +10,7 @@ import { getActivePopOver } from "../features/popoverslice";
 import { profiledata } from "../features/userSlice";
 
 function PopoverComponent({
+  name,
   btnname,
   popovercontent,
   popoverclassname,
@@ -59,7 +60,7 @@ function PopoverComponent({
       <div className="notebottom">
         <div className="noteclosebtn">
           {richtext && (
-            <ButtonComponent buttontext="Next" onClick={handleNext} disabled={nextBtnDisabled} />
+            <ButtonComponent buttontext="Next" onClick={handleNext} disabled={nextBtnDisabled} customButtonStyle={{display: name === 'share' ? 'none' : 'flex'}} />
           )}
           {
             popoverclassname === 'notetitle' && (
