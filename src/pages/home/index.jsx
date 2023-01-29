@@ -14,21 +14,25 @@ import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
 import { createNote, getNotes } from "../../lib/API_Calls";
 import { useState } from "react";
+import { userdata, userData } from "../../features/userSlice";
 
 const Home = () => {
+  const user = useSelector(userData);
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const [homedisabled, setHomeDisabled] = React.useState(false);
   const [noteTitle, setNoteTitle] = React.useState("");
   const [error, setError] = React.useState(null);
-  const [notes, setNotes] = useState([]);
   const [value, setValue] = useState();
   const [mentions, setMentions] = useState([]);
+  const [notes, setNotes] = useState([]);
 
   const onFocusField = () => setError({});
 
   useEffect(() => {
-    getNotesAPI();
+    if (user && user?.notes) {
+      setNotes(user?.notes);
+    }
     return () => (document.title = "Mnemonic");
   }, []);
 
@@ -107,6 +111,12 @@ const Home = () => {
       mentions: mentions,
     });
     setNotes([...notes, res?.data?.savedNote]);
+    dispatch(
+      userdata({
+        ...userData,
+        notes: [...notes, res?.data?.savedNote],
+      })
+    );
   };
 
   const getNotesAPI = async () => {
@@ -148,9 +158,17 @@ const Home = () => {
           <Grid container spacing={3}>
             {notes && notes.length > 0 ? (
               notes.map((item, index) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
+                <Grid
+                  key={index}
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  index={index}
+                >
                   <NoteCard
-                    name={'home'}
+                    name={"home"}
                     heading={item?.noteTitle}
                     content={item?.noteContent}
                     date={item?.notedOn}
@@ -171,8 +189,8 @@ const Home = () => {
                 flexDirection={"column"}
                 justifyContent="center"
                 alignItems={"center"}
-                width='100%'
-                height='100%'
+                width="100%"
+                height="100%"
               >
                 <h2>Notes Not Found.</h2>
               </Grid>

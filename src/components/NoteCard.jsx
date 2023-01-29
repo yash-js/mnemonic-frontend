@@ -42,7 +42,7 @@ function NoteCard({ name , heading, content, sharing, type, normalcontent, mnemo
             {sharing &&
               sharing.length > 0 &&
               sharing.map((user) => (
-                <TooltipComponent htmltitle={user.username}>
+                <TooltipComponent key={user._id} htmltitle={user.username}>
                   <Avatar
                     alt={user.username}
                     src={user.profilePic}

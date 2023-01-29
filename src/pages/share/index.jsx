@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import NoteCard from "../../components/NoteCard";
 import RichTextEditor from "../../components/RichTextEditor";
-import { getNotes } from "../../lib/API_Calls";
+import { useDispatch, useSelector } from "react-redux";
+import { userData } from "../../features/userSlice";
 
 function Share() {
   const [notes, setNotes] = useState([]);
   const [value, setValue] = useState();
+  const user = useSelector(userData);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getNotesAPI();
+    if (user && user?.notes) {
+      setNotes(user?.notes);
+    }
     return () => (document.title = "Share");
   }, []);
 
@@ -19,7 +24,7 @@ function Share() {
         <h3>Normal Notes</h3>
       </div>
       <div className="normalnotescontent">
-        <RichTextEditor setValue={setValue} value={value} />
+        <RichTextEditor setValue={setValue} initialValue={value} />
       </div>
     </div>,
   ];
@@ -35,11 +40,6 @@ function Share() {
     </div>,
   ];
 
-  const getNotesAPI = async () => {
-    const res = await getNotes();
-    setNotes(res?.data?.notes);
-  };
-
   return (
     <div className="share">
       <div className="sharecontent">
@@ -48,7 +48,7 @@ function Share() {
             notes.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
                 <NoteCard
-                  name={'share'}
+                  name={"share"}
                   heading={item?.noteTitle}
                   content={item?.noteContent}
                   date={item?.notedOn}
@@ -67,8 +67,8 @@ function Share() {
               flexDirection={"column"}
               justifyContent="center"
               alignItems={"center"}
-              width='100%'
-              height='100%'
+              width="100%"
+              height="100%"
             >
               <h2>Notes Not Found.</h2>
             </Grid>
@@ -76,7 +76,7 @@ function Share() {
         </Grid>
       </div>
     </div>
-  )
+  );
 }
 
 export default Share;

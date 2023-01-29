@@ -10,9 +10,14 @@ function RichTextEditor({setValue, value}) {
       quill.on('text-change', () => {
         setValue(quillRef.current.firstChild.innerHTML)
       });
-      quill.clipboard.dangerouslyPasteHTML(value)
     }
   }, [quill, setValue, quillRef, value]);
+
+  useEffect(() => {
+    if (quill) {
+      quill.clipboard.dangerouslyPasteHTML(value.length > 0 ? value : '<p><br></p>')
+    }
+  },[quill])
 
   return(
       <div>

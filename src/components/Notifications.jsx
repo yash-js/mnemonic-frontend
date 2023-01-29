@@ -21,7 +21,6 @@ const Notifications = () => {
     user,
     handleClick,
     handleClose,
-    getNotificationsApiCall,
     notificationOnClick,
     setAll,
     setUnread,
@@ -32,7 +31,6 @@ const Notifications = () => {
       if (user || user !== null || user !== undefined) {
         setAll(user?.notification);
         setUnread(user?.latest);
-        setInterval(getNotificationsApiCall, 30000);
       }
     };
   }, []);

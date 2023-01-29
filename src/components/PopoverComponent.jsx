@@ -20,7 +20,9 @@ function PopoverComponent({
   saveBtnDisabled,
   nextBtnDisabled,
   setEditData,
-  handleRichText
+  handleRichText,
+  value,
+  setValue,
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -32,41 +34,49 @@ function PopoverComponent({
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    dispatch(setActivePopOver(''));
+    dispatch(setActivePopOver(""));
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    var element = document.getElementsByClassName("ql-editor");
+    element[0].innerHTML = "";
+     setAnchorEl(null);
     dispatch(setActivePopOver(""));
-    if(setEditData){
+    if (value) {
+      setValue("");
+    }
+    if (setEditData) {
       setEditData({});
     }
   };
 
   const handleNext = () => {
     nextBtnDisabled === false && dispatch(setActivePopOver("notetitle"));
-  }
+  };
 
   const handleSave = () => {
     handleRichText();
     handleClose();
-  }
+  };
 
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
-      <div className="notetop">
-        {popovercontent}
-      </div>
+      <div className="notetop">{popovercontent}</div>
       <div className="notebottom">
         <div className="noteclosebtn">
           {richtext && (
-            <ButtonComponent buttontext="Next" onClick={handleNext} disabled={nextBtnDisabled} customButtonStyle={{display: name === 'share' ? 'none' : 'flex'}} />
+            <ButtonComponent
+              buttontext="Next"
+              onClick={handleNext}
+              disabled={nextBtnDisabled}
+              customButtonStyle={{
+                display: name === "share" ? "none" : "flex",
+              }}
+            />
           )}
-          {
-            popoverclassname === 'notetitle' && (
-              <ButtonComponent buttontext="Save" onClick={handleSave} />
-            )
-          }
+          {popoverclassname === "notetitle" && (
+            <ButtonComponent buttontext="Save" onClick={handleSave} />
+          )}
           {btnname === "home" ? (
             <IconButton
               color="primary"
