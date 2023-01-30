@@ -785,6 +785,7 @@ p {
   line-height: 20px;
   color: #000000;
   margin: 0px !important;
+  word-break: break-all;
 }
 
 .notecard.mnemonic .notecardcontent p {

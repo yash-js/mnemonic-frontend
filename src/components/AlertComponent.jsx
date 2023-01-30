@@ -23,7 +23,7 @@ function AlertComponent({
     <Snackbar
       open={alertOpen}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      autoHideDuration={5000}
+      autoHideDuration={3000}
       onClose={handleClose}
       className={name ? "notificationalert" : "alert"}
     >

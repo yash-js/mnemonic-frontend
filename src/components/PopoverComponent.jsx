@@ -23,6 +23,7 @@ function PopoverComponent({
   handleRichText,
   value,
   setValue,
+  loading,
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -41,7 +42,7 @@ function PopoverComponent({
     setAnchorEl(null);
     dispatch(setActivePopOver(""));
     var element = document.getElementsByClassName("ql-editor");
-    if(element && element.length > 0){
+    if (element && element.length > 0) {
       element[0].innerHTML = "";
     }
     if (value) {
@@ -56,8 +57,8 @@ function PopoverComponent({
     nextBtnDisabled === false && dispatch(setActivePopOver("notetitle"));
   };
 
-  const handleSave = () => {
-    handleRichText();
+  const handleSave = async () => {
+    await handleRichText();
     handleClose();
   };
 
@@ -77,7 +78,7 @@ function PopoverComponent({
             />
           )}
           {popoverclassname === "notetitle" && (
-            <ButtonComponent buttontext="Save" onClick={handleSave} />
+            <ButtonComponent buttontext="Save" isLoading={loading} onClick={handleSave} />
           )}
           {btnname === "home" ? (
             <IconButton
@@ -96,6 +97,7 @@ function PopoverComponent({
                 <ButtonComponent
                   disabled={profiledisabled}
                   buttontext="Save"
+                  isLoading={loading}
                   onClick={updateProfile}
                 />
               )}

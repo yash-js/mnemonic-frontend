@@ -16,6 +16,7 @@ import { createNote, getNotes } from "../../lib/API_Calls";
 import { useState } from "react";
 import { userdata, userData } from "../../features/userSlice";
 import NotesSkeleton from "../../skeletons/NotesSkeleton";
+import AlertComponent from "../../components/AlertComponent";
 
 const Home = () => {
   const user = useSelector(userData);
@@ -25,12 +26,13 @@ const Home = () => {
   const [noteTitle, setNoteTitle] = React.useState("");
   const [error, setError] = React.useState(null);
   const [value, setValue] = useState();
-  const [mentions, setMentions] = useState([]);
+  const [mentions, setMentions] = useState("");
   const [notes, setNotes] = useState([]);
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const onFocusField = () => setError({});
-
-
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
   const handlenotes = (type) => {
     if (type === "normal") {
       dispatch(setActivePopOver("normal"));
@@ -85,7 +87,7 @@ const Home = () => {
             />
           </Grid>
           <Grid item xs={12} className={"notesharing"}>
-            <h4>Note Sharing</h4>
+            <h4>Share Note</h4>
             <div className="notesharingcontent">
               <AutoCompleteComponent
                 mentions={mentions}
@@ -98,23 +100,33 @@ const Home = () => {
     </div>,
   ];
 
+  const openAlert = (open, type, message) => {
+    setOpen(open);
+    setMessage(message);
+    setType(type);
+  };
   const createNoteAPI = async () => {
-    if(value){
-      const res = await createNote({
+    setLoading(true);
+    const res = await createNote({
       noteTitle,
       noteContent: value,
       noteType: "normal",
       mentions: mentions,
     });
-    setNotes([...notes, res?.data?.savedNote]);
-    dispatch(
-      userdata({
-        ...user,
-        notes: [...notes, res?.data?.savedNote],
-      })
-    );
+    if (res?.data?.savedNote) {
+      openAlert(true, "success", "Note Created Successfully");
+      setNotes([...notes, res?.data?.savedNote]);
+      dispatch(
+        userdata({
+          ...user,
+          notes: [...notes, res?.data?.savedNote],
+        })
+      );
+    } else {
+      openAlert(true, "error", "Something Went Wrong!");
     }
-
+    dispatch(setActivePopOver(""));
+    setLoading(false);
   };
 
   const popovercontent = [
@@ -161,12 +173,11 @@ const Home = () => {
     return () => user && user?.notes && setNotes(user?.notes)
   }, [user]);
 
-
   return (
     <>
       <div className="home">
         <div className="homecontent">
-          <Grid container spacing={3} className="homecontentbox">
+          <Grid container spacing={3} height={"100%"} className="homecontentbox">
             {loading ?<NotesSkeleton/> :notes && notes.length > 0 ? (
               notes.map((item, index) => (
                 <Grid
@@ -224,6 +235,7 @@ const Home = () => {
           ) : activepopover === "notetitle" ? (
             <PopoverComponent
               handleRichText={createNoteAPI}
+              loading={loading}
               popoverclassname={"notetitle"}
               popovercontent={popovernotetitlecontent}
               popoverstate={true}
@@ -237,6 +249,14 @@ const Home = () => {
             />
           )}
         </div>
+        <AlertComponent
+          setOpen={setOpen}
+          setType={setType}
+          setMessage={setMessage}
+          alertOpen={open}
+          alertMessage={message}
+          alertType={type}
+        />
       </div>
     </>
   );

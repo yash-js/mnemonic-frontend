@@ -45,6 +45,7 @@ const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
+  const [editLoading,setEditLoading] = useState(false)
 
   useEffect(() => {
     setDisabled(true);
@@ -52,15 +53,17 @@ const ProfileMenu = () => {
 
   useEffect(() => {
     return () => {
-      setCurrentUserdata({
-        firstName: user?.firstName,
-        lastName: user?.lastName,
-        email: user?.email,
-        username: user?.username,
-        profilePic: user?.profilePic,
-      });
+      if (user) {
+        setCurrentUserdata({
+          firstName: user?.firstName,
+          lastName: user?.lastName,
+          email: user?.email,
+          username: user?.username,
+          profilePic: user?.profilePic,
+        });
+      }
     };
-  }, [user]);
+  }, []);
 
   const handleClickMenu = (event) => {
     setProfilemenu(event.currentTarget);
@@ -71,10 +74,10 @@ const ProfileMenu = () => {
   };
 
   const handleSignOut = async () => {
-    dispatch(isLoading(true))
-    await signOut()
+    dispatch(isLoading(true));
+    await signOut();
     dispatch(logout());
-    dispatch(isLoading(false))
+    dispatch(isLoading(false));
     navigate("/signin");
   };
 
@@ -158,6 +161,7 @@ const ProfileMenu = () => {
   };
 
   const updateProfileApiCall = async () => {
+    setEditLoading(true)
     if (
       editdata &&
       !editdata?.username &&
@@ -168,6 +172,7 @@ const ProfileMenu = () => {
     ) {
       setEditdata({});
       setDisabled(true);
+      setEditLoading(false)
       return openAlert(true, "error", "Nothing to update!");
     } else {
       const res = await updateProfile(editdata);
@@ -182,6 +187,7 @@ const ProfileMenu = () => {
         dispatch(userdata({ ...currentUserData, editdata }));
         setEditdata({});
         setDisabled(true);
+        setEditLoading(false)
       } else {
         setCurrentUserdata({
           firstName: user?.firstName,
@@ -193,6 +199,7 @@ const ProfileMenu = () => {
         openAlert(true, "error", res?.response?.data?.error);
         setDisabled(true);
         setEditdata({});
+        setEditLoading(false)
       }
     }
   };
@@ -423,6 +430,7 @@ const ProfileMenu = () => {
           popoverstate={true}
           updateProfile={updateProfileApiCall}
           saveBtnDisabled={disabled}
+          loading={editLoading}
         />
       )}
     </>
