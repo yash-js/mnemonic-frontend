@@ -47,7 +47,7 @@ function Share() {
   return (
     <div className="share">
       <div className="sharecontent">
-        <Grid container spacing={3}>
+        <Grid container spacing={3} className="sharecontentbox">
           {loading ? (
             <NotesSkeleton />
           ) : notes && notes.length > 0 ? (

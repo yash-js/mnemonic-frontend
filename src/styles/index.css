@@ -817,18 +817,27 @@ p {
 /** home css **/
 
 .home,
-.share {
+.share,
+.mention {
   width: 100%;
   height: 100%;
 }
 
 .home .homecontent,
-.share .sharecontent {
+.share .sharecontent,
+.mention .mentioncontent {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.home .homecontent .homecontentbox,
+.share .sharecontent .sharecontentbox,
+.mention .mentioncontent .mentioncontentbox {
+  width: 100%;
+  height: 100%;
 }
 
 /** home css ends **/

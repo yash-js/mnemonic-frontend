@@ -13,9 +13,9 @@ function RichTextEditor({ setValue, value }) {
     }
   }, [quill, setValue, quillRef]);
 
-  useEffect(() => {
+  {/**useEffect(() => {
     return () => (quill && value && value.length > 0 ? value : "<p><br></p>");
-  }, [quill]);
+  }, [quill]);**/}
 
   return (
     <div>

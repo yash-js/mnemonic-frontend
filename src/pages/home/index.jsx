@@ -166,7 +166,7 @@ const Home = () => {
     <>
       <div className="home">
         <div className="homecontent">
-          <Grid container spacing={3}>
+          <Grid container spacing={3} className="homecontentbox">
             {loading ?<NotesSkeleton/> :notes && notes.length > 0 ? (
               notes.map((item, index) => (
                 <Grid
