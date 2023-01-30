@@ -30,14 +30,6 @@ const Home = () => {
   const [loading,setLoading] = useState(false)
   const onFocusField = () => setError({});
 
-  useEffect(() => {
-    setLoading(true)
-    if (user && user?.notes) {
-      setNotes(user?.notes);
-    }
-    setLoading(false)
-    return () => (document.title = "Mnemonic");
-  }, []);
 
   const handlenotes = (type) => {
     if (type === "normal") {
@@ -107,7 +99,8 @@ const Home = () => {
   ];
 
   const createNoteAPI = async () => {
-    const res = await createNote({
+    if(value){
+          const res = await createNote({
       noteTitle,
       noteContent: value,
       noteType: "normal",
@@ -116,10 +109,12 @@ const Home = () => {
     setNotes([...notes, res?.data?.savedNote]);
     dispatch(
       userdata({
-        ...userData,
+        ...user,
         notes: [...notes, res?.data?.savedNote],
       })
     );
+    }
+
   };
 
   const popovercontent = [
@@ -148,6 +143,24 @@ const Home = () => {
       </div>
     </div>,
   ];
+
+  useEffect(() => {
+    setLoading(true)
+    if (user && user?.notes) {
+      setNotes(user?.notes);
+    }
+    setLoading(false)
+    return () => (document.title = "Mnemonic");
+  }, []);
+  useEffect(() => {
+    setLoading(true)
+    if (user && user?.notes) {
+      setNotes(user?.notes);
+    }
+    setLoading(false)
+    return () => user && user?.notes && setNotes(user?.notes)
+  }, [user]);
+
 
   return (
     <>

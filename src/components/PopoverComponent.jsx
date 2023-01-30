@@ -41,7 +41,9 @@ function PopoverComponent({
     setAnchorEl(null);
     dispatch(setActivePopOver(""));
     var element = document.getElementsByClassName("ql-editor");
-    element[0].innerHTML = "";
+    if(element && element.length > 0){
+      element[0].innerHTML = "";
+    }
     if (value) {
       setValue("");
     }

@@ -35,7 +35,7 @@ function NoteCard({ name , heading, content, sharing, type, normalcontent, mnemo
           </IconButton>
         </div>
         <div className="notecardcontent">
-          <p>{content.replace(/(<([^>]+)>)/gi, "")}</p>
+          <p>{content && content.length> 0 && content.replace(/(<([^>]+)>)/gi, "")}</p>
         </div>
         <div className="notecardsharing">
           <AvatarGroup max={4} total={total}>

@@ -11,7 +11,7 @@ function RichTextEditor({ setValue, value }) {
         setValue(quillRef.current.firstChild.innerHTML);
       });
     }
-  }, [quill, setValue, quillRef, value]);
+  }, [quill, setValue, quillRef]);
 
   useEffect(() => {
     if (quill) {
