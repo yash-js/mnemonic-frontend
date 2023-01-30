@@ -100,7 +100,7 @@ const Home = () => {
 
   const createNoteAPI = async () => {
     if(value){
-          const res = await createNote({
+      const res = await createNote({
       noteTitle,
       noteContent: value,
       noteType: "normal",
