@@ -121,13 +121,13 @@ export const useFriends = () => {
     });
   }
 
-  useEffect(() => {
-    if (!searchQuery && searchOpen) {
-      setSearchOpen(false);
-      setSearchQuery("");
-      setResults([]);
-    }
-  }, [searchQuery]);
+  // useEffect(() => {
+  //   if (!searchQuery && searchOpen) {
+  //     setSearchOpen(false);
+  //     setSearchQuery("");
+  //     setResults([]);
+  //   }
+  // }, [searchQuery]);
 
   const onChange = (e) => {
     setSearchQuery(e.target.value);
@@ -162,9 +162,6 @@ export const useFriends = () => {
       })
     );
     setSendRequestLoading(false);
-    setSearchOpen(false);
-    setSearchQuery("");
-    setResults([]);
     await addFriend(friendData._id);
   };
 

@@ -45,15 +45,12 @@ const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
-  const [editLoading,setEditLoading] = useState(false)
+  const [editLoading, setEditLoading] = useState(false);
 
   useEffect(() => {
     setDisabled(true);
-  }, [openmenu]);
-
-  useEffect(() => {
     return () => {
-      if (user) {
+      if (user !== null) {
         setCurrentUserdata({
           firstName: user?.firstName,
           lastName: user?.lastName,
@@ -63,7 +60,8 @@ const ProfileMenu = () => {
         });
       }
     };
-  }, []);
+  }, [openmenu]);
+
 
   const handleClickMenu = (event) => {
     setProfilemenu(event.currentTarget);
@@ -161,7 +159,7 @@ const ProfileMenu = () => {
   };
 
   const updateProfileApiCall = async () => {
-    setEditLoading(true)
+    setEditLoading(true);
     if (
       editdata &&
       !editdata?.username &&
@@ -172,7 +170,7 @@ const ProfileMenu = () => {
     ) {
       setEditdata({});
       setDisabled(true);
-      setEditLoading(false)
+      setEditLoading(false);
       return openAlert(true, "error", "Nothing to update!");
     } else {
       const res = await updateProfile(editdata);
@@ -187,7 +185,7 @@ const ProfileMenu = () => {
         dispatch(userdata({ ...currentUserData, editdata }));
         setEditdata({});
         setDisabled(true);
-        setEditLoading(false)
+        setEditLoading(false);
       } else {
         setCurrentUserdata({
           firstName: user?.firstName,
@@ -199,7 +197,7 @@ const ProfileMenu = () => {
         openAlert(true, "error", res?.response?.data?.error);
         setDisabled(true);
         setEditdata({});
-        setEditLoading(false)
+        setEditLoading(false);
       }
     }
   };

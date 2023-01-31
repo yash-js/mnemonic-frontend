@@ -8,84 +8,68 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useFriends } from "../hooks/friends";
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
+import { mnemonic } from "../lib/axios";
+import { useState } from "react";
+import { TextField } from "@mui/material";
+import { useSelector } from "react-redux";
+import { userData } from "../features/userSlice";
 const Searchbar = () => {
+  const user = useSelector(userData);
+  const [q, setQ] = useState("");
+  const [value, setValue] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
-    onChange,
-    searchQuery,
     results,
     searchOpen,
     searchResLoading,
-    setSearchOpen,
-    searchApiCall,
-    setSearchQuery,
     setResults,
     callAddFriendApi,
     sendRequestLoading,
     sent,
-    callGetSentRequests,
-    getFriendsApiCall,
     friend,
+    setFriend,
+    setRequest,
+    setSent,
   } = useFriends();
 
   useEffect(() => {
     console.log("results", results);
   }, [results]);
 
+  useEffect(() => {
+    setLoading(true);
+    setFriend(user?.friends);
+    setSent(user?.sentRequests);
+    setResults(user?.requests);
+    return async () => {
+      const res = await mnemonic.get("/user/all");
+      if (res?.data?.result.length > 0) {
+        _.remove(res?.data?.result, function (u) {
+          return u?._id === user?.id;
+        });
+      }
+      setResults(res?.data?.result);
+      setLoading(false);
+    };
+  }, []);
+  console.log(_.find(sent, { _id: "63c7a9b5f24747ea7cbf7f65" }));
   return (
     <>
       <Autocomplete
+        disabled={loading}
         id="asynchronous-demo"
-        sx={{
-          width: 300,
-          "& .MuiOutlinedInput-root": {
-            borderRadius: "0",
-          },
-          "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            border: "1px solid #eee",
-          },
-        }}
-        open={searchOpen}
-        onOpen={() => (searchQuery ? searchApiCall() : setSearchOpen(false))}
-        onClose={() => {
-          setSearchOpen(false);
-          setSearchQuery("");
-          setResults([]);
-        }}
-        getOptionLabel={(option) => option._id}
-        noOptionsText={"User Not Found"}
-        loading={searchResLoading}
+        sx={{ width: "100%" }}
+        isOptionEqualToValue={(option, value) =>
+          option.username === value.username
+        }
+        getOptionLabel={(option) => option.username}
         options={results}
-        onFocus={() => {
-          callGetSentRequests();
-          getFriendsApiCall();
-          !window.location.pathname !== "/friend" && navigate("/friend");
-        }}
-        renderOption={(props, option) => (
-          <Box key={option._id} className="customOptionContainer">
-            <FriendCard
-              profileFirstname={option?.firstName}
-              profileusername={option?.username}
-              profileimage={option?.profilePic}
-              porfileLastname={option?.lastName}
-              friendsadd={() => callAddFriendApi(option)}
-              custombuttonrequestclass={"searchAddFriend"}
-              disabled={
-                sent.filter((request) => request._id === option._id).length > 0
-              }
-              requestBtnText={
-                _.find(sent, { _id: option._id })
-                  ? "Requested"
-                  : _.find(friend, { _id: option._id })
-                  ? "null"
-                  : "Add"
-              }
-              isLoading={sendRequestLoading}
-            />
-          </Box>
-        )}
+        noOptionsText={"User Not Found"}
+        onChange={(event, value) => setValue(value)}
         renderInput={(params) => (
           <InputField
+            disabled={loading}
             extraclass={"searchField"}
             params={params}
             placeholder={"Search"}
@@ -98,8 +82,8 @@ const Searchbar = () => {
             aria-controls={searchOpen ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={searchOpen ? "true" : undefined}
-            onChange={onChange}
-            value={searchQuery}
+            onChange={(e) => setQ(e.target.value)}
+            value={q}
             endIcoTooltip={"Search"}
             InputProps={{
               ...params.InputProps,
@@ -112,6 +96,34 @@ const Searchbar = () => {
               ),
             }}
           />
+        )}
+        ListboxProps={{ style: { display: !q || !results ? "none" : "block" } }}
+        renderOption={(props, option) => (
+          <Box
+            sx={{ display: !q ? "none" : "block" }}
+            key={option._id}
+            className="customOptionContainer"
+          >
+            <FriendCard
+              profileFirstname={option?.firstName}
+              profileusername={option?.username}
+              profileimage={option?.profilePic}
+              porfileLastname={option?.lastName}
+              friendsadd={() => callAddFriendApi(option)}
+              custombuttonrequestclass={"searchAddFriend"}
+              disabled={
+                sent && sent.length > 0 && sent.filter((request) => request._id === option._id).length > 0
+              }
+              requestBtnText={
+                _.find(sent, { _id: option._id })
+                  ? "Requested"
+                  : _.find(friend, { _id: option._id })
+                  ? "null"
+                  : "Add"
+              }
+              isLoading={sendRequestLoading}
+            />
+          </Box>
         )}
       />
     </>
