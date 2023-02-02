@@ -29,7 +29,7 @@ const Notifications = () => {
   useEffect(() => {
     return async () => {
       if (user || user !== null || user !== undefined) {
-        setAll(user?.notification);
+        setAll(user?.latest);
         setUnread(user?.latest);
       }
     };
@@ -95,7 +95,7 @@ const Notifications = () => {
           all.map((item, index) => {
             return (
               <MenuItem
-                onClick={() => notificationOnClick(item?._id)}
+                onClick={() => notificationOnClick(item.message)}
                 key={index}
               >
                 <Box width={60}>

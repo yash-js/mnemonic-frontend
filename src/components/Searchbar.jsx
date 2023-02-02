@@ -33,8 +33,40 @@ const Searchbar = () => {
     setSent,
   } = useFriends();
 
+  const btnText = () => {
+    if (
+      results &&
+      results.length > 0 &&
+      results.filter((res) => sent.filter((s) => s._id === res._id)).length > 0
+    ) {
+      return "Requested";
+    } else if (
+      results &&
+      results.length > 0 &&
+      results.filter((res) => friend.filter((f) => f._id === res._id)).length >
+        0
+    ) {
+      return undefined;
+    } else {
+      return "Add";
+    }
+  };
+
+  const getOptions = async () => {
+    const res = await mnemonic.get("/user/all");
+    if (res?.data?.result.length > 0) {
+      _.remove(res?.data?.result, function (u) {
+        return u?._id === user?.id;
+      });
+    }
+    setResults(res?.data?.result);
+    setLoading(false);
+  };
+
   useEffect(() => {
     console.log("results", results);
+    console.log(friend && friend.map((f) => f._id));
+    console.log("res", results && results.map((f) => f._id));
   }, [results]);
 
   useEffect(() => {
@@ -42,18 +74,8 @@ const Searchbar = () => {
     setFriend(user?.friends);
     setSent(user?.sentRequests);
     setResults(user?.requests);
-    return async () => {
-      const res = await mnemonic.get("/user/all");
-      if (res?.data?.result.length > 0) {
-        _.remove(res?.data?.result, function (u) {
-          return u?._id === user?.id;
-        });
-      }
-      setResults(res?.data?.result);
-      setLoading(false);
-    };
+    return async () => await getOptions();
   }, []);
-  console.log(_.find(sent, { _id: "63c7a9b5f24747ea7cbf7f65" }));
   return (
     <>
       <Autocomplete
@@ -72,7 +94,7 @@ const Searchbar = () => {
             disabled={loading}
             extraclass={"searchField"}
             params={params}
-            placeholder={"Search"}
+            placeholder={loading ? "Loading..." : "Username"}
             starticon={search}
             starticoncss={{
               width: "25px",
@@ -109,16 +131,22 @@ const Searchbar = () => {
               profileusername={option?.username}
               profileimage={option?.profilePic}
               porfileLastname={option?.lastName}
-              friendsadd={() => callAddFriendApi(option)}
+              friendsadd={() => console.log(option)}
               custombuttonrequestclass={"searchAddFriend"}
               disabled={
-                sent && sent.length > 0 && sent.filter((request) => request._id === option._id).length > 0
+                sent &&
+                sent.length > 0 &&
+                sent.filter((request) => request._id === option._id).length > 0
               }
               requestBtnText={
-                _.find(sent, { _id: option._id })
+                sent &&
+                sent.length > 0 &&
+                sent.filter((s) => s?._id === option?._id).length > 0
                   ? "Requested"
-                  : _.find(friend, { _id: option._id })
-                  ? "null"
+                  : friend &&
+                    friend.length > 0 &&
+                    friend.filter((f) => f?._id === option?._id).length > 0
+                  ? undefined
                   : "Add"
               }
               isLoading={sendRequestLoading}

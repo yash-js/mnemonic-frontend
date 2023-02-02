@@ -8,7 +8,8 @@ function AutoCompleteComponent({ mentions, setMentions }) {
   const user = useSelector(userData);
   const friends = user && user?.friends ? user?.friends : [];
   const onChange = (event, value) => {
-    const ids = value.map((i) => setMentions(i._id));
+    const ids = value.map((i) => i._id);
+    setMentions(ids);
   };
 
   return (

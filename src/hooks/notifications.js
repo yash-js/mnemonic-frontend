@@ -16,15 +16,19 @@ export const useNotifications = () => {
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    if (unread && unread.length > 0) {
-      dispatch(
-        userdata({
-          ...user,
-          latest: [],
-        })
-      );
-      onClickHandle();
-    }
+    setUnread([]);
+    setTimeout(() => {
+      handleClose();
+      if (all && all.length > 0) {
+        dispatch(
+          userdata({
+            ...user,
+            latest: [],
+          })
+        );
+        onClickHandle();
+      }
+    }, 10000);
   };
 
   const handleClose = () => {
@@ -56,8 +60,12 @@ export const useNotifications = () => {
     }
   };
 
-  const notificationOnClick = (id) => {
-    navigate("/friend");
+  const notificationOnClick = (message) => {
+    if (message && message.includes("mentioned")) {
+      navigate("/mention");
+    } else {
+      navigate("/friend");
+    }
     handleClose();
   };
   return {

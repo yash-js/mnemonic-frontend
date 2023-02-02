@@ -8,37 +8,62 @@ import TooltipComponent from "./TooltipComponent";
 import PopoverComponent from "./PopoverComponent";
 import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
 
-function NoteCard({ name , heading, content, sharing, type, normalcontent, mnemoniccontent, notetitlecontent, editorvalue, noteapi, seteditorvalue }) {
+function NoteCard({
+  name,
+  heading,
+  content,
+  sharing,
+  type,
+  normalcontent,
+  mnemoniccontent,
+  notetitlecontent,
+  editorvalue,
+  noteapi,
+  seteditorvalue,
+  authorPic,
+  authorUsername,
+}) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const total = sharing && sharing.length ? sharing.length : 0;
 
   const handleClick = (type) => {
-    if(type === 'normal'){
-      dispatch(setActivePopOver('editnormal'));
+    if (type === "normal") {
+      dispatch(setActivePopOver("editnormal"));
       seteditorvalue(content);
-    }else if(type === 'mnemonic'){
-      dispatch(setActivePopOver('editmnemonic'));
+    } else if (type === "mnemonic") {
+      dispatch(setActivePopOver("editmnemonic"));
     }
-  }
+  };
 
   return (
     <>
       <div className={`notecard ${type} ${name}`}>
         <div className="notecardheading">
           <h3>{heading}</h3>
-          <IconButton
-            className="editicon"
-            onClick={() => handleClick(type)}
-          >
-            <EditIcon/>
+          <IconButton className="editicon" onClick={() => handleClick(type)}>
+            <EditIcon />
           </IconButton>
         </div>
         <div className="notecardcontent">
-          <p>{content && content.length> 0 && content.replace(/(<([^>]+)>)/gi, "")}</p>
+          <p>
+            {content &&
+              content.length > 0 &&
+              content.replace(/(<([^>]+)>)/gi, "")}
+          </p>
         </div>
         <div className="notecardsharing">
           <AvatarGroup max={4} total={total}>
+            {authorPic && authorPic.length > 0 && (
+              <TooltipComponent htmltitle={authorUsername}>
+                <Avatar
+                  alt={authorUsername}
+                  src={authorPic}
+                  height={"30px"}
+                  width={"30px"}
+                />
+              </TooltipComponent>
+            )}
             {sharing &&
               sharing.length > 0 &&
               sharing.map((user) => (
@@ -54,15 +79,31 @@ function NoteCard({ name , heading, content, sharing, type, normalcontent, mnemo
           </AvatarGroup>
         </div>
       </div>
-      {
-        activepopover === 'editnormal' ? (
-          <PopoverComponent name={name} popoverclassname={'normalnotes'} popovercontent={normalcontent} richtext={true} popoverstate={true} nextBtnDisabled={editorvalue && editorvalue.length > 0 ? false : true}/>
-        ) : activepopover === 'editmnemonic' ? (
-          <PopoverComponent popoverclassname={'mnemonicnotes'} popovercontent={mnemoniccontent} popoverstate={true}/>
-        ) : activepopover === 'notetitle' && (
-          <PopoverComponent popoverclassname={'notetitle'} popovercontent={notetitlecontent} popoverstate={true} handleRichText={noteapi} />
-        ) 
-      }
+      {activepopover === "editnormal" ? (
+        <PopoverComponent
+          name={name}
+          popoverclassname={"normalnotes"}
+          popovercontent={normalcontent}
+          richtext={true}
+          popoverstate={true}
+          nextBtnDisabled={editorvalue && editorvalue.length > 0 ? false : true}
+        />
+      ) : activepopover === "editmnemonic" ? (
+        <PopoverComponent
+          popoverclassname={"mnemonicnotes"}
+          popovercontent={mnemoniccontent}
+          popoverstate={true}
+        />
+      ) : (
+        activepopover === "notetitle" && (
+          <PopoverComponent
+            popoverclassname={"notetitle"}
+            popovercontent={notetitlecontent}
+            popoverstate={true}
+            handleRichText={noteapi}
+          />
+        )
+      )}
     </>
   );
 }

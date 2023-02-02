@@ -26,7 +26,7 @@ function FriendCard({
         </div>
       </div>
       <div className="friendactions">
-        {friendsadd && requestBtnText && (
+        {friendsadd && requestBtnText.length>0 && (
           <div className="request">
             <ButtonComponent
               onClick={friendsadd}

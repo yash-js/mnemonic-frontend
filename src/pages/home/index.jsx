@@ -26,7 +26,7 @@ const Home = () => {
   const [noteTitle, setNoteTitle] = React.useState("");
   const [error, setError] = React.useState(null);
   const [value, setValue] = useState();
-  const [mentions, setMentions] = useState("");
+  const [mentions, setMentions] = useState([]);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const onFocusField = () => setError({});

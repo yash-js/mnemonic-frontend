@@ -16,7 +16,7 @@ function Share() {
   useEffect(() => {
     setLoading(true);
     if (user && user?.notes) {
-      setNotes(user?.notes);
+      setNotes(user?.notes.filter((note) => note?.author?._id === user.id));
     }
     setLoading(false);
     return () => (document.title = "Share");
@@ -52,7 +52,7 @@ function Share() {
             <NotesSkeleton />
           ) : notes && notes.length > 0 ? (
             notes.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
+              <Grid key={index} item xs={12} sm={6} md={4} lg={3} index={index}>
                 <NoteCard
                   name={"share"}
                   heading={item?.noteTitle}

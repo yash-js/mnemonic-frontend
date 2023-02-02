@@ -56,11 +56,12 @@ function Mention() {
             notes.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3} index={index}>
                 <NoteCard
+                  authorPic={item?.author?.profilePic}
+                  authorUsername={item?.author?.username}
                   name={"share"}
                   heading={item?.noteTitle}
                   content={item?.noteContent}
                   date={item?.notedOn}
-                  sharing={item?.mentions}
                   type={item?.noteType}
                   normalcontent={popovernormalcontent}
                   mnemoniccontent={popovermnemoniccontent}
@@ -84,7 +85,7 @@ function Mention() {
         </Grid>
       </div>
     </div>
-  )
+  );
 }
 
 export default Mention;
