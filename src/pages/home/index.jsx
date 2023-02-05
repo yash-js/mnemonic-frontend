@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { Grid } from "@mui/material";
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import { useDispatch, useSelector } from "react-redux";
 import {
   setActivePopOver,
@@ -33,6 +36,40 @@ const Home = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
+  const [tabvalue, setTabValue] = React.useState(0);
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        style={{height: 'calc(100% - 48.8px)'}}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            {children}
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
+  const handleChangeTab = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   const handlenotes = (type) => {
     if (type === "normal") {
       dispatch(setActivePopOver("normal"));
@@ -60,7 +97,45 @@ const Home = () => {
         <h3>Mnemonic Notes</h3>
       </div>
       <div className="mnemonicnotescontent">
-        <h1>Mnemonic Notes</h1>
+        <Box sx={{ width: '100%', height: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={tabvalue} onChange={handleChangeTab} aria-label="basic tabs example">
+              <Tab label="Text" {...a11yProps(0)} />
+              <Tab label="Audio" {...a11yProps(1)} />
+              <Tab label="Image" {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+          <TabPanel value={tabvalue} index={0}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} className={"textsummary"}>
+                <h4>Add Text</h4>
+              </Grid>
+              <Grid item xs={12} sm={6} className={"textsummary"}>
+                <h1>Summary Text</h1>
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value={tabvalue} index={1}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} className={"textaudio"}>
+                <h4>Add Text</h4>
+              </Grid>
+              <Grid item xs={12} sm={6} className={"textaudio"}>
+                <h1>Audio File</h1>
+              </Grid>
+            </Grid>
+          </TabPanel>
+          <TabPanel value={tabvalue} index={2}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} className={"textimage"}>
+                <h4>Add Text</h4>
+              </Grid>
+              <Grid item xs={12} sm={6} className={"textimage"}>
+                <h1>Image File</h1>
+              </Grid>
+            </Grid>
+          </TabPanel>
+        </Box>
       </div>
     </div>,
   ];
@@ -105,6 +180,7 @@ const Home = () => {
     setMessage(message);
     setType(type);
   };
+
   const createNoteAPI = async () => {
     setLoading(true);
     const res = await createNote({
@@ -164,6 +240,7 @@ const Home = () => {
     setLoading(false)
     return () => (document.title = "Mnemonic");
   }, []);
+
   useEffect(() => {
     setLoading(true)
     if (user && user?.notes) {
