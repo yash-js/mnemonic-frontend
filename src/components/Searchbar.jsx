@@ -131,7 +131,7 @@ const Searchbar = () => {
               profileusername={option?.username}
               profileimage={option?.profilePic}
               porfileLastname={option?.lastName}
-              friendsadd={() => console.log(option)}
+              friendsadd={() => callAddFriendApi(option)}
               custombuttonrequestclass={"searchAddFriend"}
               disabled={
                 sent &&

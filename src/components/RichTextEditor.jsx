@@ -7,6 +7,9 @@ function RichTextEditor({ setValue, value }) {
 
   useEffect(() => {
     if (quill) {
+      if (value && value.length > 0) {
+        quill.root.innerHTML = value;
+      } 
       quill.on("text-change", () => {
         setValue(quillRef.current.firstChild.innerHTML);
       });
@@ -14,13 +17,9 @@ function RichTextEditor({ setValue, value }) {
   }, [quill, setValue, quillRef]);
 
   // useEffect(() => {
-  //   return () => {
-  //     if (quill) {
-  //       return value && value.length > 0
-  //         ? (quillRef?.current?.firstChild?.innerHTML = value)
-  //         : (quillRef.current?.firstChild?.innerHTML = "<p><br></p>");
+  //     if (quill && value && value.length > 0) {
+  //         quillRef?.current?.firstChild?.innerHTML = value
   //     }
-  //   };
   // }, [quill]);
 
   return (
