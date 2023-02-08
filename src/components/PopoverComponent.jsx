@@ -24,6 +24,7 @@ function PopoverComponent({
   value,
   setValue,
   loading,
+  editNoteCard
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -78,7 +79,7 @@ function PopoverComponent({
             />
           )}
           {popoverclassname === "notetitle" && (
-            <ButtonComponent buttontext="Save" isLoading={loading} onClick={handleSave} />
+            <ButtonComponent buttontext={`${editNoteCard ? 'Edit' : 'Save'}`} isLoading={loading} onClick={handleSave} />
           )}
           {btnname === "home" ? (
             <IconButton

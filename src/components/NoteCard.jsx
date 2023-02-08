@@ -20,6 +20,8 @@ function NoteCard({
   editorvalue,
   noteapi,
   seteditorvalue,
+  setNoteTitle,
+  setEditNoteCard,
   authorPic,
   authorUsername,
 }) {
@@ -31,6 +33,8 @@ function NoteCard({
     if (type === "normal") {
       dispatch(setActivePopOver("editnormal"));
       seteditorvalue(content);
+      setNoteTitle(heading);
+      setEditNoteCard(true)
     } else if (type === "mnemonic") {
       dispatch(setActivePopOver("editmnemonic"));
     }

@@ -37,6 +37,7 @@ const Home = () => {
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
   const [tabvalue, setTabValue] = React.useState(0);
+  const [editNoteCard, setEditNoteCard] = useState(false)
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -161,15 +162,18 @@ const Home = () => {
               onFocusField={onFocusField}
             />
           </Grid>
-          <Grid item xs={12} className={"notesharing"}>
-            <h4>Share Note</h4>
-            <div className="notesharingcontent">
-              <AutoCompleteComponent
-                mentions={mentions}
-                setMentions={setMentions}
-              />
-            </div>
-          </Grid>
+          {
+            editNoteCard === false &&
+              <Grid item xs={12} className={"notesharing"}>
+                <h4>Share Note</h4>
+                <div className="notesharingcontent">
+                  <AutoCompleteComponent
+                    mentions={mentions}
+                    setMentions={setMentions}
+                  />
+                </div>
+              </Grid>
+          }
         </Grid>
       </div>
     </div>,
@@ -203,6 +207,31 @@ const Home = () => {
     }
     dispatch(setActivePopOver(""));
     setLoading(false);
+  };
+
+  const editNoteAPI = async () => {
+    setLoading(true);
+    const res = await createNote({
+      noteTitle,
+      noteContent: value,
+      noteType: "normal",
+      mentions: mentions,
+    });
+    if (res?.data?.savedNote) {
+      openAlert(true, "success", "Note Created Successfully");
+      setNotes([...notes, res?.data?.savedNote]);
+      dispatch(
+        userdata({
+          ...user,
+          notes: [...notes, res?.data?.savedNote],
+        })
+      );
+    } else {
+      openAlert(true, "error", "Something Went Wrong!");
+    }
+    dispatch(setActivePopOver(""));
+    setLoading(false);
+    setEditNoteCard(false)
   };
 
   const popovercontent = [
@@ -279,6 +308,8 @@ const Home = () => {
                     editorvalue={value}
                     noteapi={createNoteAPI}
                     seteditorvalue={setValue}
+                    setNoteTitle={setNoteTitle}
+                    setEditNoteCard={setEditNoteCard}
                   />
                 </Grid>
               ))
@@ -311,11 +342,12 @@ const Home = () => {
             />
           ) : activepopover === "notetitle" ? (
             <PopoverComponent
-              handleRichText={createNoteAPI}
+              handleRichText={editNoteCard ? editNoteAPI  : createNoteAPI}
               loading={loading}
               popoverclassname={"notetitle"}
               popovercontent={popovernotetitlecontent}
               popoverstate={true}
+              editNoteCard={editNoteCard}
             />
           ) : (
             <PopoverComponent
