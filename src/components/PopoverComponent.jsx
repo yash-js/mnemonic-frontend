@@ -24,7 +24,8 @@ function PopoverComponent({
   value,
   setValue,
   loading,
-  editNoteCard,setpopoverstate
+  editNoteCard,
+  setpopoverstate,
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -40,7 +41,7 @@ function PopoverComponent({
   };
 
   const handleClose = () => {
-    setpopoverstate(null)
+    if (setpopoverstate) setpopoverstate(null);
     setAnchorEl(null);
     dispatch(setActivePopOver(""));
     var element = document.getElementsByClassName("ql-editor");

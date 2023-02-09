@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Grid } from "@mui/material";
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import { Grid, IconButton } from "@mui/material";
+import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setActivePopOver,
@@ -15,11 +15,13 @@ import InputField from "../../components/InputField";
 import AutoCompleteComponent from "../../components/AutoCompleteComponent";
 import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
-import { createNote, getNotes } from "../../lib/API_Calls";
+import { createNote, deleteNote, getNotes } from "../../lib/API_Calls";
 import { useState } from "react";
 import { userdata, userData } from "../../features/userSlice";
 import NotesSkeleton from "../../skeletons/NotesSkeleton";
 import AlertComponent from "../../components/AlertComponent";
+import EditRichText from "../../components/EditRichText";
+import { Delete, Edit } from "@mui/icons-material";
 
 const Home = () => {
   const user = useSelector(userData);
@@ -37,26 +39,26 @@ const Home = () => {
   const [message, setMessage] = useState("");
   const [type, setType] = useState("");
   const [tabvalue, setTabValue] = React.useState(0);
-  const [editNoteCard, setEditNoteCard] = useState(false)
+  const [editNoteCard, setEditNoteCard] = useState(false);
 
-  const [textImage, setTextImage] = useState('')
-  const [textAudio, setTextAudio] = useState()
-  const [textPara, setTextPara] = useState()
+  const [textImage, setTextImage] = useState("");
+  const [textAudio, setTextAudio] = useState();
+  const [textPara, setTextPara] = useState();
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+
     return (
       <div
         role="tabpanel"
         hidden={value !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
-        style={{height: 'calc(100% - 48.8px)'}}
+        style={{ height: "calc(100% - 48.8px)" }}
         {...other}
       >
         {value === index && (
-          <Box sx={{ p: 3 }} style={{height: '100%'}}>
+          <Box sx={{ p: 3 }} style={{ height: "100%" }}>
             {children}
           </Box>
         )}
@@ -67,7 +69,7 @@ const Home = () => {
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
     };
   }
 
@@ -102,19 +104,23 @@ const Home = () => {
         <h3>Mnemonic Notes</h3>
       </div>
       <div className="mnemonicnotescontent">
-        <Box sx={{ width: '100%', height: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={tabvalue} onChange={handleChangeTab} aria-label="basic tabs example">
+        <Box sx={{ width: "100%", height: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={tabvalue}
+              onChange={handleChangeTab}
+              aria-label="basic tabs example"
+            >
               <Tab label="Text" {...a11yProps(0)} />
               <Tab label="Audio" {...a11yProps(1)} />
               <Tab label="Image" {...a11yProps(2)} />
             </Tabs>
           </Box>
-          <TabPanel value={tabvalue} index={0} style={{height: '100%'}}>
-            <Grid container spacing={2} style={{height: '100%'}}>
+          <TabPanel value={tabvalue} index={0} style={{ height: "100%" }}>
+            <Grid container spacing={2} style={{ height: "100%" }}>
               <Grid item xs={12} sm={6} className={"textpara"}>
                 <h4>Add Text</h4>
-                <InputField 
+                <InputField
                   extraclass={"textparaInput"}
                   type="text"
                   name="textparaInput"
@@ -129,7 +135,7 @@ const Home = () => {
             </Grid>
           </TabPanel>
           <TabPanel value={tabvalue} index={1}>
-            <Grid container spacing={2} style={{height: '100%'}}>
+            <Grid container spacing={2} style={{ height: "100%" }}>
               <Grid item xs={12} sm={6} className={"textaudio"}>
                 <h4>Add Text</h4>
               </Grid>
@@ -139,7 +145,7 @@ const Home = () => {
             </Grid>
           </TabPanel>
           <TabPanel value={tabvalue} index={2}>
-            <Grid container spacing={2} style={{height: '100%'}}>
+            <Grid container spacing={2} style={{ height: "100%" }}>
               <Grid item xs={12} sm={6} className={"textimage"}>
                 <h4>Add Text</h4>
               </Grid>
@@ -174,18 +180,17 @@ const Home = () => {
               onFocusField={onFocusField}
             />
           </Grid>
-          {
-            editNoteCard === false &&
-              <Grid item xs={12} className={"notesharing"}>
-                <h4>Share Note</h4>
-                <div className="notesharingcontent">
-                  <AutoCompleteComponent
-                    mentions={mentions}
-                    setMentions={setMentions}
-                  />
-                </div>
-              </Grid>
-          }
+          {editNoteCard === false && (
+            <Grid item xs={12} className={"notesharing"}>
+              <h4>Share Note</h4>
+              <div className="notesharingcontent">
+                <AutoCompleteComponent
+                  mentions={mentions}
+                  setMentions={setMentions}
+                />
+              </div>
+            </Grid>
+          )}
         </Grid>
       </div>
     </div>,
@@ -221,6 +226,8 @@ const Home = () => {
     setLoading(false);
   };
 
+  const [editValue, setEditValue] = useState("");
+
   const editNoteAPI = async () => {
     setLoading(true);
     const res = await createNote({
@@ -243,7 +250,27 @@ const Home = () => {
     }
     dispatch(setActivePopOver(""));
     setLoading(false);
-    setEditNoteCard(false)
+    setEditNoteCard(false);
+  };
+
+  const deleteNoteApiCall = async (id) => {
+    setLoading(true);
+    const res = await deleteNote(id);
+    if (res?.data?.message) {
+      openAlert(true, "success", "Note Deleted Successfully!");
+      setNotes(notes.filter((note) => note._id !== id));
+      dispatch(
+        userdata({
+          ...user,
+          notes: notes.filter((note) => note._id !== id),
+        })
+      );
+    } else {
+      openAlert(true, "error", "Something Went Wrong!");
+    }
+    dispatch(setActivePopOver(""));
+    setLoading(false);
+    setEditNoteCard(false);
   };
 
   const popovercontent = [
@@ -274,29 +301,36 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     if (user && user?.notes) {
       setNotes(user?.notes);
     }
-    setLoading(false)
+    setLoading(false);
     return () => (document.title = "Mnemonic");
   }, []);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     if (user && user?.notes) {
       setNotes(user?.notes);
     }
-    setLoading(false)
-    return () => user && user?.notes && setNotes(user?.notes)
+    setLoading(false);
+    return () => user && user?.notes && setNotes(user?.notes);
   }, [user]);
 
   return (
     <>
       <div className="home">
         <div className="homecontent">
-          <Grid container spacing={3} height={"100%"} className="homecontentbox">
-            {loading ?<NotesSkeleton/> :notes && notes.length > 0 ? (
+          <Grid
+            container
+            spacing={3}
+            height={"100%"}
+            className="homecontentbox"
+          >
+            {loading ? (
+              <NotesSkeleton />
+            ) : notes && notes.length > 0 ? (
               notes.map((item, index) => (
                 <Grid
                   key={index}
@@ -314,12 +348,29 @@ const Home = () => {
                     date={item?.notedOn}
                     sharing={item?.mentions}
                     type={item?.noteType}
-                    normalcontent={popovernormalcontent}
+                    normalcontent={[
+                      <div className="notetopcontent normalnotebox">
+                        <div className="normalnotesheading">
+                          <h3>Normal Notes</h3>
+                          <IconButton>
+                            <Delete
+                              onClick={() => deleteNoteApiCall(item._id)}
+                            />
+                          </IconButton>
+                        </div>
+                        <div className="normalnotescontent">
+                          <EditRichText
+                            setValue={setEditValue}
+                            value={item?.noteContent}
+                          />
+                        </div>
+                      </div>,
+                    ]}
                     mnemoniccontent={popovermnemoniccontent}
                     notetitlecontent={popovernotetitlecontent}
-                    editorvalue={value}
+                    editorvalue={editValue}
                     noteapi={createNoteAPI}
-                    seteditorvalue={setValue}
+                    seteditorvalue={setEditValue}
                     setNoteTitle={setNoteTitle}
                     setEditNoteCard={setEditNoteCard}
                   />
@@ -354,7 +405,7 @@ const Home = () => {
             />
           ) : activepopover === "notetitle" ? (
             <PopoverComponent
-              handleRichText={editNoteCard ? editNoteAPI  : createNoteAPI}
+              handleRichText={editNoteCard ? editNoteAPI : createNoteAPI}
               loading={loading}
               popoverclassname={"notetitle"}
               popovercontent={popovernotetitlecontent}

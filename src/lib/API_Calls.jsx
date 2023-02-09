@@ -168,3 +168,12 @@ export const getNotes = async () => {
     return error;
   }
 };
+
+export const deleteNote = async (id) => {
+  try {
+    const resp = await mnemonic.delete(`/notes/delete/${id}`);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};

@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import TooltipComponent from "./TooltipComponent";
 import PopoverComponent from "./PopoverComponent";
 import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
+import { Delete } from "@mui/icons-material";
 
 function NoteCard({
   name,
@@ -33,7 +34,6 @@ function NoteCard({
     setAnchorEl(event.currentTarget);
     if (type === "normal") {
       dispatch(setActivePopOver("editnormal"));
-      seteditorvalue(content);
       setNoteTitle(heading);
       setEditNoteCard(true);
     } else if (type === "mnemonic") {
@@ -95,7 +95,12 @@ function NoteCard({
           richtext={true}
           popoverstate={anchorEl}
           setpopoverstate={setAnchorEl}
-          nextBtnDisabled={editorvalue && editorvalue.length > 0 ? false : true}
+          nextBtnDisabled={
+            (content && content.length > 0) ||
+            (editorvalue && editorvalue.length > 0)
+              ? false
+              : true
+          }
         />
       ) : activepopover === "editmnemonic" ? (
         <PopoverComponent
