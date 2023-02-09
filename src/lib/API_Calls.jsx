@@ -212,6 +212,9 @@ export const textToImage = async (text) => {
 }
 
 export const textToAudio = async (text) => {
+  const msg = new SpeechSynthesisUtterance()
+  msg.text = text
+  window.speechSynthesis.speak(msg)
   console.log(text);
 }
 

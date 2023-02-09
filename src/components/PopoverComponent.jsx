@@ -28,6 +28,7 @@ function PopoverComponent({
   setpopoverstate,
   textvalue,
   setGenratedValue,
+  genrateName,
   apiCall
 }) {
   const dispatch = useDispatch();
@@ -82,7 +83,7 @@ function PopoverComponent({
             <>
               <ButtonComponent
                 color={"secondary"}
-                buttontext="Generate"
+                buttontext={`${genrateName === 'Paragraph' ? 'Summarize' : genrateName === 'Audio' ? 'Speak' : 'Generate'}`}
                 onClick={handleGenerate}
                 customButtonStyle={{
                   display: name === "share" ? "none" : "flex",

@@ -54,7 +54,6 @@ const Home = () => {
   const [textPara, setTextPara] = useState("");
 
   const [image, setImage] = useState();
-  const [audio, setAudio] = useState();
   const [para, setPara] = useState();
 
   function TabPanel(props) {
@@ -148,7 +147,7 @@ const Home = () => {
           </TabPanel>
           <TabPanel value={tabvalue} index={1}>
             <Grid container spacing={2} style={{ height: "100%" }}>
-              <Grid item xs={12} sm={6} className={"textaudio"}>
+              <Grid item xs={12} className={"textaudio"}>
               <h4>Add Text</h4>
               <InputField
                 extraclass={"textaudioInput"}
@@ -158,9 +157,6 @@ const Home = () => {
                 onChange={(e) => setTextAudio(e.target.value)}
                 multiline={true}
               />
-              </Grid>
-              <Grid item xs={12} sm={6} className={"textaudio"}>
-                <h4>Audio File</h4>
               </Grid>
             </Grid>
           </TabPanel>
@@ -469,7 +465,8 @@ const Home = () => {
           ) : activepopover === "mnemonic" ? (
             <PopoverComponent
               textvalue={tabvalue === 0 ? textImage : tabvalue === 1 ? textAudio : tabvalue === 2 && textImage}
-              setGenratedValue={setTabValue === 0 ? setPara : setTabValue === 1 ? setAudio : setTabValue === 2 && setImage}
+              genrateName={tabvalue === 0 ? "Paragraph" : tabvalue === 1 ? "Audio" : tabvalue === 2 && "Image"}
+              setGenratedValue={tabvalue === 0 ? setPara : tabvalue === 2 && setImage}
               apiCall={tabvalue === 0 ? textToPara : tabvalue === 1 ? textToAudio : tabvalue === 2 && textToImage}
               popoverclassname={"mnemonicnotes"}
               popovercontent={popovermnemoniccontent}
