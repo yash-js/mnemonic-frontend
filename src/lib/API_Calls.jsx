@@ -1,4 +1,5 @@
 import { mnemonic } from "./axios";
+import { Configuration, OpenAIApi } from "openai";
 
 export const signIn = async (data) => {
   try {
@@ -186,3 +187,34 @@ export const editNote = async (id,data) => {
     return error;
   }
 };
+
+export const textToImage = async (text) => {
+
+  const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+  
+  const openai = new OpenAIApi(configuration);
+
+  try{
+    const { prompt } = text;
+    const aiResponse = await openai.createImage({
+        prompt,
+        n: 1,
+        size: '1024x1024',
+        response_format: 'b64_json',
+    })
+    const image = aiResponse.data.data[0].b64_json;
+    return image;
+  } catch (error){
+      console.log(error);
+  }
+}
+
+export const textToAudio = async (text) => {
+  console.log(text);
+}
+
+export const textToPara = async (text) => {
+  console.log(text);
+}

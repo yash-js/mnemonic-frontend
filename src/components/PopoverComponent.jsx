@@ -26,6 +26,9 @@ function PopoverComponent({
   loading,
   editNoteCard,
   setpopoverstate,
+  textvalue,
+  setGenratedValue,
+  apiCall
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -57,7 +60,7 @@ function PopoverComponent({
   };
 
   const handleNext = () => {
-    nextBtnDisabled === false && dispatch(setActivePopOver("notetitle"));
+    dispatch(setActivePopOver("notetitle"));
   };
 
   const handleSave = async () => {
@@ -65,12 +68,37 @@ function PopoverComponent({
     handleClose();
   };
 
+  const handleGenerate = async () => {
+    const image = await apiCall(textvalue);
+    setGenratedValue(image);
+  }
+
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notetop">{popovercontent}</div>
       <div className="notebottom">
         <div className="noteclosebtn">
-          {richtext && (
+          {popoverclassname === 'mnemonicnotes' && (
+            <>
+              <ButtonComponent
+                color={"secondary"}
+                buttontext="Generate"
+                onClick={handleGenerate}
+                customButtonStyle={{
+                  display: name === "share" ? "none" : "flex",
+                }}
+              />
+              <ButtonComponent
+                buttontext="Next"
+                onClick={handleNext}
+                disabled={nextBtnDisabled}
+                customButtonStyle={{
+                  display: name === "share" ? "none" : "flex",
+                }}
+              />
+            </>
+          )}
+          {popoverclassname === 'normalnotes' && (
             <ButtonComponent
               buttontext="Next"
               onClick={handleNext}

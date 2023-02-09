@@ -20,13 +20,16 @@ import {
   deleteNote,
   editNote,
   getNotes,
+  textToImage,
+  textToPara,
+  textToAudio
 } from "../../lib/API_Calls";
 import { useState } from "react";
 import { userdata, userData } from "../../features/userSlice";
 import NotesSkeleton from "../../skeletons/NotesSkeleton";
 import AlertComponent from "../../components/AlertComponent";
 import EditRichText from "../../components/EditRichText";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 
 const Home = () => {
   const user = useSelector(userData);
@@ -47,8 +50,12 @@ const Home = () => {
   const [editNoteCard, setEditNoteCard] = useState(false);
 
   const [textImage, setTextImage] = useState("");
-  const [textAudio, setTextAudio] = useState();
-  const [textPara, setTextPara] = useState();
+  const [textAudio, setTextAudio] = useState("");
+  const [textPara, setTextPara] = useState("");
+
+  const [image, setImage] = useState();
+  const [audio, setAudio] = useState();
+  const [para, setPara] = useState();
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -135,17 +142,25 @@ const Home = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6} className={"textsummary"}>
-                <h1>Summary Text</h1>
+                <h4>Summary Text</h4>
               </Grid>
             </Grid>
           </TabPanel>
           <TabPanel value={tabvalue} index={1}>
             <Grid container spacing={2} style={{ height: "100%" }}>
               <Grid item xs={12} sm={6} className={"textaudio"}>
-                <h4>Add Text</h4>
+              <h4>Add Text</h4>
+              <InputField
+                extraclass={"textaudioInput"}
+                type="text"
+                name="textaudioInput"
+                value={textAudio}
+                onChange={(e) => setTextAudio(e.target.value)}
+                multiline={true}
+              />
               </Grid>
               <Grid item xs={12} sm={6} className={"textaudio"}>
-                <h1>Audio File</h1>
+                <h4>Audio File</h4>
               </Grid>
             </Grid>
           </TabPanel>
@@ -153,15 +168,30 @@ const Home = () => {
             <Grid container spacing={2} style={{ height: "100%" }}>
               <Grid item xs={12} sm={6} className={"textimage"}>
                 <h4>Add Text</h4>
+                <InputField
+                  extraclass={"textimageInput"}
+                  type="text"
+                  name="textimageInput"
+                  value={textImage}
+                  onChange={(e) => setTextImage(e.target.value)}
+                  multiline={true}
+                />
               </Grid>
               <Grid item xs={12} sm={6} className={"textimage"}>
-                <h1>Image File</h1>
+                <h4>Image File</h4>
+                <div>
+                  <img
+                    className="w-full h-auto object-cover rounded-xl"
+                    src={image}
+                    alt={textImage}
+                  />
+                </div>
               </Grid>
             </Grid>
           </TabPanel>
         </Box>
       </div>
-    </div>,
+    </div>
   ];
 
   const popovernotetitlecontent = [
@@ -438,6 +468,9 @@ const Home = () => {
             />
           ) : activepopover === "mnemonic" ? (
             <PopoverComponent
+              textvalue={tabvalue === 0 ? textImage : tabvalue === 1 ? textAudio : tabvalue === 2 && textImage}
+              setGenratedValue={setTabValue === 0 ? setPara : setTabValue === 1 ? setAudio : setTabValue === 2 && setImage}
+              apiCall={tabvalue === 0 ? textToPara : tabvalue === 1 ? textToAudio : tabvalue === 2 && textToImage}
               popoverclassname={"mnemonicnotes"}
               popovercontent={popovermnemoniccontent}
               popoverstate={true}

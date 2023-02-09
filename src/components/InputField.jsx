@@ -53,6 +53,7 @@ function InputField({
       readOnly={readOnly}
       onFocus={onFocus}
       multiline={multiline}
+      rows={11}
       InputProps={{
         ...InputProps,
         startAdornment: starticon && (
