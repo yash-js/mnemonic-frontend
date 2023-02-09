@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
@@ -28,13 +28,14 @@ function NoteCard({
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const total = sharing && sharing.length ? sharing.length : 0;
-
-  const handleClick = (type) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClick = (event, type) => {
+    setAnchorEl(event.currentTarget);
     if (type === "normal") {
       dispatch(setActivePopOver("editnormal"));
       seteditorvalue(content);
       setNoteTitle(heading);
-      setEditNoteCard(true)
+      setEditNoteCard(true);
     } else if (type === "mnemonic") {
       dispatch(setActivePopOver("editmnemonic"));
     }
@@ -45,7 +46,10 @@ function NoteCard({
       <div className={`notecard ${type} ${name}`}>
         <div className="notecardheading">
           <h3>{heading}</h3>
-          <IconButton className="editicon" onClick={() => handleClick(type)}>
+          <IconButton
+            className="editicon"
+            onClick={(e) => handleClick(e, type)}
+          >
             <EditIcon />
           </IconButton>
         </div>
@@ -89,7 +93,8 @@ function NoteCard({
           popoverclassname={"normalnotes"}
           popovercontent={normalcontent}
           richtext={true}
-          popoverstate={true}
+          popoverstate={anchorEl}
+          setpopoverstate={setAnchorEl}
           nextBtnDisabled={editorvalue && editorvalue.length > 0 ? false : true}
         />
       ) : activepopover === "editmnemonic" ? (

@@ -24,12 +24,12 @@ function PopoverComponent({
   value,
   setValue,
   loading,
-  editNoteCard
+  editNoteCard,setpopoverstate
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const profiledisabled = useSelector(profiledata);
-  const [anchorEl, setAnchorEl] = React.useState(popoverstate || null);
+  const [anchorEl, setAnchorEl] = React.useState(popoverstate);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -40,6 +40,7 @@ function PopoverComponent({
   };
 
   const handleClose = () => {
+    setpopoverstate(null)
     setAnchorEl(null);
     dispatch(setActivePopOver(""));
     var element = document.getElementsByClassName("ql-editor");
@@ -79,7 +80,11 @@ function PopoverComponent({
             />
           )}
           {popoverclassname === "notetitle" && (
-            <ButtonComponent buttontext={`${editNoteCard ? 'Edit' : 'Save'}`} isLoading={loading} onClick={handleSave} />
+            <ButtonComponent
+              buttontext={`${editNoteCard ? "Edit" : "Save"}`}
+              isLoading={loading}
+              onClick={handleSave}
+            />
           )}
           {btnname === "home" ? (
             <IconButton
