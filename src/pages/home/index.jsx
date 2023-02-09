@@ -39,6 +39,10 @@ const Home = () => {
   const [tabvalue, setTabValue] = React.useState(0);
   const [editNoteCard, setEditNoteCard] = useState(false)
 
+  const [textImage, setTextImage] = useState('')
+  const [textAudio, setTextAudio] = useState()
+  const [textPara, setTextPara] = useState()
+
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
   
@@ -52,7 +56,7 @@ const Home = () => {
         {...other}
       >
         {value === index && (
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 3 }} style={{height: '100%'}}>
             {children}
           </Box>
         )}
@@ -106,10 +110,18 @@ const Home = () => {
               <Tab label="Image" {...a11yProps(2)} />
             </Tabs>
           </Box>
-          <TabPanel value={tabvalue} index={0}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} className={"textsummary"}>
+          <TabPanel value={tabvalue} index={0} style={{height: '100%'}}>
+            <Grid container spacing={2} style={{height: '100%'}}>
+              <Grid item xs={12} sm={6} className={"textpara"}>
                 <h4>Add Text</h4>
+                <InputField 
+                  extraclass={"textparaInput"}
+                  type="text"
+                  name="textparaInput"
+                  value={textPara}
+                  onChange={(e) => setTextPara(e.target.value)}
+                  multiline={true}
+                />
               </Grid>
               <Grid item xs={12} sm={6} className={"textsummary"}>
                 <h1>Summary Text</h1>
@@ -117,7 +129,7 @@ const Home = () => {
             </Grid>
           </TabPanel>
           <TabPanel value={tabvalue} index={1}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} style={{height: '100%'}}>
               <Grid item xs={12} sm={6} className={"textaudio"}>
                 <h4>Add Text</h4>
               </Grid>
@@ -127,7 +139,7 @@ const Home = () => {
             </Grid>
           </TabPanel>
           <TabPanel value={tabvalue} index={2}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} style={{height: '100%'}}>
               <Grid item xs={12} sm={6} className={"textimage"}>
                 <h4>Add Text</h4>
               </Grid>
