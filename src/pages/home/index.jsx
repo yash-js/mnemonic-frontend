@@ -48,7 +48,8 @@ const Home = () => {
   const [type, setType] = useState("");
   const [tabvalue, setTabValue] = React.useState(0);
   const [editNoteCard, setEditNoteCard] = useState(false);
-
+  const [editValue, setEditValue] = useState("");
+  const [editNoteTitle, setEditNoteTitle] = useState("");
   const [textImage, setTextImage] = useState("");
   const [textAudio, setTextAudio] = useState("");
   const [textPara, setTextPara] = useState("");
@@ -142,6 +143,7 @@ const Home = () => {
               </Grid>
               <Grid item xs={12} sm={6} className={"textsummary"}>
                 <h4>Summary Text</h4>
+                <p>{para}</p>
               </Grid>
             </Grid>
           </TabPanel>
@@ -257,8 +259,6 @@ const Home = () => {
     setLoading(false);
   };
 
-  const [editValue, setEditValue] = useState("");
-  const [editNoteTitle, setEditNoteTitle] = useState("");
   const editNoteAPI = async (id) => {
     setLoading(true);
     const res = await editNote(id, {

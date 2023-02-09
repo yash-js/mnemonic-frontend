@@ -1,5 +1,6 @@
 import { mnemonic } from "./axios";
 import { Configuration, OpenAIApi } from "openai";
+const deepai = require('deepai')
 
 export const signIn = async (data) => {
   try {
@@ -219,5 +220,10 @@ export const textToAudio = async (text) => {
 }
 
 export const textToPara = async (text) => {
+  deepai.setApiKey(process.env.DEEPAI_API_KEY);
+  var resp = await deepai.callStandardApi("summarization", {
+      text: text,
+  });
   console.log(text);
+  return resp;
 }
