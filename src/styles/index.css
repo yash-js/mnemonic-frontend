@@ -625,6 +625,24 @@ p {
   align-items: flex-start;
 }
 
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textimage,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textaudio,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textpara{
+  padding: 10px 20px !important;
+}
+
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textimage h4,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textaudio h4,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textpara h4{
+  margin-bottom: 15px;
+}
+
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textimage .textimageInput,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textaudio .textaudioInput,
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textpara .textparaInput{
+  height: calc(100% - 82px);
+}
+
 .notetop .notetopcontent.notetitlebox .notetitlecontent .notedetails,
 .notetop .notetopcontent.notetitlebox .notetitlecontent .notesharing {
   width: 100%;

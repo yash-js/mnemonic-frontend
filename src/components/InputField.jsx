@@ -21,6 +21,7 @@ function InputField({
   onFocusField,
   endIcoTooltip,
   InputProps,
+  multiline,
   params,
 }) {
   const [readOnly, setReadOnly] = useState(true);
@@ -49,6 +50,7 @@ function InputField({
       disabled={disabled}
       readOnly={readOnly}
       onFocus={onFocus}
+      multiline={multiline}
       InputProps={{
         ...InputProps,
         startAdornment: starticon && (
