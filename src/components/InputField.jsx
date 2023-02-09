@@ -23,6 +23,7 @@ function InputField({
   InputProps,
   multiline,
   params,
+  defaultValue,
 }) {
   const [readOnly, setReadOnly] = useState(true);
 
@@ -37,6 +38,7 @@ function InputField({
     <TextField
       {...params}
       id="outlined-basic"
+      defaultValue={defaultValue}
       className={`textfield ${extraclass}`}
       placeholder={placeholder}
       onChange={onChange}
@@ -59,11 +61,9 @@ function InputField({
           </InputAdornment>
         ),
         endAdornment:
-          (
-            InputProps && InputProps.endAdornment
-              ? InputProps.endAdornment
-              : null
-          ) ||
+          (InputProps && InputProps.endAdornment
+            ? InputProps.endAdornment
+            : null) ||
           (endicon && (
             <InputAdornment title={endIcoTooltip} position="end">
               <img src={endicon} alt="end icon" style={endiconcss} />

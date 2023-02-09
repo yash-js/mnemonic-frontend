@@ -25,20 +25,17 @@ function NoteCard({
   setEditNoteCard,
   authorPic,
   authorUsername,
+  _id,
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
   const total = sharing && sharing.length ? sharing.length : 0;
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event, type) => {
+    setEditNoteCard(true);
     setAnchorEl(event.currentTarget);
-    if (type === "normal") {
-      dispatch(setActivePopOver("editnormal"));
-      setNoteTitle(heading);
-      setEditNoteCard(true);
-    } else if (type === "mnemonic") {
-      dispatch(setActivePopOver("editmnemonic"));
-    }
+    dispatch(setActivePopOver("editnormal"));
+    setNoteTitle(heading);
   };
 
   return (
@@ -114,7 +111,7 @@ function NoteCard({
             popoverclassname={"notetitle"}
             popovercontent={notetitlecontent}
             popoverstate={true}
-            handleRichText={noteapi}
+            handleRichText={() => noteapi(_id)}
           />
         )
       )}

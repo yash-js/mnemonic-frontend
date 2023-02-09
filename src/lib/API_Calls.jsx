@@ -177,3 +177,12 @@ export const deleteNote = async (id) => {
     return error;
   }
 };
+
+export const editNote = async (id,data) => {
+  try {
+    const resp = await mnemonic.put(`/notes/edit/${id}`,data);
+    return resp;
+  } catch (error) {
+    return error;
+  }
+};

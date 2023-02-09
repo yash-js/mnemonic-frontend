@@ -15,7 +15,12 @@ import InputField from "../../components/InputField";
 import AutoCompleteComponent from "../../components/AutoCompleteComponent";
 import Avatar from "@mui/material/Avatar";
 import NoteCard from "../../components/NoteCard";
-import { createNote, deleteNote, getNotes } from "../../lib/API_Calls";
+import {
+  createNote,
+  deleteNote,
+  editNote,
+  getNotes,
+} from "../../lib/API_Calls";
 import { useState } from "react";
 import { userdata, userData } from "../../features/userSlice";
 import NotesSkeleton from "../../skeletons/NotesSkeleton";
@@ -227,24 +232,25 @@ const Home = () => {
   };
 
   const [editValue, setEditValue] = useState("");
-
-  const editNoteAPI = async () => {
+  const [editNoteTitle, setEditNoteTitle] = useState("");
+  const editNoteAPI = async (id) => {
     setLoading(true);
-    const res = await createNote({
-      noteTitle,
-      noteContent: value,
-      noteType: "normal",
-      mentions: mentions,
+    const res = await editNote(id, {
+      noteTitle: editNoteTitle ?? "",
+      noteContent: editValue ?? "",
     });
-    if (res?.data?.savedNote) {
-      openAlert(true, "success", "Note Created Successfully");
-      setNotes([...notes, res?.data?.savedNote]);
+    if (res?.data?.message) {
+      await getNotes();
+      openAlert(true, "success", "Note Updated Successfully!");
+      setNotes(notes.filter((note) => note._id !== id));
       dispatch(
         userdata({
           ...user,
-          notes: [...notes, res?.data?.savedNote],
+          notes: notes.filter((note) => note._id !== id),
         })
       );
+    } else if (res?.response?.data?.error) {
+      openAlert(true, "error", res?.response?.data?.error);
     } else {
       openAlert(true, "error", "Something Went Wrong!");
     }
@@ -312,7 +318,8 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     if (user && user?.notes) {
-      setNotes(user?.notes);
+      console.log(user?.notes.filter((note) => note?.author?._id !== user?.id));
+      setNotes(user?.notes.filter((note) => note?.author?._id === user?.id));
     }
     setLoading(false);
     return () => user && user?.notes && setNotes(user?.notes);
@@ -367,9 +374,41 @@ const Home = () => {
                       </div>,
                     ]}
                     mnemoniccontent={popovermnemoniccontent}
-                    notetitlecontent={popovernotetitlecontent}
+                    notetitlecontent={
+                      <div className="notetopcontent notetitlebox">
+                        <div className="notetitleheading">
+                          <h3>Note Settings</h3>
+                        </div>
+                        <div className="notetitlecontent">
+                          <Grid container spacing={2}>
+                            <Grid item xs={12} className={"notedetails"}>
+                              <h4>Note Details</h4>
+                              <InputField
+                                defaultValue={item?.noteTitle}
+                                extraclass={"signupInput"}
+                                type="text"
+                                label="Note Title"
+                                name="noteTitle"
+                                defaultValut
+                                onChange={(e) =>
+                                  setEditNoteTitle(e.target.value)
+                                }
+                                error={error && error.field === "noteTitle"}
+                                errorText={
+                                  error &&
+                                  error.field === "noteTitle" &&
+                                  error.error
+                                }
+                                onFocusField={onFocusField}
+                              />
+                            </Grid>
+                          </Grid>
+                        </div>
+                      </div>
+                    }
+                    _id={item?._id}
                     editorvalue={editValue}
-                    noteapi={createNoteAPI}
+                    noteapi={editNoteAPI}
                     seteditorvalue={setEditValue}
                     setNoteTitle={setNoteTitle}
                     setEditNoteCard={setEditNoteCard}
