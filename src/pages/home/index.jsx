@@ -393,7 +393,6 @@ const Home = () => {
                   lg={3}
                   index={index}
                 >
-                  {console.log(item)}
                   <NoteCard
                     name={"home"}
                     heading={item?.noteTitle}
@@ -421,14 +420,23 @@ const Home = () => {
                     ]}
                     mnemoniccontent={
                       <>
-                        {item?.type === "mnemonic" && item?.summary ? (
+                        {item?.noteType === "mnemonic" && item?.summary ? (
                           <div className="notetopcontent mnemonicnotebox">
                             <div className="mnemonicnotesheading">
                               <h3>Mnemonic Notes</h3>
                             </div>
                             <div className="mnemonicnotescontent">
-                              <Grid container spacing={2} style={{ height: "100%" }}>
-                                <Grid item xs={12} sm={6} className={"textpara"}>
+                              <Grid
+                                container
+                                spacing={2}
+                                style={{ height: "100%" }}
+                              >
+                                <Grid
+                                  item
+                                  xs={12}
+                                  sm={6}
+                                  className={"textpara"}
+                                >
                                   <h4>Text Summary</h4>
                                   <InputField
                                     disabled={true}
@@ -438,45 +446,63 @@ const Home = () => {
                                     value={item?.noteContent}
                                   />
                                 </Grid>
-                                <Grid item xs={12} sm={6} className={"textsummary"}>
+                                <Grid
+                                  item
+                                  xs={12}
+                                  sm={6}
+                                  className={"textsummary"}
+                                >
                                   <h4>Summarized Text</h4>
                                   <p>{item?.summary}</p>
                                 </Grid>
                               </Grid>
                             </div>
                           </div>
-                        ) : item?.type === "mnemonic" &&
+                        ) : item?.noteType === "mnemonic" &&
                           item?.noteContent &&
                           !item?.summary &&
                           !item?.image ? (
-                            <div className="notetopcontent mnemonicnotebox">
-                              <div className="mnemonicnotesheading">
-                                <h3>Mnemonic Notes</h3>
-                              </div>
-                              <div className="mnemonicnotescontent">
-                                <Grid container spacing={2} style={{ height: "100%" }}>
-                                  <Grid item xs={12} className={"textaudio"}>
-                                    <h4>Add Text</h4>
-                                    <InputField
-                                      disabled={true}
-                                      extraclass={"textaudioInput"}
-                                      type="text"
-                                      name="textaudioInput"
-                                      value={item?.noteContent}
-                                      multiline={true}
-                                    />
-                                  </Grid>
-                                </Grid>
-                              </div>
+                          <div className="notetopcontent mnemonicnotebox">
+                            <div className="mnemonicnotesheading">
+                              <h3>Mnemonic Notes</h3>
                             </div>
+                            <div className="mnemonicnotescontent">
+                              <Grid
+                                container
+                                spacing={2}
+                                style={{ height: "100%" }}
+                              >
+                                <Grid item xs={12} className={"textaudio"}>
+                                  <h4>Add Text</h4>
+                                  <InputField
+                                    disabled={true}
+                                    extraclass={"textaudioInput"}
+                                    type="text"
+                                    name="textaudioInput"
+                                    value={item?.noteContent}
+                                    multiline={true}
+                                  />
+                                </Grid>
+                              </Grid>
+                            </div>
+                          </div>
                         ) : (
                           <div className="notetopcontent mnemonicnotebox">
                             <div className="mnemonicnotesheading">
                               <h3>Mnemonic Notes</h3>
                             </div>
                             <div className="mnemonicnotescontent">
-                              <Grid container spacing={2} style={{ height: "100%" }}>
-                                <Grid item xs={12} sm={6} className={"textimage"}>
+                              <Grid
+                                container
+                                spacing={2}
+                                style={{ height: "100%" }}
+                              >
+                                <Grid
+                                  item
+                                  xs={12}
+                                  sm={6}
+                                  className={"textimage"}
+                                >
                                   <h4>Image Text</h4>
                                   <InputField
                                     disabled={true}
@@ -486,7 +512,12 @@ const Home = () => {
                                     value={item?.noteContent}
                                   />
                                 </Grid>
-                                <Grid item xs={12} sm={6} className={"textimage"}>
+                                <Grid
+                                  item
+                                  xs={12}
+                                  sm={6}
+                                  className={"textimage"}
+                                >
                                   <h4>Image</h4>
                                   <div className="imgbox">
                                     <img
