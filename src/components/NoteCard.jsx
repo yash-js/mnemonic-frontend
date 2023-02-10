@@ -33,8 +33,10 @@ function NoteCard({
   const [noteTitleAnchor, setNoteTitleAnchor] = useState(null);
 
   const handleClick = (event, type) => {
-    if (setEditNoteCard) setEditNoteCard(true);
     setAnchorEl(event.currentTarget);
+    if (setEditNoteCard){
+      setEditNoteCard(true);
+    }
     dispatch(setActivePopOver("editnormal"));
     setNoteTitle(heading);
   };

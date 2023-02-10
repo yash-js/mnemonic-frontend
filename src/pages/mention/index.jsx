@@ -64,7 +64,19 @@ function Mention() {
                   content={item?.noteContent}
                   date={item?.notedOn}
                   type={item?.noteType}
-                  normalcontent={popovernormalcontent}
+                  normalcontent={
+                    <div className="notetopcontent normalnotebox">
+                      <div className="normalnotesheading">
+                        <h3>Normal Notes</h3>
+                      </div>
+                      <div className="normalnotescontent">
+                        <ReadonlyEditor
+                          setValue={setValue}
+                          value={item?.noteContent}
+                        />
+                      </div>
+                    </div>
+                  }
                   mnemoniccontent={popovermnemoniccontent}
                   editorvalue={value}
                   seteditorvalue={setValue}
