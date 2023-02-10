@@ -59,8 +59,9 @@ function PopoverComponent({
       setValue("");
     }else if (setEditData) {
       setEditData({});
+    }else if (setEditNoteCard){
+      setEditNoteCard(false);
     }
-    setEditNoteCard(false);
   };
 
   const handleSave = async () => {

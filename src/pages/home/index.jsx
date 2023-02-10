@@ -97,6 +97,9 @@ const Home = () => {
     } else if (type === "mnemonic") {
       dispatch(setActivePopOver("mnemonic"));
       setHomeDisabled(true);
+      setTextImage("");
+      setTextAudio("");
+      setTextPara("");
     }
   };
 
@@ -248,7 +251,6 @@ const Home = () => {
     const res = await createNote({
       noteTitle,
       noteContent: value,
-      noteType: "normal",
       mentions: mentions,
       image: image,
       summary: para,
@@ -479,7 +481,7 @@ const Home = () => {
             <PopoverComponent
               textvalue={
                 tabvalue === 0
-                  ? textImage
+                  ? textPara
                   : tabvalue === 1
                   ? textAudio
                   : tabvalue === 2 && textImage
