@@ -231,6 +231,7 @@ const Home = () => {
   ];
 
   const [noteTitleAnchor, setNoteTitleAnchor] = useState(null);
+
   const handleNext = (event) => {
     setNoteTitleAnchor(event.currentTarget);
     dispatch(setActivePopOver("notetitle"));
@@ -501,6 +502,7 @@ const Home = () => {
               popoverstate={true}
               setLoading={setLoading}
               loading={loading}
+              handleNext={handleNext}
             />
           ) : activepopover === "notetitle" ? (
             <PopoverComponent
