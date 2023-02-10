@@ -29,11 +29,12 @@ function Login() {
   };
 
   const handleClick = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setLoading(true);
     const res = await signIn({ username, password });
     if (res?.status === 200 && res?.data && res?.data?.user) {
       navigate("/");
+      localStorage.setItem("authToken", res?.data?.user?.token);
       dispatch(login(res?.data?.user));
       setLoading(false);
     } else {
