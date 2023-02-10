@@ -33,25 +33,6 @@ const Searchbar = () => {
     setSent,
   } = useFriends();
 
-  const btnText = () => {
-    if (
-      results &&
-      results.length > 0 &&
-      results.filter((res) => sent.filter((s) => s._id === res._id)).length > 0
-    ) {
-      return "Requested";
-    } else if (
-      results &&
-      results.length > 0 &&
-      results.filter((res) => friend.filter((f) => f._id === res._id)).length >
-        0
-    ) {
-      return undefined;
-    } else {
-      return "Add";
-    }
-  };
-
   const getOptions = async () => {
     const res = await mnemonic.get("/user/all");
     if (res?.data?.result.length > 0) {
@@ -59,21 +40,15 @@ const Searchbar = () => {
         return u?._id === user?.id;
       });
     }
-    setResults(res?.data?.result);
+    setResults(res?.data?.result.filter((res) => res._id !== user.id));
     setLoading(false);
   };
-
-  useEffect(() => {
-    console.log("results", results);
-    console.log(friend && friend.map((f) => f._id));
-    console.log("res", results && results.map((f) => f._id));
-  }, [results]);
 
   useEffect(() => {
     setLoading(true);
     setFriend(user?.friends);
     setSent(user?.sentRequests);
-    setResults(user?.requests);
+    setRequest(user?.requests);
     return async () => await getOptions();
   }, []);
   return (
