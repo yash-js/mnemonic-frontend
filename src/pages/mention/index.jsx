@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import NoteCard from "../../components/NoteCard";
 import RichTextEditor from "../../components/RichTextEditor";
 import NotesSkeleton from "../../skeletons/NotesSkeleton";
+import ReadonlyEditor from "../../components/ReadonlyEditor";
 
 function Mention() {
   const user = useSelector(userData);
@@ -30,7 +31,7 @@ function Mention() {
         <h3>Normal Notes</h3>
       </div>
       <div className="normalnotescontent">
-        <RichTextEditor setValue={setValue} initialValue={value} />
+        <ReadonlyEditor setValue={setValue} initialValue={value} />
       </div>
     </div>,
   ];

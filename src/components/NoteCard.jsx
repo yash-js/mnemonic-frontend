@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import TooltipComponent from "./TooltipComponent";
 import PopoverComponent from "./PopoverComponent";
 import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
-import { Delete } from "@mui/icons-material";
+import { Delete, OpenInNew } from "@mui/icons-material";
 
 function NoteCard({
   name,
@@ -20,7 +20,6 @@ function NoteCard({
   notetitlecontent,
   editorvalue,
   noteapi,
-  seteditorvalue,
   setNoteTitle,
   setEditNoteCard,
   authorPic,
@@ -33,7 +32,7 @@ function NoteCard({
   const [anchorEl, setAnchorEl] = useState(null);
   const [noteTitleAnchor, setNoteTitleAnchor] = useState(null);
   const handleClick = (event, type) => {
-    setEditNoteCard(true);
+    if (setEditNoteCard) setEditNoteCard(true);
     setAnchorEl(event.currentTarget);
     dispatch(setActivePopOver("editnormal"));
     setNoteTitle(heading);
@@ -47,8 +46,17 @@ function NoteCard({
       <div className={`notecard ${type} ${name}`}>
         <div className="notecardheading">
           <h3>{heading}</h3>
-          {name !== "share" && name !== "mention" && (
+          {name === "share" || name === "mention" ? (
             <IconButton
+              title="Open"
+              className="editicon"
+              onClick={(e) => handleClick(e, type)}
+            >
+              <OpenInNew />
+            </IconButton>
+          ) : (
+            <IconButton
+              title="Edit"
               className="editicon"
               onClick={(e) => handleClick(e, type)}
             >
@@ -105,7 +113,7 @@ function NoteCard({
               : true
           }
           handleNext={handleNext}
-          />
+        />
       ) : activepopover === "editmnemonic" ? (
         <PopoverComponent
           popoverclassname={"mnemonicnotes"}

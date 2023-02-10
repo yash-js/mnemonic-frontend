@@ -5,6 +5,7 @@ import RichTextEditor from "../../components/RichTextEditor";
 import { useDispatch, useSelector } from "react-redux";
 import { userData } from "../../features/userSlice";
 import NotesSkeleton from "../../skeletons/NotesSkeleton";
+import ReadonlyEditor from "../../components/ReadonlyEditor";
 
 function Share() {
   const [notes, setNotes] = useState([]);
@@ -21,17 +22,6 @@ function Share() {
     setLoading(false);
     return () => (document.title = "Share");
   }, []);
-
-  const popovernormalcontent = [
-    <div className="notetopcontent normalnotebox">
-      <div className="normalnotesheading">
-        <h3>Normal Notes</h3>
-      </div>
-      <div className="normalnotescontent">
-        <RichTextEditor setValue={setValue} initialValue={value} />
-      </div>
-    </div>,
-  ];
 
   const popovermnemoniccontent = [
     <div className="notetopcontent mnemonicnotebox">
@@ -60,10 +50,20 @@ function Share() {
                   date={item?.notedOn}
                   sharing={item?.mentions}
                   type={item?.noteType}
-                  normalcontent={popovernormalcontent}
+                  normalcontent={
+                    <div className="notetopcontent normalnotebox">
+                      <div className="normalnotesheading">
+                        <h3>Normal Notes</h3>
+                      </div>
+                      <div className="normalnotescontent">
+                        <ReadonlyEditor
+                          setValue={setValue}
+                          value={item?.noteContent}
+                        />
+                      </div>
+                    </div>
+                  }
                   mnemoniccontent={popovermnemoniccontent}
-                  editorvalue={value}
-                  seteditorvalue={setValue}
                 />
               </Grid>
             ))
