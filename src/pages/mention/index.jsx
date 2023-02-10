@@ -37,17 +37,6 @@ function Mention() {
     </div>,
   ];
 
-  const popovermnemoniccontent = [
-    <div className="notetopcontent mnemonicnotebox">
-      <div className="mnemonicnotesheading">
-        <h3>Mnemonic Notes</h3>
-      </div>
-      <div className="mnemonicnotescontent">
-        <h1>Mnemonic Notes</h1>
-      </div>
-    </div>,
-  ];
-
   return (
     <div className="mention">
       <div className="mentioncontent">
@@ -81,62 +70,83 @@ function Mention() {
                   mnemoniccontent={
                     <>
                       {item?.type === "mnemonic" && item?.summary ? (
-                        <Grid container spacing={2} style={{ height: "100%" }}>
-                          <Grid item xs={12} sm={6} className={"textpara"}>
-                            <h4>Text Summary</h4>
-                            <InputField
-                              disabled={true}
-                              extraclass={"textparaInput"}
-                              type="text"
-                              name="textparaInput"
-                              value={item?.noteContent}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6} className={"textsummary"}>
-                            <h4>Summarized Text</h4>
-                            <p>{item?.summary}</p>
-                          </Grid>
-                        </Grid>
+                        <div className="notetopcontent mnemonicnotebox">
+                          <div className="mnemonicnotesheading">
+                            <h3>Mnemonic Notes</h3>
+                          </div>
+                          <div className="mnemonicnotescontent">
+                            <Grid container spacing={2} style={{ height: "100%" }}>
+                              <Grid item xs={12} sm={6} className={"textpara"}>
+                                <h4>Text Summary</h4>
+                                <InputField
+                                  disabled={true}
+                                  extraclass={"textparaInput"}
+                                  type="text"
+                                  name="textparaInput"
+                                  value={item?.noteContent}
+                                />
+                              </Grid>
+                              <Grid item xs={12} sm={6} className={"textsummary"}>
+                                <h4>Summarized Text</h4>
+                                <p>{item?.summary}</p>
+                              </Grid>
+                            </Grid>
+                          </div>
+                        </div>
                       ) : item?.type === "mnemonic" &&
                         item?.noteContent &&
                         !item?.summary &&
                         !item?.image ? (
-                        <Grid container spacing={2} style={{ height: "100%" }}>
-                          <Grid item xs={12} className={"textaudio"}>
-                            <h4>Add Text</h4>
-                            <InputField
-                              disabled={true}
-                              extraclass={"textaudioInput"}
-                              type="text"
-                              name="textaudioInput"
-                              value={item?.noteContent}
-                              multiline={true}
-                            />
-                          </Grid>
-                        </Grid>
-                      ) : (
-                        <Grid container spacing={2} style={{ height: "100%" }}>
-                          <Grid item xs={12} sm={6} className={"textimage"}>
-                            <h4>Image Text</h4>
-                            <InputField
-                              disabled={true}
-                              extraclass={"textimageInput"}
-                              type="text"
-                              name="textimageInput"
-                              value={item?.noteContent}
-                            />
-                          </Grid>
-                          <Grid item xs={12} sm={6} className={"textimage"}>
-                            <h4>Image </h4>
-                            <div>
-                              <img
-                                className="w-full h-auto object-cover rounded-xl"
-                                src={item?.image}
-                                alt={item?.noteContent}
-                              />
+                          <div className="notetopcontent mnemonicnotebox">
+                            <div className="mnemonicnotesheading">
+                              <h3>Mnemonic Notes</h3>
                             </div>
-                          </Grid>
-                        </Grid>
+                            <div className="mnemonicnotescontent">
+                              <Grid container spacing={2} style={{ height: "100%" }}>
+                                <Grid item xs={12} className={"textaudio"}>
+                                  <h4>Add Text</h4>
+                                  <InputField
+                                    disabled={true}
+                                    extraclass={"textaudioInput"}
+                                    type="text"
+                                    name="textaudioInput"
+                                    value={item?.noteContent}
+                                    multiline={true}
+                                  />
+                                </Grid>
+                              </Grid>
+                            </div>
+                          </div>
+                      ) : (
+                        <div className="notetopcontent mnemonicnotebox">
+                          <div className="mnemonicnotesheading">
+                            <h3>Mnemonic Notes</h3>
+                          </div>
+                          <div className="mnemonicnotescontent">
+                            <Grid container spacing={2} style={{ height: "100%" }}>
+                              <Grid item xs={12} sm={6} className={"textimage"}>
+                                <h4>Image Text</h4>
+                                <InputField
+                                  disabled={true}
+                                  extraclass={"textimageInput"}
+                                  type="text"
+                                  name="textimageInput"
+                                  value={item?.noteContent}
+                                />
+                              </Grid>
+                              <Grid item xs={12} sm={6} className={"textimage"}>
+                                <h4>Image </h4>
+                                <div className="imgbox">
+                                  <img
+                                    className="w-full h-auto object-cover rounded-xl"
+                                    src={item?.image}
+                                    alt={item?.noteContent}
+                                  />
+                                </div>
+                              </Grid>
+                            </Grid>
+                          </div>
+                        </div>
                       )}
                     </>
                   }

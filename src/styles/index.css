@@ -637,6 +637,20 @@ p {
   margin-bottom: 15px;
 }
 
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textimage .imgbox{
+  width: 100%;
+  height: 95%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textimage img{
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
 .notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textimage .textimageInput,
 .notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textaudio .textaudioInput,
 .notetop .notetopcontent.mnemonicnotebox .mnemonicnotescontent .textpara .textparaInput{
