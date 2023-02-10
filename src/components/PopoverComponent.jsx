@@ -103,11 +103,10 @@ function PopoverComponent({
               <ButtonComponent
                 buttontext="Next"
                 onClick={handleNext}
-                disabled={nextBtnDisabled}
+                disabled={nextBtnDisabled || !textvalue || loading}
                 customButtonStyle={{
                   display: name === "share" ? "none" : "flex",
                 }}
-                disabled={!textvalue || loading}
               />
             </>
           )}
