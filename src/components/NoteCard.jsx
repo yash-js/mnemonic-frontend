@@ -34,10 +34,14 @@ function NoteCard({
 
   const handleClick = (event, type) => {
     setAnchorEl(event.currentTarget);
-    if (setEditNoteCard){
+    if (setEditNoteCard) {
       setEditNoteCard(true);
     }
-    dispatch(setActivePopOver("editnormal"));
+    if (type === "normal") {
+      dispatch(setActivePopOver("editnormal"));
+    } else {
+      dispatch(setActivePopOver("editmnemonic"));
+    }
     setNoteTitle(heading);
   };
 

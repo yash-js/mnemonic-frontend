@@ -254,7 +254,12 @@ const Home = () => {
       mentions: mentions,
       image: image,
       summary: para,
-      mnemoniccontent: tabvalue === 0 ? textImage : tabvalue === 1 ? textAudio : tabvalue === 2 && textImage,
+      mnemoniccontent:
+        tabvalue === 0
+          ? textImage
+          : tabvalue === 1
+          ? textAudio
+          : tabvalue === 2 && textImage,
     });
     if (res?.data?.savedNote) {
       openAlert(true, "success", "Note Created Successfully");
@@ -387,6 +392,7 @@ const Home = () => {
                   lg={3}
                   index={index}
                 >
+                  {console.log(item)}
                   <NoteCard
                     name={"home"}
                     heading={item?.noteTitle}
@@ -412,7 +418,80 @@ const Home = () => {
                         </div>
                       </div>,
                     ]}
-                    mnemoniccontent={popovermnemoniccontent}
+                    mnemoniccontent={
+                      <>
+                        {item?.type === "mnemonic" && item?.summary ? (
+                          <Grid
+                            container
+                            spacing={2}
+                            style={{ height: "100%" }}
+                          >
+                            <Grid item xs={12} sm={6} className={"textpara"}>
+                              <h4>Text Summary</h4>
+                              <InputField
+                                disabled={true}
+                                extraclass={"textparaInput"}
+                                type="text"
+                                name="textparaInput"
+                                value={item?.noteContent}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6} className={"textsummary"}>
+                              <h4>Summarized Text</h4>
+                              <p>{item?.summary}</p>
+                            </Grid>
+                          </Grid>
+                        ) : item?.type === "mnemonic" &&
+                          item?.noteContent &&
+                          !item?.summary &&
+                          !item?.image ? (
+                          <Grid
+                            container
+                            spacing={2}
+                            style={{ height: "100%" }}
+                          >
+                            <Grid item xs={12} className={"textaudio"}>
+                              <h4>Add Text</h4>
+                              <InputField
+                                disabled={true}
+                                extraclass={"textaudioInput"}
+                                type="text"
+                                name="textaudioInput"
+                                value={item?.noteContent}
+                                multiline={true}
+                              />
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid
+                            container
+                            spacing={2}
+                            style={{ height: "100%" }}
+                          >
+                            <Grid item xs={12} sm={6} className={"textimage"}>
+                              <h4>Image Text</h4>
+                              <InputField
+                                disabled={true}
+                                extraclass={"textimageInput"}
+                                type="text"
+                                name="textimageInput"
+                                value={item?.noteContent}
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6} className={"textimage"}>
+                              <h4>Image </h4>
+                              <div>
+                                <img
+                                  className="w-full h-auto object-cover rounded-xl"
+                                  src={item?.image}
+                                  alt={item?.noteContent}
+                                />
+                              </div>
+                            </Grid>
+                          </Grid>
+                        )}
+                      </>
+                    }
                     notetitlecontent={
                       <div className="notetopcontent notetitlebox">
                         <div className="notetitleheading">
