@@ -93,9 +93,6 @@ function Login() {
                   extraclass={"signinInput"}
                   disabled={isLoading}
                 />
-                <p className="forgetbtn">
-                  <NavLink to="/signup">Forgot your password?</NavLink>
-                </p>
                 <ButtonComponent
                   onClick={handleClick}
                   type={"submit"}
