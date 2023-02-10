@@ -87,6 +87,9 @@ function PopoverComponent({
         <div className="noteclosebtn">
           {popoverclassname === "mnemonicnotes" && (
             <>
+              {
+
+              }
               <ButtonComponent
                 color={"secondary"}
                 buttontext={`${
@@ -96,7 +99,7 @@ function PopoverComponent({
                     ? "Speak"
                     : "Generate"
                 }`}
-                onClick={name === "share" && genrateName === "Audio" ? handleEditGenerate : handleGenerate}
+                onClick={genrateName === "Audio" ? handleEditGenerate : handleGenerate}
                 customButtonStyle={{
                   display: name === "share" ? genrateName === "Audio" ? "flex" : "none" : "flex",
                 }}

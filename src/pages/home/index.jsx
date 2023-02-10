@@ -146,7 +146,7 @@ const Home = () => {
                   multiline={true}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} className={"textsummary"}>
+              <Grid item xs={12} sm={6} className={"textpara"}>
                 <h4>Summary Text</h4>
                 <p>{para}</p>
               </Grid>
