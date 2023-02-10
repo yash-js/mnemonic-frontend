@@ -100,6 +100,7 @@ const Home = () => {
       setTextImage("");
       setTextAudio("");
       setTextPara("");
+      setPara("");
     }
   };
 
@@ -256,7 +257,7 @@ const Home = () => {
       summary: para,
       mnemoniccontent:
         tabvalue === 0
-          ? textImage
+          ? textPara
           : tabvalue === 1
           ? textAudio
           : tabvalue === 2 && textImage,
