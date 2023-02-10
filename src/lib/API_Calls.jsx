@@ -1,6 +1,6 @@
 import { mnemonic } from "./axios";
 import { Configuration, OpenAIApi } from "openai";
-const deepai = require('deepai')
+const deepai = require("deepai");
 
 export const signIn = async (data) => {
   try {
@@ -180,9 +180,9 @@ export const deleteNote = async (id) => {
   }
 };
 
-export const editNote = async (id,data) => {
+export const editNote = async (id, data) => {
   try {
-    const resp = await mnemonic.put(`/notes/edit/${id}`,data);
+    const resp = await mnemonic.put(`/notes/edit/${id}`, data);
     return resp;
   } catch (error) {
     return error;
@@ -191,39 +191,30 @@ export const editNote = async (id,data) => {
 
 export const textToImage = async (text) => {
 
-  const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-  
-  const openai = new OpenAIApi(configuration);
-
-  try{
-    const { prompt } = text;
+  try {
     const aiResponse = await openai.createImage({
-        prompt,
-        n: 1,
-        size: '1024x1024',
-        response_format: 'b64_json',
-    })
+      prompt:text,
+      n: 1,
+      size: "1024x1024",
+      response_format: "b64_json",
+    });
     const image = aiResponse.data.data[0].b64_json;
     return image;
-  } catch (error){
-      console.log(error);
+  } catch (error) {
+    console.log(error);
   }
-}
+};
 
 export const textToAudio = async (text) => {
-  const msg = new SpeechSynthesisUtterance()
-  msg.text = text
-  window.speechSynthesis.speak(msg)
-  console.log(text);
-}
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  window.speechSynthesis.speak(msg);
+};
 
 export const textToPara = async (text) => {
-  deepai.setApiKey(process.env.DEEPAI_API_KEY);
+  await deepai.setApiKey(process.env.REACT_APP_DEEP_API_KEY);
   var resp = await deepai.callStandardApi("summarization", {
-      text: text,
+    text: text,
   });
-  console.log(text);
   return resp;
-}
+};
