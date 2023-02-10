@@ -151,15 +151,15 @@ const Home = () => {
           <TabPanel value={tabvalue} index={1}>
             <Grid container spacing={2} style={{ height: "100%" }}>
               <Grid item xs={12} className={"textaudio"}>
-              <h4>Add Text</h4>
-              <InputField
-                extraclass={"textaudioInput"}
-                type="text"
-                name="textaudioInput"
-                value={textAudio}
-                onChange={(e) => setTextAudio(e.target.value)}
-                multiline={true}
-              />
+                <h4>Add Text</h4>
+                <InputField
+                  extraclass={"textaudioInput"}
+                  type="text"
+                  name="textaudioInput"
+                  value={textAudio}
+                  onChange={(e) => setTextAudio(e.target.value)}
+                  multiline={true}
+                />
               </Grid>
             </Grid>
           </TabPanel>
@@ -190,7 +190,7 @@ const Home = () => {
           </TabPanel>
         </Box>
       </div>
-    </div>
+    </div>,
   ];
 
   const popovernotetitlecontent = [
@@ -229,6 +229,12 @@ const Home = () => {
       </div>
     </div>,
   ];
+
+  const [noteTitleAnchor, setNoteTitleAnchor] = useState(null);
+  const handleNext = (event) => {
+    setNoteTitleAnchor(event.currentTarget);
+    dispatch(setActivePopOver("notetitle"));
+  };
 
   const openAlert = (open, type, message) => {
     setOpen(open);
@@ -462,6 +468,7 @@ const Home = () => {
               richtext={true}
               popoverstate={true}
               nextBtnDisabled={value && value.length > 0 ? false : true}
+              handleNext={handleNext}
             />
           ) : activepopover === "mnemonic" ? (
             <PopoverComponent
@@ -494,14 +501,14 @@ const Home = () => {
               popoverstate={true}
               setLoading={setLoading}
               loading={loading}
-              />
+            />
           ) : activepopover === "notetitle" ? (
             <PopoverComponent
               handleRichText={editNoteCard ? editNoteAPI : createNoteAPI}
               loading={loading}
               popoverclassname={"notetitle"}
               popovercontent={popovernotetitlecontent}
-              popoverstate={true}
+              popoverstate={noteTitleAnchor}
               editNoteCard={editNoteCard}
             />
           ) : (

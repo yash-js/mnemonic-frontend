@@ -31,27 +31,30 @@ function NoteCard({
   const activepopover = useSelector(getActivePopOver);
   const total = sharing && sharing.length ? sharing.length : 0;
   const [anchorEl, setAnchorEl] = useState(null);
+  const [noteTitleAnchor, setNoteTitleAnchor] = useState(null);
   const handleClick = (event, type) => {
     setEditNoteCard(true);
     setAnchorEl(event.currentTarget);
     dispatch(setActivePopOver("editnormal"));
     setNoteTitle(heading);
   };
-
+  const handleNext = (event) => {
+    setNoteTitleAnchor(event.currentTarget);
+    dispatch(setActivePopOver("notetitle"));
+  };
   return (
     <>
       <div className={`notecard ${type} ${name}`}>
         <div className="notecardheading">
           <h3>{heading}</h3>
-          {name !== "share" &&
-            (name !== "mention" && (
-              <IconButton
-                className="editicon"
-                onClick={(e) => handleClick(e, type)}
-              >
-                <EditIcon />
-              </IconButton>
-            ))}
+          {name !== "share" && name !== "mention" && (
+            <IconButton
+              className="editicon"
+              onClick={(e) => handleClick(e, type)}
+            >
+              <EditIcon />
+            </IconButton>
+          )}
         </div>
         <div className="notecardcontent">
           <p>
@@ -101,7 +104,8 @@ function NoteCard({
               ? false
               : true
           }
-        />
+          handleNext={handleNext}
+          />
       ) : activepopover === "editmnemonic" ? (
         <PopoverComponent
           popoverclassname={"mnemonicnotes"}
@@ -113,7 +117,7 @@ function NoteCard({
           <PopoverComponent
             popoverclassname={"notetitle"}
             popovercontent={notetitlecontent}
-            popoverstate={true}
+            popoverstate={noteTitleAnchor}
             handleRichText={() => noteapi(_id)}
           />
         )
