@@ -250,6 +250,9 @@ const Home = () => {
       noteContent: value,
       noteType: "normal",
       mentions: mentions,
+      image: image,
+      summary: para,
+      mnemoniccontent: tabvalue === 0 ? textImage : tabvalue === 1 ? textAudio : tabvalue === 2 && textImage,
     });
     if (res?.data?.savedNote) {
       openAlert(true, "success", "Note Created Successfully");
@@ -470,6 +473,7 @@ const Home = () => {
               popoverstate={true}
               nextBtnDisabled={value && value.length > 0 ? false : true}
               handleNext={handleNext}
+              setEditNoteCard={setEditNoteCard}
             />
           ) : activepopover === "mnemonic" ? (
             <PopoverComponent
@@ -503,6 +507,7 @@ const Home = () => {
               setLoading={setLoading}
               loading={loading}
               handleNext={handleNext}
+              setEditNoteCard={setEditNoteCard}
             />
           ) : activepopover === "notetitle" ? (
             <PopoverComponent
@@ -512,6 +517,7 @@ const Home = () => {
               popovercontent={popovernotetitlecontent}
               popoverstate={noteTitleAnchor}
               editNoteCard={editNoteCard}
+              setEditNoteCard={setEditNoteCard}
             />
           ) : (
             <PopoverComponent
@@ -519,6 +525,7 @@ const Home = () => {
               popoverclassname={"homecontentpopover"}
               popovercontent={popovercontent}
               popoverstate={homedisabled ? true : false}
+              setEditNoteCard={setEditNoteCard}
             />
           )}
         </div>

@@ -32,6 +32,7 @@ function PopoverComponent({
   apiCall,
   setLoading,
   handleNext,
+  setEditNoteCard
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -47,19 +48,19 @@ function PopoverComponent({
   };
 
   const handleClose = () => {
-    if (setpopoverstate) setpopoverstate(null);
-    setAnchorEl(null);
-    dispatch(setActivePopOver(""));
     var element = document.getElementsByClassName("ql-editor");
-    if (element && element.length > 0) {
+    dispatch(setActivePopOver(""));
+    setAnchorEl(null);
+    if (setpopoverstate){
+      setpopoverstate(null);
+    }else if (element && element.length > 0) {
       element[0].innerHTML = "";
-    }
-    if (value) {
+    }else if (value) {
       setValue("");
-    }
-    if (setEditData) {
+    }else if (setEditData) {
       setEditData({});
     }
+    setEditNoteCard(false);
   };
 
   const handleSave = async () => {
