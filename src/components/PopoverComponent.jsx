@@ -70,20 +70,26 @@ function PopoverComponent({
   };
 
   const handleGenerate = async () => {
-    const image = await apiCall(textvalue);
-    setGenratedValue(image);
-  }
+    const data = await apiCall(textvalue);
+    setGenratedValue(data);
+  };
 
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notetop">{popovercontent}</div>
       <div className="notebottom">
         <div className="noteclosebtn">
-          {popoverclassname === 'mnemonicnotes' && (
+          {popoverclassname === "mnemonicnotes" && (
             <>
               <ButtonComponent
                 color={"secondary"}
-                buttontext={`${genrateName === 'Paragraph' ? 'Summarize' : genrateName === 'Audio' ? 'Speak' : 'Generate'}`}
+                buttontext={`${
+                  genrateName === "Paragraph"
+                    ? "Summarize"
+                    : genrateName === "Audio"
+                    ? "Speak"
+                    : "Generate"
+                }`}
                 onClick={handleGenerate}
                 customButtonStyle={{
                   display: name === "share" ? "none" : "flex",
@@ -99,7 +105,7 @@ function PopoverComponent({
               />
             </>
           )}
-          {popoverclassname === 'normalnotes' && (
+          {popoverclassname === "normalnotes" && (
             <ButtonComponent
               buttontext="Next"
               onClick={handleNext}

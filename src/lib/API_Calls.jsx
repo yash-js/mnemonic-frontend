@@ -1,6 +1,4 @@
 import { mnemonic } from "./axios";
-import { Configuration, OpenAIApi } from "openai";
-const deepai = require("deepai");
 
 export const signIn = async (data) => {
   try {
@@ -188,18 +186,11 @@ export const editNote = async (id, data) => {
     return error;
   }
 };
-
+  
 export const textToImage = async (text) => {
-
   try {
-    const aiResponse = await openai.createImage({
-      prompt:text,
-      n: 1,
-      size: "1024x1024",
-      response_format: "b64_json",
-    });
-    const image = aiResponse.data.data[0].b64_json;
-    return image;
+    const resp = await mnemonic.get(`/notes/gen/${text}`);
+    return resp.data.image;
   } catch (error) {
     console.log(error);
   }
@@ -211,10 +202,11 @@ export const textToAudio = async (text) => {
   window.speechSynthesis.speak(msg);
 };
 
-export const textToPara = async (text) => {
-  await deepai.setApiKey(process.env.REACT_APP_DEEP_API_KEY);
-  var resp = await deepai.callStandardApi("summarization", {
-    text: text,
-  });
-  return resp;
+export const textToPara = async (text) => { 
+  try {
+    const resp = await mnemonic.get(`/notes/summarize/${text}`);
+    return resp.data.text;
+  } catch (error) {
+    return error;
+  }
 };
