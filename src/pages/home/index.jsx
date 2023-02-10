@@ -424,6 +424,11 @@ const Home = () => {
                           <div className="notetopcontent mnemonicnotebox">
                             <div className="mnemonicnotesheading">
                               <h3>Mnemonic Notes</h3>
+                              <IconButton>
+                                <Delete
+                                  onClick={() => deleteNoteApiCall(item._id)}
+                                />
+                              </IconButton>{" "}
                             </div>
                             <div className="mnemonicnotescontent">
                               <Grid

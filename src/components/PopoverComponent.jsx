@@ -32,7 +32,7 @@ function PopoverComponent({
   apiCall,
   setLoading,
   handleNext,
-  setEditNoteCard
+  setEditNoteCard,
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -51,15 +51,15 @@ function PopoverComponent({
     var element = document.getElementsByClassName("ql-editor");
     dispatch(setActivePopOver(""));
     setAnchorEl(null);
-    if (setpopoverstate){
+    if (setpopoverstate) {
       setpopoverstate(null);
-    }else if (element && element.length > 0) {
+    } else if (element && element.length > 0) {
       element[0].innerHTML = "";
-    }else if (value) {
+    } else if (value) {
       setValue("");
-    }else if (setEditData) {
+    } else if (setEditData) {
       setEditData({});
-    }else if (setEditNoteCard){
+    } else if (setEditNoteCard) {
       setEditNoteCard(false);
     }
   };
@@ -78,7 +78,7 @@ function PopoverComponent({
 
   const handleEditGenerate = async () => {
     apiCall(textvalue);
-  }
+  };
 
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
@@ -87,9 +87,7 @@ function PopoverComponent({
         <div className="noteclosebtn">
           {popoverclassname === "mnemonicnotes" && (
             <>
-              {
-
-              }
+              {}
               <ButtonComponent
                 color={"secondary"}
                 buttontext={`${
@@ -99,21 +97,30 @@ function PopoverComponent({
                     ? "Speak"
                     : "Generate"
                 }`}
-                onClick={genrateName === "Audio" ? handleEditGenerate : handleGenerate}
+                onClick={
+                  genrateName === "Audio" ? handleEditGenerate : handleGenerate
+                }
                 customButtonStyle={{
-                  display: name === "share" ? genrateName === "Audio" ? "flex" : "none" : "flex",
+                  display:
+                    name === "share"
+                      ? genrateName === "Audio"
+                        ? "flex"
+                        : "none"
+                      : "flex",
                 }}
                 isLoading={loading}
                 disabled={!textvalue || loading}
               />
-              <ButtonComponent
-                buttontext="Next"
-                onClick={(e) => handleNext(e)}
-                disabled={nextBtnDisabled || !textvalue || loading}
-                customButtonStyle={{
-                  display: name === "share" ? "none" : "flex",
-                }}
-              />
+              {activepopover !== "editmnemonic" && (
+                <ButtonComponent
+                  buttontext="Next"
+                  onClick={(e) => handleNext(e)}
+                  disabled={nextBtnDisabled || !textvalue || loading}
+                  customButtonStyle={{
+                    display: name === "share" ? "none" : "flex",
+                  }}
+                />
+              )}
             </>
           )}
           {popoverclassname === "normalnotes" && (

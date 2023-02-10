@@ -30,6 +30,9 @@ const IndexRoute = () => {
           navigate("/signin");
           dispatch(isLoading(false));
         }
+      } else {
+        navigate("/signin");
+        dispatch(isLoading(false));
       }
     };
   }, []);
