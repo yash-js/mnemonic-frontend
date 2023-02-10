@@ -29,7 +29,8 @@ function PopoverComponent({
   textvalue,
   setGenratedValue,
   genrateName,
-  apiCall
+  apiCall,
+  setLoading
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -70,8 +71,10 @@ function PopoverComponent({
   };
 
   const handleGenerate = async () => {
+    setLoading(true)
     const data = await apiCall(textvalue);
     setGenratedValue(data);
+    setLoading(false)
   };
 
   const popoverContent = [
@@ -94,7 +97,9 @@ function PopoverComponent({
                 customButtonStyle={{
                   display: name === "share" ? "none" : "flex",
                 }}
-              />
+                isLoading={loading}
+                disabled={!textvalue || loading}
+             />
               <ButtonComponent
                 buttontext="Next"
                 onClick={handleNext}
@@ -102,6 +107,7 @@ function PopoverComponent({
                 customButtonStyle={{
                   display: name === "share" ? "none" : "flex",
                 }}
+                disabled={!textvalue || loading}
               />
             </>
           )}

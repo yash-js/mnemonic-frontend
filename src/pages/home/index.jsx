@@ -492,7 +492,9 @@ const Home = () => {
               popoverclassname={"mnemonicnotes"}
               popovercontent={popovermnemoniccontent}
               popoverstate={true}
-            />
+              setLoading={setLoading}
+              loading={loading}
+              />
           ) : activepopover === "notetitle" ? (
             <PopoverComponent
               handleRichText={editNoteCard ? editNoteAPI : createNoteAPI}
