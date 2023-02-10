@@ -26,6 +26,7 @@ function NoteCard({
   authorPic,
   authorUsername,
   _id,
+  genrateName,
 }) {
   const dispatch = useDispatch();
   const activepopover = useSelector(getActivePopOver);
@@ -132,8 +133,9 @@ function NoteCard({
           setpopoverstate={setAnchorEl}
           popovercontent={mnemoniccontent}
           setEditNoteCard={setEditNoteCard}
-          genrateName={"Audio"}
-          handleGenerate={textToAudio}
+          genrateName={genrateName}
+          textvalue={content}
+          apiCall={textToAudio}
         />
       ) : (
         activepopover === "editnotetitle" && (

@@ -450,7 +450,7 @@ const Home = () => {
                                   item
                                   xs={12}
                                   sm={6}
-                                  className={"textsummary"}
+                                  className={"textpara"}
                                 >
                                   <h4>Summarized Text</h4>
                                   <p>{item?.summary}</p>

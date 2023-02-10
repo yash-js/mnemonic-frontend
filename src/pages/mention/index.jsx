@@ -54,6 +54,7 @@ function Mention() {
                   content={item?.noteContent}
                   date={item?.notedOn}
                   type={item?.noteType}
+                  genrateName={item?.noteType === "mnemonic" && item?.summary ? 'Summary' : item?.image ? 'Image' : 'Audio'}
                   normalcontent={
                     <div className="notetopcontent normalnotebox">
                       <div className="normalnotesheading">
@@ -69,7 +70,7 @@ function Mention() {
                   }
                   mnemoniccontent={
                     <>
-                      {item?.type === "mnemonic" && item?.summary ? (
+                      {item?.noteType === "mnemonic" && item?.summary ? (
                         <div className="notetopcontent mnemonicnotebox">
                           <div className="mnemonicnotesheading">
                             <h3>Mnemonic Notes</h3>
@@ -86,14 +87,14 @@ function Mention() {
                                   value={item?.noteContent}
                                 />
                               </Grid>
-                              <Grid item xs={12} sm={6} className={"textsummary"}>
+                              <Grid item xs={12} sm={6} className={"textpara"}>
                                 <h4>Summarized Text</h4>
                                 <p>{item?.summary}</p>
                               </Grid>
                             </Grid>
                           </div>
                         </div>
-                      ) : item?.type === "mnemonic" &&
+                      ) : item?.noteType === "mnemonic" &&
                         item?.noteContent &&
                         !item?.summary &&
                         !item?.image ? (

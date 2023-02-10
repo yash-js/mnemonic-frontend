@@ -76,6 +76,10 @@ function PopoverComponent({
     setLoading(false);
   };
 
+  const handleEditGenerate = async () => {
+    apiCall(textvalue);
+  }
+
   const popoverContent = [
     <span className={`notecontent ${popoverclassname}`}>
       <div className="notetop">{popovercontent}</div>
@@ -92,7 +96,7 @@ function PopoverComponent({
                     ? "Speak"
                     : "Generate"
                 }`}
-                onClick={handleGenerate}
+                onClick={name === "share" && genrateName === "Audio" ? handleEditGenerate : handleGenerate}
                 customButtonStyle={{
                   display: name === "share" ? genrateName === "Audio" ? "flex" : "none" : "flex",
                 }}
