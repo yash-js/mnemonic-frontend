@@ -8,6 +8,7 @@ import TooltipComponent from "./TooltipComponent";
 import PopoverComponent from "./PopoverComponent";
 import { setActivePopOver, getActivePopOver } from "../features/popoverslice";
 import { OpenInNew } from "@mui/icons-material";
+import { textToAudio } from "../lib/API_Calls";
 
 function NoteCard({
   name,
@@ -125,11 +126,14 @@ function NoteCard({
         />
       ) : activepopover === "editmnemonic" ? (
         <PopoverComponent
+          name={name}
           popoverclassname={"mnemonicnotes"}
           popoverstate={anchorEl}
           setpopoverstate={setAnchorEl}
           popovercontent={mnemoniccontent}
           setEditNoteCard={setEditNoteCard}
+          genrateName={"Audio"}
+          handleGenerate={textToAudio}
         />
       ) : (
         activepopover === "editnotetitle" && (

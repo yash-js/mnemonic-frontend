@@ -94,7 +94,7 @@ function PopoverComponent({
                 }`}
                 onClick={handleGenerate}
                 customButtonStyle={{
-                  display: name === "share" ? "none" : "flex",
+                  display: name === "share" ? genrateName === "Audio" ? "flex" : "none" : "flex",
                 }}
                 isLoading={loading}
                 disabled={!textvalue || loading}
