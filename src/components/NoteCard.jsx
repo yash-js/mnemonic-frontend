@@ -43,12 +43,15 @@ function NoteCard({
       <div className={`notecard ${type} ${name}`}>
         <div className="notecardheading">
           <h3>{heading}</h3>
-          <IconButton
-            className="editicon"
-            onClick={(e) => handleClick(e, type)}
-          >
-            <EditIcon />
-          </IconButton>
+          {name !== "share" &&
+            (name !== "mention" && (
+              <IconButton
+                className="editicon"
+                onClick={(e) => handleClick(e, type)}
+              >
+                <EditIcon />
+              </IconButton>
+            ))}
         </div>
         <div className="notecardcontent">
           <p>

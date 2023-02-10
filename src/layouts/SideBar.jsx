@@ -23,25 +23,31 @@ function SideBar() {
 
   useEffect(() => {
     return () => handleClick(window.location.pathname.replace("/", ""));
-  },[]);
+  }, []);
 
   useEffect(() => {
     return () => handleClick(window.location.pathname.replace("/", ""));
-  },[window.location.pathname]);
+  }, [window.location.pathname]);
 
   return (
     <div className="sidebar">
       <div className="sidebarcontent">
-        <div className="sidebaritem logo" onClick={() => handleClick("/")}>
+        <div
+          title="Mnemonics"
+          className="sidebaritem logo"
+          onClick={() => handleClick("/")}
+        >
           <img src={logo} alt="logo" width="30px" height="30px" />
         </div>
         <div
+          title="Home"
           onClick={() => handleClick("/")}
           className={`${active === "home" ? "active" : "inactive"} sidebaritem`}
         >
           <img src={home} alt="home" width="30px" height="30px" />
         </div>
         <div
+          title="Freinds"
           onClick={() => handleClick("friend")}
           className={`${
             active === "friend" ? "active" : "inactive"
@@ -50,6 +56,7 @@ function SideBar() {
           <img src={friends} alt="friends" width="30px" height="30px" />
         </div>
         <div
+          title="Mentions"
           className={`${
             active === "mention" ? "active" : "inactive"
           } sidebaritem`}
@@ -58,6 +65,7 @@ function SideBar() {
           <img src={mention} alt="mention" width="30px" height="30px" />
         </div>
         <div
+          title="Shared"
           className={`${
             active === "share" ? "active" : "inactive"
           } sidebaritem`}

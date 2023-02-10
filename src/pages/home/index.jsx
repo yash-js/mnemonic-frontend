@@ -22,7 +22,7 @@ import {
   getNotes,
   textToImage,
   textToPara,
-  textToAudio
+  textToAudio,
 } from "../../lib/API_Calls";
 import { useState } from "react";
 import { userdata, userData } from "../../features/userSlice";
@@ -30,6 +30,35 @@ import NotesSkeleton from "../../skeletons/NotesSkeleton";
 import AlertComponent from "../../components/AlertComponent";
 import EditRichText from "../../components/EditRichText";
 import { Delete } from "@mui/icons-material";
+import { useRef } from "react";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      style={{ height: "calc(100% - 48.8px)" }}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }} style={{ height: "100%" }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 const Home = () => {
   const user = useSelector(userData);
@@ -56,34 +85,6 @@ const Home = () => {
 
   const [image, setImage] = useState();
   const [para, setPara] = useState();
-
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        style={{ height: "calc(100% - 48.8px)" }}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }} style={{ height: "100%" }}>
-            {children}
-          </Box>
-        )}
-      </div>
-    );
-  }
-
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
-  }
 
   const handleChangeTab = (event, newValue) => {
     setTabValue(newValue);
@@ -464,10 +465,30 @@ const Home = () => {
             />
           ) : activepopover === "mnemonic" ? (
             <PopoverComponent
-              textvalue={tabvalue === 0 ? textImage : tabvalue === 1 ? textAudio : tabvalue === 2 && textImage}
-              genrateName={tabvalue === 0 ? "Paragraph" : tabvalue === 1 ? "Audio" : tabvalue === 2 && "Image"}
-              setGenratedValue={tabvalue === 0 ? setPara : tabvalue === 2 && setImage}
-              apiCall={tabvalue === 0 ? textToPara : tabvalue === 1 ? textToAudio : tabvalue === 2 && textToImage}
+              textvalue={
+                tabvalue === 0
+                  ? textImage
+                  : tabvalue === 1
+                  ? textAudio
+                  : tabvalue === 2 && textImage
+              }
+              genrateName={
+                tabvalue === 0
+                  ? "Paragraph"
+                  : tabvalue === 1
+                  ? "Audio"
+                  : tabvalue === 2 && "Image"
+              }
+              setGenratedValue={
+                tabvalue === 0 ? setPara : tabvalue === 2 && setImage
+              }
+              apiCall={
+                tabvalue === 0
+                  ? textToPara
+                  : tabvalue === 1
+                  ? textToAudio
+                  : tabvalue === 2 && textToImage
+              }
               popoverclassname={"mnemonicnotes"}
               popovercontent={popovermnemoniccontent}
               popoverstate={true}
