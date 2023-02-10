@@ -126,8 +126,9 @@ function NoteCard({
       ) : activepopover === "editmnemonic" ? (
         <PopoverComponent
           popoverclassname={"mnemonicnotes"}
+          popoverstate={anchorEl}
+          setpopoverstate={setAnchorEl}
           popovercontent={mnemoniccontent}
-          popoverstate={true}
           setEditNoteCard={setEditNoteCard}
         />
       ) : (

@@ -24,17 +24,6 @@ function Share() {
     return () => (document.title = "Share");
   }, []);
 
-  const popovermnemoniccontent = [
-    <div className="notetopcontent mnemonicnotebox">
-      <div className="mnemonicnotesheading">
-        <h3>Mnemonic Notes</h3>
-      </div>
-      <div className="mnemonicnotescontent">
-        <h1>Mnemonic Notes</h1>
-      </div>
-    </div>,
-  ];
-
   return (
     <div className="share">
       <div className="sharecontent">
@@ -44,6 +33,7 @@ function Share() {
           ) : notes && notes.length > 0 ? (
             notes.map((item, index) => (
               <Grid key={index} item xs={12} sm={6} md={4} lg={3} index={index}>
+              {console.log(item)}
                 <NoteCard
                   name={"share"}
                   heading={item?.noteTitle}
