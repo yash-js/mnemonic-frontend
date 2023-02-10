@@ -35,11 +35,11 @@ const Searchbar = () => {
 
   const getOptions = async () => {
     const res = await mnemonic.get("/user/all");
-    if (res?.data?.result.length > 0) {
-      _.remove(res?.data?.result, function (u) {
-        return u?._id === user?.id;
-      });
-    }
+    // if (res?.data?.result.length > 0) {
+    //   _.remove(res?.data?.result, function (u) {
+    //     return u?._id === user?.id;
+    //   });
+    // }
     setResults(res?.data?.result.filter((res) => res._id !== user.id));
     setLoading(false);
   };
