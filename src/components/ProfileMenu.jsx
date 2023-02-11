@@ -62,7 +62,6 @@ const ProfileMenu = () => {
     };
   }, [openmenu]);
 
-
   const handleClickMenu = (event) => {
     setProfilemenu(event.currentTarget);
   };
@@ -76,6 +75,7 @@ const ProfileMenu = () => {
     await signOut();
     dispatch(logout());
     dispatch(isLoading(false));
+    localStorage.removeItem("authToken");
     navigate("/signin");
   };
 
