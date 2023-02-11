@@ -1,5 +1,9 @@
 import React, { Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import IndexRoute from "./layouts/IndexRoute";
 import LoginSkeleton from "./skeletons/LoginSkeleton";
 import "./styles/index.css";
@@ -105,6 +109,14 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    return () => {
+      const token = localStorage.getItem("authToken");
+      if (token === null || token === undefined) navigate("/signin");
+    };
+  }, [third]);
+
   return (
     <React.StrictMode>
       <RouterProvider router={router} />
